@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Liste des spectacles et pièces de théâtre accessibles près de chez vous - Culture Radar">
+    <title>Théâtre & Spectacles - Culture Radar (Version Accessible WCAG AA)</title>
+    <style>
+        /* Variables CSS pour l'accessibilité */
+        :root {
+            --primary-color: #4A5FC1;  /* Contraste 4.5:1 sur blanc */
+            --secondary-color: #B8396B; /* Contraste 4.5:1 sur blanc */
+            --text-primary: #1a1a1a;   /* Contraste 12.6:1 sur blanc */
+            --text-secondary: #595959;  /* Contraste 7.5:1 sur blanc */
+            --bg-light: #f8f9fa;
+            --bg-white: #ffffff;
+            --border-color: #767676;   /* Contraste 4.5:1 */
+            --focus-color: #0066cc;
+            --error-color: #d32f2f;
+            --success-color: #2e7d32;
+            --warning-color: #f57c00;
+        }
+        
+        /* Reset accessible */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* Focus visible pour tous les éléments interactifs */
+        *:focus {
+            outline: 3px solid var(--focus-color);
+            outline-offset: 2px;
+        }
+        
+        /* Skip links */
+        .skip-links {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--primary-color);
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            z-index: 100;
+        }
+        
+        .skip-links:focus {
+            top: 0;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+            color: var(--text-primary);
+            background: var(--bg-white);
+        }
+        
+        /* Container responsive */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header accessible */
+        .header {
+            background: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .logo:hover {
+            text-decoration: underline;
+        }
+        
+        /* Navigation accessible */
+        nav {
+            flex: 1;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            display: block;
+            transition: background 0.3s;
+        }
+        
+        .nav-menu a:hover,
+        .nav-menu a:focus {
+            background: rgba(255,255,255,0.1);
+            text-decoration: underline;
+        }
+        
+        .nav-menu a[aria-current="page"] {
+            background: rgba(255,255,255,0.2);
+            font-weight: 600;
+        }
+        
+        /* Breadcrumb accessible */
+        .breadcrumb {
+            padding: 1rem 0;
+            background: var(--bg-light);
+        }
+        
+        .breadcrumb nav {
+            display: block;
+        }
+        
+        .breadcrumb ol {
+            display: flex;
+            flex-wrap: wrap;
+            list-style: none;
+            gap: 0.5rem;
+            align-items: center;
+        }
+        
+        .breadcrumb li {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .breadcrumb a {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+        
+        .breadcrumb a:hover,
+        .breadcrumb a:focus {
+            text-decoration: none;
+        }
+        
+        .breadcrumb-separator {
+            color: var(--text-secondary);
+            aria-hidden: true;
+        }
+        
+        /* Hero section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Filters section accessible */
+        .filters {
+            padding: 2rem 0;
+            background: var(--bg-white);
+            border-bottom: 2px solid var(--border-color);
+        }
+        
+        .filters-form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: end;
+        }
+        
+        .filter-group {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .filter-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+        
+        .filter-group select,
+        .filter-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 1rem;
+            background: white;
+        }
+        
+        .filter-group select:focus,
+        .filter-group input:focus {
+            border-color: var(--focus-color);
+        }
+        
+        .filter-submit {
+            padding: 0.75rem 2rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .filter-submit:hover,
+        .filter-submit:focus {
+            background: var(--secondary-color);
+        }
+        
+        /* Results section */
+        .results-info {
+            padding: 1.5rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .results-count {
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+        
+        /* View options */
+        .view-options {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .view-btn {
+            padding: 0.5rem;
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: 4px;
+            cursor: pointer;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        
+        .view-btn:hover,
+        .view-btn:focus {
+            background: var(--bg-light);
+        }
+        
+        .view-btn[aria-pressed="true"] {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        /* Events list accessible */
+        .events-list {
+            padding: 2rem 0;
+        }
+        
+        .event-card {
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            transition: box-shadow 0.3s;
+        }
+        
+        .event-card:hover,
+        .event-card:focus-within {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .event-link {
+            display: flex;
+            flex-wrap: wrap;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .event-image {
+            width: 200px;
+            height: 150px;
+            background: var(--bg-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            flex-shrink: 0;
+        }
+        
+        .event-content {
+            flex: 1;
+            padding: 1.5rem;
+            min-width: 300px;
+        }
+        
+        .event-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--error-color);
+            color: white;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .event-badge.new {
+            background: var(--success-color);
+        }
+        
+        .event-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .event-link:hover .event-title,
+        .event-link:focus .event-title {
+            text-decoration: underline;
+        }
+        
+        .event-subtitle {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+        
+        .event-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .event-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            color: var(--text-secondary);
+        }
+        
+        .event-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        
+        .event-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .event-price {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .event-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            border: 2px solid transparent;
+            min-height: 44px;
+            min-width: 44px;
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-secondary:hover,
+        .btn-secondary:focus {
+            background: var(--bg-light);
+        }
+        
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover,
+        .btn-primary:focus {
+            background: var(--secondary-color);
+        }
+        
+        /* Pagination accessible */
+        .pagination {
+            padding: 2rem 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .pagination-list {
+            display: flex;
+            list-style: none;
+            gap: 0.5rem;
+        }
+        
+        .pagination-btn {
+            min-width: 44px;
+            min-height: 44px;
+            padding: 0.5rem 1rem;
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: 4px;
+            color: var(--text-primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        
+        .pagination-btn:hover,
+        .pagination-btn:focus {
+            background: var(--bg-light);
+            border-color: var(--primary-color);
+        }
+        
+        .pagination-btn[aria-current="page"] {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        .pagination-btn[aria-disabled="true"] {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        /* Footer accessible */
+        .footer {
+            background: var(--text-primary);
+            color: white;
+            padding: 3rem 0 2rem;
+            margin-top: 4rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h2 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 0.25rem 0;
+        }
+        
+        .footer-links a:hover,
+        .footer-links a:focus {
+            text-decoration: underline;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .event-link {
+                flex-direction: column;
+            }
+            
+            .event-image {
+                width: 100%;
+            }
+            
+            .filters-form {
+                flex-direction: column;
+            }
+            
+            .filter-group {
+                width: 100%;
+            }
+        }
+        
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            :root {
+                --primary-color: #0033cc;
+                --secondary-color: #cc0066;
+                --border-color: #000000;
+            }
+        }
+        
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+        
+        /* Print styles */
+        @media print {
+            .skip-links,
+            .filters,
+            .view-options,
+            .event-actions,
+            .pagination {
+                display: none;
+            }
+            
+            .event-card {
+                page-break-inside: avoid;
+            }
+        }
+        
+        /* Screen reader only text */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0,0,0,0);
+            white-space: nowrap;
+            border: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip navigation links -->
+    <a href="#main" class="skip-links">Aller au contenu principal</a>
+    <a href="#filters" class="skip-links">Aller aux filtres</a>
+    <a href="#events" class="skip-links">Aller à la liste des événements</a>
+    
+    <!-- Header -->
+    <header class="header" role="banner">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo" aria-label="Culture Radar - Accueil">
+                    <span aria-hidden="true">📍</span>
+                    <span>Culture Radar</span>
+                </a>
+                
+                <nav role="navigation" aria-label="Navigation principale">
+                    <ul class="nav-menu">
+                        <li><a href="#discover">Découvrir</a></li>
+                        <li><a href="#categories" aria-current="page">Catégories</a></li>
+                        <li><a href="#events">Événements</a></li>
+                        <li><a href="#about">À propos</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container">
+            <nav aria-label="Fil d'Ariane">
+                <ol>
+                    <li>
+                        <a href="index.html">Accueil</a>
+                        <span class="breadcrumb-separator" aria-hidden="true">›</span>
+                    </li>
+                    <li>
+                        <a href="#categories">Catégories</a>
+                        <span class="breadcrumb-separator" aria-hidden="true">›</span>
+                    </li>
+                    <li aria-current="page">Théâtre & Spectacles</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    
+    <!-- Main content -->
+    <main id="main">
+        <!-- Hero section -->
+        <section class="hero" aria-labelledby="hero-title">
+            <div class="container">
+                <h1 id="hero-title">Théâtre & Spectacles</h1>
+                <p>Découvrez les meilleures pièces de théâtre, spectacles vivants et représentations scéniques près de chez vous</p>
+            </div>
+        </section>
+        
+        <!-- Filters -->
+        <section id="filters" class="filters" aria-labelledby="filters-title">
+            <div class="container">
+                <h2 id="filters-title" class="sr-only">Filtrer les événements</h2>
+                <form class="filters-form" role="search" aria-label="Filtrer les spectacles">
+                    <div class="filter-group">
+                        <label for="filter-date">Date</label>
+                        <select id="filter-date" name="date">
+                            <option value="">Toutes les dates</option>
+                            <option value="today">Aujourd'hui</option>
+                            <option value="weekend">Ce weekend</option>
+                            <option value="week">Cette semaine</option>
+                            <option value="month">Ce mois</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="filter-price">Prix</label>
+                        <select id="filter-price" name="price">
+                            <option value="">Tous les prix</option>
+                            <option value="free">Gratuit</option>
+                            <option value="0-20">Moins de 20€</option>
+                            <option value="20-50">20€ - 50€</option>
+                            <option value="50+">Plus de 50€</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="filter-location">Lieu</label>
+                        <select id="filter-location" name="location">
+                            <option value="">Paris et région</option>
+                            <option value="center">Paris centre</option>
+                            <option value="suburbs">Banlieue proche</option>
+                            <option value="idf">Île-de-France</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="filter-search" class="sr-only">Rechercher</label>
+                        <input type="search" id="filter-search" name="search" placeholder="Rechercher un spectacle...">
+                    </div>
+                    
+                    <button type="submit" class="filter-submit">Filtrer</button>
+                </form>
+            </div>
+        </section>
+        
+        <!-- Results info -->
+        <section class="results-info">
+            <div class="container">
+                <div class="results-count" role="status" aria-live="polite" aria-atomic="true">
+                    <strong>124 spectacles</strong> trouvés
+                </div>
+                
+                <div class="view-options" role="group" aria-label="Options d'affichage">
+                    <button class="view-btn" aria-label="Vue liste" aria-pressed="true">
+                        <span aria-hidden="true">☰</span>
+                    </button>
+                    <button class="view-btn" aria-label="Vue grille" aria-pressed="false">
+                        <span aria-hidden="true">⊞</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Events list -->
+        <section id="events" class="events-list" aria-labelledby="events-title">
+            <div class="container">
+                <h2 id="events-title" class="sr-only">Liste des spectacles</h2>
+                
+                <!-- Event 1 -->
+                <article class="event-card">
+                    <a href="mockup-event-detail.html" class="event-link">
+                        <div class="event-image" role="img" aria-label="Théâtre classique">
+                            <span aria-hidden="true">🎭</span>
+                        </div>
+                        <div class="event-content">
+                            <span class="event-badge">Dernières places</span>
+                            <h3 class="event-title">Le Malade Imaginaire</h3>
+                            <p class="event-subtitle">de Molière - Mise en scène de Michel Fau</p>
+                            <div class="event-meta">
+                                <span class="event-meta-item">
+                                    <span aria-hidden="true">📍</span>
+                                    <span>Comédie-Française</span>
+                                </span>
+                                <span class="event-meta-item">
+                                    <span aria-hidden="true">📅</span>
+                                    <time datetime="2024-03-15/2024-04-30">Du 15 mars au 30 avril</time>
+                                </span>
+                                <span class="event-meta-item">
+                                    <span aria-hidden="true">⏰</span>
+                                    <span>20h30</span>
+                                </span>
+                                <span class="event-meta-item">
+                                    <span aria-hidden="true">⏱️</span>
+                                    <span>2h15</span>
+                                </span>
+                            </div>
+                            <p class="event-description">
+                                Un classique de Molière revisité avec brio. Argan, bourgeois hypocondriaque, se croit atteint de toutes les maladies. Cette comédie intemporelle nous fait rire de nos propres angoisses...
+                            </p>
+                            <div class="event-footer">
+                                <span class="event-price">À partir de 35€</span>
+                                <div class="event-actions" onclick="event.preventDefault();">
+                                    <button class="btn btn-secondary" aria-label="Ajouter Le Malade Imaginaire aux favoris">
+                                        <span aria-hidden="true">❤️</span> Favoris
+                                    </button>
+                                    <span class="btn btn-primary">Réserver</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+                
+                <!-- Event 2 -->
+                <article class="event-card">
+                    <a href="mockup-event-detail.html" class="event-link">
+                        <div class="event-image" role="img" aria-label="Théâtre classique">
+                            <span aria-hidden="true">🎪</span>
+                        </div>
+                        <div class="event-content">
+                            <span class="event-badge new">Nouveau</span>
+                            <h3 class="event-title">Cyrano de Bergerac</h3>
+                            <p class="event-subtitle">d'Edmond Rostand - Théâtre du Châtelet</p>
+                            <div class="event-meta">
+                                <span class="event-meta-item">
+                                    <span aria-hidden="true">📍</span>
+                                    <span>Théâtre du Châtelet</span>
+                                </span>
+                                <span class="event-meta-item">
+                                    <span aria-hidden="true">📅</span>
+                                    <time datetime="2024-03-20/2024-05-15">Du 20 mars au 15 mai</time>
+                                </span>
+                                <span class="event-meta-item">
+                                    <span aria-hidden="true">⏰</span>
+                                    <span>19h30</span>
+                                </span>
+                                <span class="event-meta-item">
+                                    <span aria-hidden="true">⏱️</span>
+                                    <span>2h45 avec entracte</span>
+                                </span>
+                            </div>
+                            <p class="event-description">
+                                Le chef-d'œuvre d'Edmond Rostand dans une mise en scène époustouflante. L'histoire d'amour impossible entre Cyrano, affligé d'un nez proéminent, et sa cousine Roxane...
+                            </p>
+                            <div class="event-footer">
+                                <span class="event-price">De 25€ à 85€</span>
+                                <div class="event-actions" onclick="event.preventDefault();">
+                                    <button class="btn btn-secondary" aria-label="Ajouter Cyrano de Bergerac aux favoris">
+                                        <span aria-hidden="true">❤️</span> Favoris
+                                    </button>
+                                    <span class="btn btn-primary">Réserver</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+            </div>
+        </section>
+        
+        <!-- Pagination -->
+        <nav class="pagination" role="navigation" aria-label="Pagination des résultats">
+            <div class="container">
+                <ul class="pagination-list">
+                    <li>
+                        <a href="#" class="pagination-btn" aria-label="Page précédente" aria-disabled="true">
+                            <span aria-hidden="true">←</span>
+                            <span class="sr-only">Précédent</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="pagination-btn" aria-current="page" aria-label="Page 1">1</a>
+                    </li>
+                    <li>
+                        <a href="#" class="pagination-btn" aria-label="Page 2">2</a>
+                    </li>
+                    <li>
+                        <a href="#" class="pagination-btn" aria-label="Page 3">3</a>
+                    </li>
+                    <li>
+                        <span class="pagination-btn" aria-hidden="true">...</span>
+                    </li>
+                    <li>
+                        <a href="#" class="pagination-btn" aria-label="Page 25">25</a>
+                    </li>
+                    <li>
+                        <a href="#" class="pagination-btn" aria-label="Page suivante">
+                            <span aria-hidden="true">→</span>
+                            <span class="sr-only">Suivant</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-content">
+                <section aria-labelledby="footer-about">
+                    <h2 id="footer-about">À propos</h2>
+                    <p>Culture Radar - Votre guide culturel accessible</p>
+                </section>
+                
+                <section aria-labelledby="footer-links">
+                    <h2 id="footer-links">Liens utiles</h2>
+                    <ul class="footer-links">
+                        <li><a href="#accessibility">Accessibilité</a></li>
+                        <li><a href="#privacy">Confidentialité</a></li>
+                        <li><a href="#terms">Conditions d'utilisation</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </section>
+                
+                <section aria-labelledby="footer-contact">
+                    <h2 id="footer-contact">Contact</h2>
+                    <address>
+                        Email: <a href="mailto:contact@cultureradar.fr">contact@cultureradar.fr</a><br>
+                        Tél: <a href="tel:+33123456789">01 23 45 67 89</a>
+                    </address>
+                </section>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2024 Culture Radar - Version accessible WCAG AA</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Script accessible pour les boutons de vue
+        document.querySelectorAll('.view-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                // Reset all buttons
+                document.querySelectorAll('.view-btn').forEach(btn => {
+                    btn.setAttribute('aria-pressed', 'false');
+                });
+                // Set current button as pressed
+                this.setAttribute('aria-pressed', 'true');
+            });
+        });
+        
+        // Announce results count changes
+        const resultsCount = document.querySelector('.results-count');
+        if (resultsCount) {
+            const originalText = resultsCount.textContent;
+            // Simulate update for demo
+            setTimeout(() => {
+                resultsCount.textContent = '124 spectacles trouvés (filtrés)';
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

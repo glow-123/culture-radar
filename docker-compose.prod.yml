@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  # Remove direct port exposure from app in production
+  app:
+    ports: []
+    environment:
+      - APP_ENV=production
+      - HTTPS=on
+      - SSL_REDIRECT=true
+
+  # Use nginx as reverse proxy with SSL
+  nginx:
+    profiles: []  # Remove profile restriction
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+      - ./logs/nginx:/var/log/nginx
+      - .:/var/www/html:ro
+
+  # Disable phpMyAdmin in production
+  phpmyadmin:
+    profiles:
+      - development
+
+  # Environment-specific database settings
+  database:
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-secure_root_password_change_me}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-secure_password_change_me}
+      
+  redis:
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD:-redis_password_change_me}
+
+  scheduler:
+    environment:
+      - APP_ENV=production
+      - DB_PASS=${DB_PASSWORD:-secure_password_change_me}

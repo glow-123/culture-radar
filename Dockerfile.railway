@@ -1,0 +1,38 @@
+FROM php:8.1-apache
+
+# Installer les extensions PHP nécessaires
+RUN docker-php-ext-install pdo pdo_mysql mysqli
+
+# Installer les dépendances système
+RUN apt-get update && apt-get install -y \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    zip \
+    unzip \
+    git \
+    curl \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install gd
+
+# Activer les modules Apache
+RUN a2enmod rewrite
+RUN a2enmod headers
+
+# Copier la configuration Apache
+COPY apache.conf /etc/apache2/sites-available/000-default.conf
+
+# Copier les fichiers de l'application
+COPY . /var/www/html/
+
+# Définir ServerName pour supprimer l'avertissement
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+
+# Donner les permissions
+RUN chown -R www-data:www-data /var/www/html
+
+# Exposer le port
+EXPOSE 80
+
+# Commande de démarrage
+CMD ["apache2-foreground"]

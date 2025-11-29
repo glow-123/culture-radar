@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patrimoine & Monuments - Culture Radar</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .mockup-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 50px rgba(0,0,0,0.1);
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+        
+        .nav-menu li {
+            color: white;
+            padding: 8px 15px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            cursor: pointer;
+        }
+        
+        .nav-menu li.active {
+            background: rgba(255,255,255,0.3);
+        }
+        
+        /* Breadcrumb */
+        .breadcrumb {
+            padding: 20px 30px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .breadcrumb-items {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #666;
+        }
+        
+        .breadcrumb-items a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        .breadcrumb-items a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Category Header */
+        .category-header {
+            background: linear-gradient(135deg, #8b7355 0%, #d4af37 100%);
+            padding: 60px 30px;
+            color: white;
+            text-align: center;
+        }
+        
+        .category-icon-large {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+        
+        .category-title {
+            font-size: 42px;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .category-description {
+            font-size: 18px;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+        
+        /* Filters Bar */
+        .filters-bar {
+            padding: 20px 30px;
+            background: white;
+            border-bottom: 2px solid #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .filter-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .filter-label {
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .filter-select {
+            padding: 8px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: white;
+            cursor: pointer;
+        }
+        
+        .filter-chips {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .chip {
+            padding: 8px 15px;
+            background: #fef5e7;
+            color: #8b7355;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+        
+        .chip:hover {
+            border-color: #8b7355;
+        }
+        
+        .chip.active {
+            background: #8b7355;
+            color: white;
+        }
+        
+        /* Results Info */
+        .results-info {
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .results-count {
+            font-size: 18px;
+            color: #333;
+        }
+        
+        .results-count strong {
+            color: #8b7355;
+        }
+        
+        .view-options {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .view-btn {
+            padding: 8px;
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .view-btn.active {
+            background: #8b7355;
+            color: white;
+            border-color: #8b7355;
+        }
+        
+        /* Events List */
+        .events-list {
+            padding: 0 30px 40px;
+        }
+        
+        .event-item {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .event-item:hover {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+        
+        .event-image {
+            width: 200px;
+            height: 150px;
+            background: linear-gradient(135deg, #8b7355 0%, #d4af37 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: white;
+            flex-shrink: 0;
+        }
+        
+        .event-details {
+            flex: 1;
+        }
+        
+        .event-badge {
+            display: inline-block;
+            background: #fef5e7;
+            color: #8b7355;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+        
+        .event-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .event-subtitle {
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .event-info {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+        
+        .event-info-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .event-description {
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        
+        .event-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .event-price {
+            font-size: 20px;
+            font-weight: 600;
+            color: #8b7355;
+        }
+        
+        .event-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn-action {
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .btn-action:hover {
+            background: #f5f5f5;
+        }
+        
+        .btn-reserve {
+            background: #8b7355;
+            color: white;
+            border-color: #8b7355;
+        }
+        
+        .btn-reserve:hover {
+            background: #6d5c44;
+        }
+        
+        /* Pagination */
+        .pagination {
+            padding: 40px 30px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .pagination-btn {
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 5px;
+            cursor: pointer;
+            min-width: 40px;
+            text-align: center;
+        }
+        
+        .pagination-btn:hover {
+            background: #f5f5f5;
+        }
+        
+        .pagination-btn.active {
+            background: #8b7355;
+            color: white;
+            border-color: #8b7355;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #1F2937;
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="mockup-container">
+        <!-- Header -->
+        <header class="header">
+            <a href="mockup-homepage.html" class="logo">
+                <div class="logo-icon">📍</div>
+                <span>Culture Radar</span>
+            </a>
+            <nav>
+                <ul class="nav-menu">
+                    <li>Découvrir</li>
+                    <li class="active">Catégories</li>
+                    <li>Événements</li>
+                    <li>À propos</li>
+                    <li>Contact</li>
+                </ul>
+            </nav>
+        </header>
+        
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <div class="breadcrumb-items">
+                <a href="mockup-homepage.html">Accueil</a>
+                <span>›</span>
+                <a href="#">Catégories</a>
+                <span>›</span>
+                <span>Patrimoine & Monuments</span>
+            </div>
+        </div>
+        
+        <!-- Category Header -->
+        <div class="category-header">
+            <div class="category-icon-large">🏛️</div>
+            <h1 class="category-title">Patrimoine & Monuments</h1>
+            <p class="category-description">
+                Visites guidées, monuments historiques, châteaux, sites archéologiques et journées du patrimoine
+            </p>
+        </div>
+        
+        <!-- Filters Bar -->
+        <div class="filters-bar">
+            <div class="filter-group">
+                <span class="filter-label">Type:</span>
+                <select class="filter-select">
+                    <option>Tous types</option>
+                    <option>Visites guidées</option>
+                    <option>Monuments</option>
+                    <option>Châteaux</option>
+                    <option>Sites archéologiques</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <span class="filter-label">Durée:</span>
+                <select class="filter-select">
+                    <option>Toutes durées</option>
+                    <option>1 heure</option>
+                    <option>2-3 heures</option>
+                    <option>Demi-journée</option>
+                    <option>Journée complète</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <span class="filter-label">Accès:</span>
+                <select class="filter-select">
+                    <option>Tous</option>
+                    <option>PMR accessible</option>
+                    <option>Famille</option>
+                    <option>Groupe</option>
+                </select>
+            </div>
+            
+            <div class="filter-chips">
+                <div class="chip active">Tous</div>
+                <div class="chip">Médiéval</div>
+                <div class="chip">Renaissance</div>
+                <div class="chip">Moderne</div>
+                <div class="chip">Antique</div>
+            </div>
+        </div>
+        
+        <!-- Results Info -->
+        <div class="results-info">
+            <div class="results-count">
+                <strong>67 sites</strong> à découvrir
+            </div>
+            <div class="view-options">
+                <button class="view-btn active">☰</button>
+                <button class="view-btn">⊞</button>
+            </div>
+        </div>
+        
+        <!-- Events List -->
+        <div class="events-list">
+            <!-- Event 1 -->
+            <a href="mockup-event-detail.html" class="event-item">
+                <div class="event-image">🏰</div>
+                <div class="event-details">
+                    <span class="event-badge">Visite nocturne</span>
+                    <h2 class="event-title">Château de Versailles - Les Grandes Eaux Nocturnes</h2>
+                    <div class="event-subtitle">Spectacle aquatique et musical dans les jardins</div>
+                    <div class="event-info">
+                        <span class="event-info-item">📍 Château de Versailles</span>
+                        <span class="event-info-item">📅 Tous les samedis d'été</span>
+                        <span class="event-info-item">⏰ 20h30 - 23h00</span>
+                        <span class="event-info-item">🎭 Spectacle nocturne</span>
+                    </div>
+                    <p class="event-description">
+                        Promenade féerique dans les jardins illuminés du château avec jeux d'eau, musique baroque et feu d'artifice final. Une expérience unique pour découvrir Versailles autrement...
+                    </p>
+                    <div class="event-footer">
+                        <span class="event-price">27€ (Tarif réduit 19€)</span>
+                        <div class="event-actions">
+                            <button class="btn-action">❤️ Favoris</button>
+                            <button class="btn-action btn-reserve">Réserver</button>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            
+            <!-- Event 2 -->
+            <a href="mockup-event-detail.html" class="event-item">
+                <div class="event-image">⛪</div>
+                <div class="event-details">
+                    <span class="event-badge" style="background: #e8f5e9; color: #4caf50;">Accès tours</span>
+                    <h2 class="event-title">Notre-Dame de Paris - Visite virtuelle 360°</h2>
+                    <div class="event-subtitle">En attendant la réouverture - Expérience immersive</div>
+                    <div class="event-info">
+                        <span class="event-info-item">📍 Parvis Notre-Dame</span>
+                        <span class="event-info-item">📅 Tous les jours</span>
+                        <span class="event-info-item">⏰ 10h - 18h</span>
+                        <span class="event-info-item">🥽 Réalité virtuelle</span>
+                    </div>
+                    <p class="event-description">
+                        Explorez la cathédrale comme jamais auparavant grâce à la réalité virtuelle. Montez dans les tours, découvrez les secrets architecturaux et l'histoire millénaire...
+                    </p>
+                    <div class="event-footer">
+                        <span class="event-price">15€ (Gratuit -12 ans)</span>
+                        <div class="event-actions">
+                            <button class="btn-action">❤️ Favoris</button>
+                            <button class="btn-action btn-reserve">Réserver</button>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            
+            <!-- Event 3 -->
+            <a href="mockup-event-detail.html" class="event-item">
+                <div class="event-image">🏺</div>
+                <div class="event-details">
+                    <h2 class="event-title">Crypte Archéologique de l'île de la Cité</h2>
+                    <div class="event-subtitle">2000 ans d'histoire sous vos pieds</div>
+                    <div class="event-info">
+                        <span class="event-info-item">📍 Parvis Notre-Dame</span>
+                        <span class="event-info-item">📅 Mar - Dim</span>
+                        <span class="event-info-item">⏰ 10h - 18h</span>
+                        <span class="event-info-item">🏛️ Site archéologique</span>
+                    </div>
+                    <p class="event-description">
+                        Vestiges gallo-romains, médiévaux et modernes. Découvrez les fondations de Lutèce, les thermes antiques et l'évolution urbaine de Paris sur 2000 ans...
+                    </p>
+                    <div class="event-footer">
+                        <span class="event-price">9€ (Gratuit 1er dimanche)</span>
+                        <div class="event-actions">
+                            <button class="btn-action">❤️ Favoris</button>
+                            <button class="btn-action btn-reserve">Billets</button>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            
+            <!-- Event 4 -->
+            <a href="mockup-event-detail.html" class="event-item">
+                <div class="event-image">🗼</div>
+                <div class="event-details">
+                    <span class="event-badge" style="background: #fff3e0; color: #ff9800;">Visite exclusive</span>
+                    <h2 class="event-title">Arc de Triomphe - Accès terrasse panoramique</h2>
+                    <div class="event-subtitle">Vue 360° sur Paris au coucher du soleil</div>
+                    <div class="event-info">
+                        <span class="event-info-item">📍 Place de l'Étoile</span>
+                        <span class="event-info-item">📅 Tous les jours</span>
+                        <span class="event-info-item">⏰ 10h - 22h30</span>
+                        <span class="event-info-item">🌃 Vue panoramique</span>
+                    </div>
+                    <p class="event-description">
+                        Montez les 284 marches pour une vue imprenable sur les Champs-Élysées et les 12 avenues. Visite du musée et de la tombe du Soldat inconnu incluse...
+                    </p>
+                    <div class="event-footer">
+                        <span class="event-price">13€ (Gratuit -18 ans UE)</span>
+                        <div class="event-actions">
+                            <button class="btn-action">❤️ Favoris</button>
+                            <button class="btn-action btn-reserve">Réserver</button>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            
+            <!-- Event 5 -->
+            <a href="mockup-event-detail.html" class="event-item">
+                <div class="event-image">🏛️</div>
+                <div class="event-details">
+                    <h2 class="event-title">Panthéon - Visite des Grands Hommes</h2>
+                    <div class="event-subtitle">Sur les traces de Victor Hugo, Voltaire et Marie Curie</div>
+                    <div class="event-info">
+                        <span class="event-info-item">📍 Place du Panthéon</span>
+                        <span class="event-info-item">📅 Tous les jours</span>
+                        <span class="event-info-item">⏰ 10h - 18h</span>
+                        <span class="event-info-item">📚 Histoire de France</span>
+                    </div>
+                    <p class="event-description">
+                        Explorez la crypte où reposent les grands personnages de l'Histoire de France. Admirez le pendule de Foucault et la vue depuis le dôme...
+                    </p>
+                    <div class="event-footer">
+                        <span class="event-price">11,50€ (Audioguide inclus)</span>
+                        <div class="event-actions">
+                            <button class="btn-action">❤️ Favoris</button>
+                            <button class="btn-action btn-reserve">Billets</button>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        
+        <!-- Pagination -->
+        <div class="pagination">
+            <button class="pagination-btn">←</button>
+            <button class="pagination-btn active">1</button>
+            <button class="pagination-btn">2</button>
+            <button class="pagination-btn">3</button>
+            <button class="pagination-btn">4</button>
+            <button class="pagination-btn">5</button>
+            <button class="pagination-btn">...</button>
+            <button class="pagination-btn">14</button>
+            <button class="pagination-btn">→</button>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="footer">
+            <p>© 2024 Culture Radar - Maquette de la liste patrimoine et monuments</p>
+        </footer>
+    </div>
+</body>
+</html>

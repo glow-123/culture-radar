@@ -1,0 +1,31 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /organizer/
+Disallow: /api/
+Disallow: /config.php
+Disallow: /setup-database.php
+Disallow: /includes/
+Disallow: /classes/
+Disallow: /scripts/
+Disallow: /assets/temp/
+Disallow: /login.php
+Disallow: /register.php
+Disallow: /logout.php
+Disallow: /dashboard.php
+Disallow: /onboarding.php
+
+# Allow specific assets
+Allow: /assets/css/
+Allow: /assets/js/
+Allow: /assets/images/
+Allow: /favicon.ico
+Allow: /apple-touch-icon.png
+Allow: /android-chrome-*.png
+Allow: /site.webmanifest
+
+# Sitemap location
+Sitemap: https://culture-radar.fr/sitemap.xml
+
+# Crawl delay
+Crawl-delay: 1

@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: php_web
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www/html
+    environment:
+      - APACHE_DOCUMENT_ROOT=/var/www/html
+      # Variables pour Railway MySQL
+      - DB_HOST=centerbeam.proxy.rlwy.net
+      - DB_PORT=48330
+      - DB_NAME=railway
+      - DB_USER=root
+      - DB_PASSWORD=tBixYXRKGkGAZuyxGHFZzaTxQAGXvJJH
+    networks:
+      - php_network
+
+  # Vous pouvez commenter ou supprimer le service db local
+  # db:
+  #   image: mysql:8.0
+  #   ...
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: php_phpmyadmin
+    restart: always
+    ports:
+      - "8081:80"
+    environment:
+      # Connexion à Railway
+      PMA_HOST: centerbeam.proxy.rlwy.net
+      PMA_PORT: 48330
+      PMA_USER: root
+      PMA_PASSWORD: tBixYXRKGkGAZuyxGHFZzaTxQAGXvJJH
+    networks:
+      - php_network
+
+networks:
+  php_network:
+    driver: bridge

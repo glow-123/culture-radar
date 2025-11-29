@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Malade Imaginaire - Détail Événement | Culture Radar</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .mockup-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 50px rgba(0,0,0,0.1);
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+        
+        .nav-menu li {
+            color: white;
+            padding: 8px 15px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            cursor: pointer;
+        }
+        
+        /* Breadcrumb */
+        .breadcrumb {
+            padding: 20px 30px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .breadcrumb-items {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .breadcrumb-items a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        .breadcrumb-items a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Event Hero */
+        .event-hero {
+            position: relative;
+            height: 400px;
+            background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .event-hero-icon {
+            font-size: 150px;
+            color: rgba(255,255,255,0.3);
+            position: absolute;
+        }
+        
+        .event-hero-content {
+            position: relative;
+            text-align: center;
+            color: white;
+            z-index: 1;
+            padding: 40px;
+        }
+        
+        .event-category-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 20px;
+            border-radius: 25px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        
+        .event-main-title {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .event-subtitle-hero {
+            font-size: 20px;
+            opacity: 0.9;
+        }
+        
+        /* Main Content */
+        .content-wrapper {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            padding: 40px 30px;
+        }
+        
+        /* Left Column */
+        .main-content {
+            background: white;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .section:last-child {
+            border-bottom: none;
+        }
+        
+        .section-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-icon {
+            font-size: 28px;
+        }
+        
+        .description-text {
+            color: #666;
+            line-height: 1.8;
+            font-size: 16px;
+        }
+        
+        /* Info Grid */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        
+        .info-icon {
+            font-size: 24px;
+            color: #667eea;
+        }
+        
+        .info-content {
+            flex: 1;
+        }
+        
+        .info-label {
+            font-size: 12px;
+            color: #999;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+        
+        .info-value {
+            font-size: 16px;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        /* Cast & Crew */
+        .cast-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .cast-member {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .cast-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .cast-info {
+            flex: 1;
+        }
+        
+        .cast-name {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 2px;
+        }
+        
+        .cast-role {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        /* Gallery */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+        
+        .gallery-item {
+            aspect-ratio: 16/9;
+            background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #999;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+        
+        /* Reviews */
+        .reviews-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .review-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+        
+        .review-author {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .review-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #667eea;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        
+        .review-name {
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .review-date {
+            font-size: 12px;
+            color: #999;
+        }
+        
+        .review-rating {
+            color: #ffc107;
+        }
+        
+        .review-text {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        /* Right Sidebar */
+        .sidebar {
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+        }
+        
+        .booking-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        
+        .price-display {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .price-label {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .price-value {
+            font-size: 36px;
+            font-weight: 700;
+            color: #667eea;
+        }
+        
+        .date-selector {
+            margin-bottom: 20px;
+        }
+        
+        .date-selector label {
+            display: block;
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+        
+        .date-selector select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        
+        .ticket-selector {
+            margin-bottom: 20px;
+        }
+        
+        .ticket-type {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .ticket-info {
+            flex: 1;
+        }
+        
+        .ticket-name {
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .ticket-price {
+            font-size: 14px;
+            color: #667eea;
+        }
+        
+        .ticket-counter {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .counter-btn {
+            width: 30px;
+            height: 30px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .counter-btn:hover {
+            background: #f5f5f5;
+        }
+        
+        .counter-value {
+            min-width: 30px;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .btn-primary {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 15px;
+        }
+        
+        .btn-primary:hover {
+            opacity: 0.9;
+        }
+        
+        .btn-secondary {
+            width: 100%;
+            padding: 12px;
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+        
+        .btn-secondary:hover {
+            background: #f0f0ff;
+        }
+        
+        /* Venue Card */
+        .venue-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .venue-map {
+            height: 200px;
+            background: linear-gradient(135deg, #e0e0e0 0%, #f0f0f0 100%);
+            border-radius: 10px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: #999;
+        }
+        
+        .venue-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .venue-address {
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        
+        .transport-options {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .transport-badge {
+            padding: 5px 10px;
+            background: #f0f0f0;
+            border-radius: 15px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        /* Share Section */
+        .share-section {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .share-title {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .share-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .share-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #f0f0f0;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+        
+        .share-btn:hover {
+            background: #e0e0e0;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #1F2937;
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+            margin-top: 60px;
+        }
+    </style>
+</head>
+<body>
+    <div class="mockup-container">
+        <!-- Header -->
+        <header class="header">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">📍</div>
+                <span>Culture Radar</span>
+            </a>
+            <nav>
+                <ul class="nav-menu">
+                    <li>Découvrir</li>
+                    <li>Catégories</li>
+                    <li>Événements</li>
+                    <li>À propos</li>
+                    <li>Contact</li>
+                </ul>
+            </nav>
+        </header>
+        
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <div class="breadcrumb-items">
+                <a href="index.html">Accueil</a>
+                <span>›</span>
+                <a href="#">Catégories</a>
+                <span>›</span>
+                <a href="mockup-events-list.html">Théâtre & Spectacles</a>
+                <span>›</span>
+                <span>Le Malade Imaginaire</span>
+            </div>
+        </div>
+        
+        <!-- Event Hero -->
+        <div class="event-hero">
+            <div class="event-hero-icon">🎭</div>
+            <div class="event-hero-content">
+                <div class="event-category-badge">Théâtre Classique</div>
+                <h1 class="event-main-title">Le Malade Imaginaire</h1>
+                <p class="event-subtitle-hero">de Molière - Mise en scène de Michel Fau</p>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="content-wrapper">
+            <!-- Left Column -->
+            <div class="main-content">
+                <!-- Description Section -->
+                <div class="section">
+                    <h2 class="section-title">
+                        <span class="section-icon">📝</span>
+                        Description
+                    </h2>
+                    <div class="description-text">
+                        <p>Un classique de Molière revisité avec brio dans une mise en scène moderne et audacieuse. Argan, bourgeois hypocondriaque, se croit atteint de toutes les maladies. Entouré de médecins charlatans qui profitent de sa crédulité, il tyrannise son entourage et veut marier sa fille Angélique à un médecin pour avoir des soins gratuits.</p>
+                        <br>
+                        <p>Cette comédie-ballet, dernière œuvre de Molière, nous fait rire de nos propres angoisses tout en dénonçant les impostures de son temps. Michel Fau propose une lecture contemporaine qui résonne avec nos préoccupations actuelles sur la santé et le bien-être.</p>
+                        <br>
+                        <p>Un spectacle qui allie théâtre, musique et danse dans la pure tradition de la comédie-ballet, pour le plus grand plaisir des petits et des grands.</p>
+                    </div>
+                </div>
+                
+                <!-- Informations Pratiques -->
+                <div class="section">
+                    <h2 class="section-title">
+                        <span class="section-icon">ℹ️</span>
+                        Informations Pratiques
+                    </h2>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-icon">📅</div>
+                            <div class="info-content">
+                                <div class="info-label">Dates</div>
+                                <div class="info-value">Du 15 mars au 30 avril 2024</div>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">⏰</div>
+                            <div class="info-content">
+                                <div class="info-label">Horaires</div>
+                                <div class="info-value">20h30 (sam 15h et 20h30)</div>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">⏱️</div>
+                            <div class="info-content">
+                                <div class="info-label">Durée</div>
+                                <div class="info-value">2h15 avec entracte</div>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">👥</div>
+                            <div class="info-content">
+                                <div class="info-label">Public</div>
+                                <div class="info-value">Tout public (dès 10 ans)</div>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">♿</div>
+                            <div class="info-content">
+                                <div class="info-label">Accessibilité</div>
+                                <div class="info-value">PMR, Audiodescription</div>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">🌐</div>
+                            <div class="info-content">
+                                <div class="info-label">Langues</div>
+                                <div class="info-value">Français, Surtitres anglais</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Distribution -->
+                <div class="section">
+                    <h2 class="section-title">
+                        <span class="section-icon">👥</span>
+                        Distribution
+                    </h2>
+                    <div class="cast-grid">
+                        <div class="cast-member">
+                            <div class="cast-avatar">MF</div>
+                            <div class="cast-info">
+                                <div class="cast-name">Michel Fau</div>
+                                <div class="cast-role">Mise en scène</div>
+                            </div>
+                        </div>
+                        <div class="cast-member">
+                            <div class="cast-avatar">PD</div>
+                            <div class="cast-info">
+                                <div class="cast-name">Philippe Dusseau</div>
+                                <div class="cast-role">Argan</div>
+                            </div>
+                        </div>
+                        <div class="cast-member">
+                            <div class="cast-avatar">ML</div>
+                            <div class="cast-info">
+                                <div class="cast-name">Marie Lecomte</div>
+                                <div class="cast-role">Toinette</div>
+                            </div>
+                        </div>
+                        <div class="cast-member">
+                            <div class="cast-avatar">JB</div>
+                            <div class="cast-info">
+                                <div class="cast-name">Julie Bernard</div>
+                                <div class="cast-role">Angélique</div>
+                            </div>
+                        </div>
+                        <div class="cast-member">
+                            <div class="cast-avatar">LC</div>
+                            <div class="cast-info">
+                                <div class="cast-name">Laurent Clément</div>
+                                <div class="cast-role">Cléante</div>
+                            </div>
+                        </div>
+                        <div class="cast-member">
+                            <div class="cast-avatar">SV</div>
+                            <div class="cast-info">
+                                <div class="cast-name">Sophie Vanier</div>
+                                <div class="cast-role">Béline</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Galerie -->
+                <div class="section">
+                    <h2 class="section-title">
+                        <span class="section-icon">🖼️</span>
+                        Photos du spectacle
+                    </h2>
+                    <div class="gallery">
+                        <div class="gallery-item">📸</div>
+                        <div class="gallery-item">📸</div>
+                        <div class="gallery-item">📸</div>
+                        <div class="gallery-item">📸</div>
+                        <div class="gallery-item">📸</div>
+                        <div class="gallery-item">📸</div>
+                    </div>
+                </div>
+                
+                <!-- Avis -->
+                <div class="section">
+                    <h2 class="section-title">
+                        <span class="section-icon">⭐</span>
+                        Avis des spectateurs
+                    </h2>
+                    <div class="reviews-list">
+                        <div class="review-item">
+                            <div class="review-header">
+                                <div class="review-author">
+                                    <div class="review-avatar">ML</div>
+                                    <div>
+                                        <div class="review-name">Marie L.</div>
+                                        <div class="review-date">Il y a 3 jours</div>
+                                    </div>
+                                </div>
+                                <div class="review-rating">⭐⭐⭐⭐⭐</div>
+                            </div>
+                            <div class="review-text">
+                                Magnifique adaptation ! Les acteurs sont brillants et la mise en scène moderne apporte un souffle nouveau à ce classique. Un moment de pur plaisir théâtral.
+                            </div>
+                        </div>
+                        <div class="review-item">
+                            <div class="review-header">
+                                <div class="review-author">
+                                    <div class="review-avatar">PD</div>
+                                    <div>
+                                        <div class="review-name">Pierre D.</div>
+                                        <div class="review-date">Il y a 1 semaine</div>
+                                    </div>
+                                </div>
+                                <div class="review-rating">⭐⭐⭐⭐</div>
+                            </div>
+                            <div class="review-text">
+                                Très belle représentation, fidèle à l'esprit de Molière tout en étant accessible au public d'aujourd'hui. Les décors et costumes sont superbes. Je recommande !
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Sidebar -->
+            <div class="sidebar">
+                <!-- Booking Card -->
+                <div class="booking-card">
+                    <div class="price-display">
+                        <div class="price-label">À partir de</div>
+                        <div class="price-value">35€</div>
+                    </div>
+                    
+                    <div class="date-selector">
+                        <label>Choisir une date</label>
+                        <select>
+                            <option>Ven 15 mars - 20h30</option>
+                            <option>Sam 16 mars - 15h00</option>
+                            <option>Sam 16 mars - 20h30</option>
+                            <option>Dim 17 mars - 16h00</option>
+                            <option>Mar 19 mars - 20h30</option>
+                            <option>Mer 20 mars - 20h30</option>
+                        </select>
+                    </div>
+                    
+                    <div class="ticket-selector">
+                        <div class="ticket-type">
+                            <div class="ticket-info">
+                                <div class="ticket-name">Tarif plein</div>
+                                <div class="ticket-price">55€</div>
+                            </div>
+                            <div class="ticket-counter">
+                                <button class="counter-btn">-</button>
+                                <span class="counter-value">0</span>
+                                <button class="counter-btn">+</button>
+                            </div>
+                        </div>
+                        <div class="ticket-type">
+                            <div class="ticket-info">
+                                <div class="ticket-name">Tarif réduit</div>
+                                <div class="ticket-price">35€</div>
+                            </div>
+                            <div class="ticket-counter">
+                                <button class="counter-btn">-</button>
+                                <span class="counter-value">2</span>
+                                <button class="counter-btn">+</button>
+                            </div>
+                        </div>
+                        <div class="ticket-type">
+                            <div class="ticket-info">
+                                <div class="ticket-name">-26 ans</div>
+                                <div class="ticket-price">25€</div>
+                            </div>
+                            <div class="ticket-counter">
+                                <button class="counter-btn">-</button>
+                                <span class="counter-value">0</span>
+                                <button class="counter-btn">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="btn-primary">Réserver - 70€</button>
+                    <button class="btn-secondary">❤️ Ajouter aux favoris</button>
+                </div>
+                
+                <!-- Venue Card -->
+                <div class="venue-card">
+                    <div class="venue-map">🗺️</div>
+                    <div class="venue-name">Comédie-Française</div>
+                    <div class="venue-address">
+                        1 Place Colette<br>
+                        75001 Paris
+                    </div>
+                    <div class="transport-options">
+                        <div class="transport-badge">🚇 M1 Palais Royal</div>
+                        <div class="transport-badge">🚇 M7 Châtelet</div>
+                        <div class="transport-badge">🚌 Bus 21, 27, 39</div>
+                    </div>
+                </div>
+                
+                <!-- Share Section -->
+                <div class="share-section">
+                    <div class="share-title">Partager cet événement</div>
+                    <div class="share-buttons">
+                        <button class="share-btn">📧</button>
+                        <button class="share-btn">💬</button>
+                        <button class="share-btn">📱</button>
+                        <button class="share-btn">🔗</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="footer">
+            <p>© 2024 Culture Radar - Maquette détail événement</p>
+        </footer>
+    </div>
+</body>
+</html>

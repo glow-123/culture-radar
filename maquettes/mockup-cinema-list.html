@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cinéma & Projections - Culture Radar</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .mockup-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 50px rgba(0,0,0,0.1);
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+        
+        .nav-menu li {
+            color: white;
+            padding: 8px 15px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            cursor: pointer;
+        }
+        
+        .nav-menu li.active {
+            background: rgba(255,255,255,0.3);
+        }
+        
+        /* Breadcrumb */
+        .breadcrumb {
+            padding: 20px 30px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .breadcrumb-items {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #666;
+        }
+        
+        .breadcrumb-items a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        .breadcrumb-items a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Category Header */
+        .category-header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            padding: 60px 30px;
+            color: white;
+            text-align: center;
+        }
+        
+        .category-icon-large {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+        
+        .category-title {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+        
+        .category-description {
+            font-size: 18px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Filters Bar */
+        .filters-bar {
+            padding: 20px 30px;
+            background: white;
+            border-bottom: 2px solid #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .filter-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .filter-label {
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .filter-select {
+            padding: 8px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: white;
+            cursor: pointer;
+        }
+        
+        .filter-chips {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .chip {
+            padding: 8px 15px;
+            background: #e3f2fd;
+            color: #1976d2;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+        
+        .chip:hover {
+            border-color: #1976d2;
+        }
+        
+        .chip.active {
+            background: #1976d2;
+            color: white;
+        }
+        
+        /* Results Info */
+        .results-info {
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .results-count {
+            font-size: 18px;
+            color: #333;
+        }
+        
+        .results-count strong {
+            color: #1976d2;
+        }
+        
+        .view-options {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .view-btn {
+            padding: 8px;
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .view-btn.active {
+            background: #1976d2;
+            color: white;
+            border-color: #1976d2;
+        }
+        
+        /* Events List */
+        .events-list {
+            padding: 0 30px 40px;
+        }
+        
+        .event-item {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .event-item:hover {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+        
+        .event-image {
+            width: 200px;
+            height: 150px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: white;
+            flex-shrink: 0;
+        }
+        
+        .event-details {
+            flex: 1;
+        }
+        
+        .event-badge {
+            display: inline-block;
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+        
+        .event-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .event-subtitle {
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .event-info {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+        
+        .event-info-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .event-description {
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        
+        .event-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .event-price {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1976d2;
+        }
+        
+        .event-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn-action {
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .btn-action:hover {
+            background: #f5f5f5;
+        }
+        
+        .btn-reserve {
+            background: #1976d2;
+            color: white;
+            border-color: #1976d2;
+        }
+        
+        .btn-reserve:hover {
+            background: #1565c0;
+        }
+        
+        /* Pagination */
+        .pagination {
+            padding: 40px 30px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .pagination-btn {
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 5px;
+            cursor: pointer;
+            min-width: 40px;
+            text-align: center;
+        }
+        
+        .pagination-btn:hover {
+            background: #f5f5f5;
+        }
+        
+        .pagination-btn.active {
+            background: #1976d2;
+            color: white;
+            border-color: #1976d2;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #1F2937;
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="mockup-container">
+        <!-- Header -->
+        <header class="header">
+            <a href="mockup-homepage.html" class="logo">
+                <div class="logo-icon">📍</div>
+                <span>Culture Radar</span>
+            </a>
+            <nav>
+                <ul class="nav-menu">
+                    <li>Découvrir</li>
+                    <li class="active">Catégories</li>
+                    <li>Événements</li>
+                    <li>À propos</li>
+                    <li>Contact</li>
+                </ul>
+            </nav>
+        </header>
+        
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <div class="breadcrumb-items">
+                <a href="mockup-homepage.html">Accueil</a>
+                <span>›</span>
+                <a href="#">Catégories</a>
+                <span>›</span>
+                <span>Cinéma & Projections</span>
+            </div>
+        </div>
+        
+        <!-- Category Header -->
+        <div class="category-header">
+            <div class="category-icon-large">🎬</div>
+            <h1 class="category-title">Cinéma & Projections</h1>
+            <p class="category-description">
+                Films en avant-première, festivals, rétrospectives, cinéma d'art et essai, séances spéciales
+            </p>
+        </div>
+        
+        <!-- Filters Bar -->
+        <div class="filters-bar">
+            <div class="filter-group">
+                <span class="filter-label">Type:</span>
+                <select class="filter-select">
+                    <option>Tous types</option>
+                    <option>Avant-premières</option>
+                    <option>Festivals</option>
+                    <option>Rétrospectives</option>
+                    <option>Séances spéciales</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <span class="filter-label">Cinéma:</span>
+                <select class="filter-select">
+                    <option>Tous les cinémas</option>
+                    <option>UGC</option>
+                    <option>MK2</option>
+                    <option>Cinémathèque</option>
+                    <option>Forum des Images</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <span class="filter-label">Horaire:</span>
+                <select class="filter-select">
+                    <option>Toute la journée</option>
+                    <option>Matinée</option>
+                    <option>Après-midi</option>
+                    <option>Soirée</option>
+                    <option>Nocturne</option>
+                </select>
+            </div>
+            
+            <div class="filter-chips">
+                <div class="chip active">Tous</div>
+                <div class="chip">VO</div>
+                <div class="chip">VF</div>
+                <div class="chip">3D/IMAX</div>
+                <div class="chip">Art & Essai</div>
+                <div class="chip">Famille</div>
+            </div>
+        </div>
+        
+        <!-- Results Info -->
+        <div class="results-info">
+            <div class="results-count">
+                <strong>142 projections</strong> cette semaine
+            </div>
+            <div class="view-options">
+                <button class="view-btn active">☰</button>
+                <button class="view-btn">⊞</button>
+            </div>
+        </div>
+        
+        <!-- Events List -->
+        <div class="events-list">
+            <!-- Event 1 -->
+            <a href="mockup-event-detail.html" class="event-item">
+                <div class="event-image">🎞️</div>
+                <div class="event-details">
+                    <span class="event-badge">Avant-première</span>
+                    <h2 class="event-title">Dune : Partie 3</h2>
+                    <div class="event-subtitle">De Denis Villeneuve - Science-Fiction</div>
+                    <div class="event-info">
+                        <span class="event-info-item">📍 Grand Rex</span>
+                        <span class="event-info-item">📅 Mercredi 27 mars</span>
+                        <span class="event-info-item">⏰ 20h00</span>
+                        <span class="event-info-item">🎬 IMAX / VO</span>
+                    </div>
+                    <p class="event-description">
+                        Avant-première exceptionnelle en présence de l'équipe du film. La conclusion épique de la saga de Frank Herbert dans une projection IMAX immersive...
+                    </p>
+                    <div class="event-footer">
+                        <span class="event-price">18€ (IMAX)</span>
+                        <div class="event-actions">
+                            <button class="btn-action">❤️ Favoris</button>
+                            <button class="btn-action btn-reserve">Réserver</button>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            
+            <!-- Event 2 -->
+            <a href="mockup-event-detail.html" class="event-item">
+                <div class="event-image">🎭</div>
+                <div class="event-details">
+                    <span class="event-badge" style="background: #e8f5e9; color: #4caf50;">Festival</span>
+                    <h2 class="event-title">Festival du Film Japonais</h2>
+                    <div class="event-subtitle">10ème édition - 25 films en compétition</div>
+                    <div class="event-info">
+                        <span class="event-info-item">📍 MK2 Bibliothèque</span>
+                        <span class="event-info-item">📅 Du 25 au 31 mars</span>
+                        <span class="event-info-item">⏰ Séances multiples</span>
+                        <span class="event-info-item">🎌 VOSTFR</span>
+                    </div>
+                    <p class="event-description">
+                        Découvrez le meilleur du cinéma japonais contemporain. Films d'animation, drames, thrillers et documentaires avec invités spéciaux et masterclasses...
+                    </p>
+                    <div class="event-footer">
+                        <span class="event-price">8€ la séance / Pass 50€</span>
+                        <div class="event-actions">
+                            <button class="btn-action">❤️ Favoris</button>
+                            <button class="btn-action btn-reserve">Programme</button>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            
+            <!-- Event 3 -->
+            <a href="mockup-event-detail.html" class="event-item">
+                <div class="event-image">🎬</div>
+                <div class="event-details">
+                    <h2 class="event-title">Hitchcock : L'Intégrale</h2>
+                    <div class="event-subtitle">Rétrospective complète restaurée en 4K</div>
+                    <div class="event-info">
+                        <span class="event-info-item">📍 Cinémathèque Française</span>
+                        <span class="event-info-item">📅 Tout le mois d'avril</span>
+                        <span class="event-info-item">⏰ 14h, 17h, 20h</span>
+                        <span class="event-info-item">🎥 Version restaurée</span>
+                    </div>
+                    <p class="event-description">
+                        53 films du maître du suspense dans des versions restaurées 4K. De "Les 39 Marches" à "Complot de famille", redécouvrez l'œuvre complète d'Alfred Hitchcock...
+                    </p>
+                    <div class="event-footer">
+                        <span class="event-price">7€ (Tarif réduit 5,50€)</span>
+                        <div class="event-actions">
+                            <button class="btn-action">❤️ Favoris</button>
+                            <button class="btn-action btn-reserve">Calendrier</button>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            
+            <!-- Event 4 -->
+            <a href="mockup-event-detail.html" class="event-item">
+                <div class="event-image">🌟</div>
+                <div class="event-details">
+                    <span class="event-badge" style="background: #fff3e0; color: #ff9800;">Famille</span>
+                    <h2 class="event-title">Studio Ghibli : Mon Voisin Totoro</h2>
+                    <div class="event-subtitle">Ciné-concert avec orchestre symphonique</div>
+                    <div class="event-info">
+                        <span class="event-info-item">📍 Philharmonie de Paris</span>
+                        <span class="event-info-item">📅 Dimanche 31 mars</span>
+                        <span class="event-info-item">⏰ 15h00</span>
+                        <span class="event-info-item">🎵 Ciné-concert</span>
+                    </div>
+                    <p class="event-description">
+                        Le chef-d'œuvre de Hayao Miyazaki accompagné en direct par l'Orchestre de Paris. Une expérience magique pour petits et grands avec la musique de Joe Hisaishi...
+                    </p>
+                    <div class="event-footer">
+                        <span class="event-price">25€ (Enfants 15€)</span>
+                        <div class="event-actions">
+                            <button class="btn-action">❤️ Favoris</button>
+                            <button class="btn-action btn-reserve">Réserver</button>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            
+            <!-- Event 5 -->
+            <a href="mockup-event-detail.html" class="event-item">
+                <div class="event-image">🌙</div>
+                <div class="event-details">
+                    <h2 class="event-title">Marathon Star Wars</h2>
+                    <div class="event-subtitle">La saga complète en une nuit</div>
+                    <div class="event-info">
+                        <span class="event-info-item">📍 UGC Ciné Cité Les Halles</span>
+                        <span class="event-info-item">📅 Samedi 6 avril</span>
+                        <span class="event-info-item">⏰ 19h - 9h</span>
+                        <span class="event-info-item">🌌 9 films</span>
+                    </div>
+                    <p class="event-description">
+                        Une nuit épique avec les 9 épisodes de la saga Skywalker. Collations offertes, animations cosplay et surprises tout au long de la nuit...
+                    </p>
+                    <div class="event-footer">
+                        <span class="event-price">35€ (Pass complet)</span>
+                        <div class="event-actions">
+                            <button class="btn-action">❤️ Favoris</button>
+                            <button class="btn-action btn-reserve">Réserver</button>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        
+        <!-- Pagination -->
+        <div class="pagination">
+            <button class="pagination-btn">←</button>
+            <button class="pagination-btn active">1</button>
+            <button class="pagination-btn">2</button>
+            <button class="pagination-btn">3</button>
+            <button class="pagination-btn">4</button>
+            <button class="pagination-btn">5</button>
+            <button class="pagination-btn">...</button>
+            <button class="pagination-btn">29</button>
+            <button class="pagination-btn">→</button>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="footer">
+            <p>© 2024 Culture Radar - Maquette de la liste cinéma et projections</p>
+        </footer>
+    </div>
+</body>
+</html>

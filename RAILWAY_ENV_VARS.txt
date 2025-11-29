@@ -1,0 +1,42 @@
+# Variables d'environnement à configurer dans Railway Dashboard
+# https://railway.app/dashboard
+
+## Clés API trouvées dans votre projet :
+
+OPENAGENDA_API_KEY=b6cea4ca5dcf4054ae4dd58482b389a1
+OPENWEATHERMAP_API_KEY=4f70ce6daf82c0e77d6128bc7fadf972
+GOOGLE_MAPS_API_KEY=AIzaSyClDB39stO1egB2L1P3aRymydGjPZ72uNo
+RATP_PRIM_API_KEY=CNcmVauFV8dbo3sMWmemifQah7aopdsf
+SERPAPI_KEY=b56aa6ec92f9f569f50f671e5133d46d5131c74c260086c37f5222bf489f2d4d
+
+## Configuration de la base de données (déjà configurée) :
+
+MYSQLHOST=centerbeam.proxy.rlwy.net
+MYSQLPORT=48330
+MYSQLDATABASE=railway
+MYSQLUSER=root
+MYSQLPASSWORD=tBixYXRKGkGAZuyxGHFZzaTxQAGXvJJH
+
+## Application :
+
+APP_NAME=Culture Radar
+APP_ENV=production
+APP_DEBUG=false
+APP_URL=https://ias-b3-g7-paris.up.railway.app
+
+## Instructions :
+
+1. Allez sur https://railway.app/dashboard
+2. Sélectionnez votre projet
+3. Cliquez sur "Variables"
+4. Ajoutez chaque variable ci-dessus avec sa valeur
+5. Railway redéploiera automatiquement l'application
+
+## Vérification :
+
+Après configuration, testez ces URLs :
+- https://ias-b3-g7-paris.up.railway.app/
+- https://ias-b3-g7-paris.up.railway.app/healthcheck.php
+- https://ias-b3-g7-paris.up.railway.app/api/events-simple.php
+
+Les événements réels devraient maintenant s'afficher !

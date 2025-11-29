@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Théâtre & Spectacles - Culture Radar</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .mockup-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 50px rgba(0,0,0,0.1);
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+        
+        .nav-menu li {
+            color: white;
+            padding: 8px 15px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            cursor: pointer;
+        }
+        
+        .nav-menu li.active {
+            background: rgba(255,255,255,0.3);
+        }
+        
+        /* Breadcrumb */
+        .breadcrumb {
+            padding: 20px 30px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .breadcrumb-items {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #666;
+        }
+        
+        .breadcrumb-items a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        .breadcrumb-items a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Category Header */
+        .category-header {
+            background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+            padding: 60px 30px;
+            color: white;
+            text-align: center;
+        }
+        
+        .category-icon-large {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+        
+        .category-title {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+        
+        .category-description {
+            font-size: 18px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Filters Bar */
+        .filters-bar {
+            padding: 20px 30px;
+            background: white;
+            border-bottom: 2px solid #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .filter-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .filter-label {
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .filter-select {
+            padding: 8px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: white;
+            cursor: pointer;
+        }
+        
+        .filter-chips {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .chip {
+            padding: 8px 15px;
+            background: #f0f0ff;
+            color: #667eea;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+        
+        .chip:hover {
+            border-color: #667eea;
+        }
+        
+        .chip.active {
+            background: #667eea;
+            color: white;
+        }
+        
+        /* Results Info */
+        .results-info {
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .results-count {
+            font-size: 18px;
+            color: #333;
+        }
+        
+        .results-count strong {
+            color: #667eea;
+        }
+        
+        .view-options {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .view-btn {
+            padding: 8px;
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .view-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+        
+        /* Events List */
+        .events-list {
+            padding: 0 30px 40px;
+        }
+        
+        .event-item {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .event-item:hover {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+        
+        .event-image {
+            width: 200px;
+            height: 150px;
+            background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: white;
+            flex-shrink: 0;
+        }
+        
+        .event-details {
+            flex: 1;
+        }
+        
+        .event-badge {
+            display: inline-block;
+            background: #ffebee;
+            color: #ff5252;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+        
+        .event-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .event-subtitle {
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .event-info {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+        
+        .event-info-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .event-description {
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        
+        .event-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .event-price {
+            font-size: 20px;
+            font-weight: 600;
+            color: #667eea;
+        }
+        
+        .event-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn-action {
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .btn-action:hover {
+            background: #f5f5f5;
+        }
+        
+        .btn-reserve {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+        
+        .btn-reserve:hover {
+            background: #5567d8;
+        }
+        
+        /* Pagination */
+        .pagination {
+            padding: 40px 30px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .pagination-btn {
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 5px;
+            cursor: pointer;
+            min-width: 40px;
+            text-align: center;
+        }
+        
+        .pagination-btn:hover {
+            background: #f5f5f5;
+        }
+        
+        .pagination-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #1F2937;
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="mockup-container">
+        <!-- Header -->
+        <header class="header">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">📍</div>
+                <span>Culture Radar</span>
+            </a>
+            <nav>
+                <ul class="nav-menu">
+                    <li>Découvrir</li>
+                    <li class="active">Catégories</li>
+                    <li>Événements</li>
+                    <li>À propos</li>
+                    <li>Contact</li>
+                </ul>
+            </nav>
+        </header>
+        
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <div class="breadcrumb-items">
+                <a href="index.html">Accueil</a>
+                <span>›</span>
+                <a href="#">Catégories</a>
+                <span>›</span>
+                <span>Théâtre & Spectacles</span>
+            </div>
+        </div>
+        
+        <!-- Category Header -->
+        <div class="category-header">
+            <div class="category-icon-large">🎭</div>
+            <h1 class="category-title">Théâtre & Spectacles</h1>
+            <p class="category-description">
+                Découvrez les meilleures pièces de théâtre, spectacles vivants et représentations scéniques près de chez vous
+            </p>
+        </div>
+        
+        <!-- Filters Bar -->
+        <div class="filters-bar">
+            <div class="filter-group">
+                <span class="filter-label">Date:</span>
+                <select class="filter-select">
+                    <option>Toutes les dates</option>
+                    <option>Aujourd'hui</option>
+                    <option>Ce weekend</option>
+                    <option>Cette semaine</option>
+                    <option>Ce mois</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <span class="filter-label">Prix:</span>
+                <select class="filter-select">
+                    <option>Tous les prix</option>
+                    <option>Gratuit</option>
+                    <option>Moins de 20€</option>
+                    <option>20€ - 50€</option>
+                    <option>Plus de 50€</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <span class="filter-label">Lieu:</span>
+                <select class="filter-select">
+                    <option>Paris et région</option>
+                    <option>Paris centre</option>
+                    <option>Banlieue proche</option>
+                    <option>Île-de-France</option>
+                </select>
+            </div>
+            
+            <div class="filter-chips">
+                <div class="chip active">Tous</div>
+                <div class="chip">Comédie</div>
+                <div class="chip">Drame</div>
+                <div class="chip">Musical</div>
+                <div class="chip">Classique</div>
+            </div>
+        </div>
+        
+        <!-- Results Info -->
+        <div class="results-info">
+            <div class="results-count">
+                <strong>124 spectacles</strong> trouvés
+            </div>
+            <div class="view-options">
+                <button class="view-btn active">☰</button>
+                <button class="view-btn">⊞</button>
+            </div>
+        </div>
+        
+        <!-- Events List -->
+        <div class="events-list">
+            <!-- Event 1 -->
+            <a href="mockup-event-detail.html" class="event-item">
+                <div class="event-image">🎭</div>
+                <div class="event-details">
+                    <span class="event-badge">Dernières places</span>
+                    <h2 class="event-title">Le Malade Imaginaire</h2>
+                    <div class="event-subtitle">de Molière - Mise en scène de Michel Fau</div>
+                    <div class="event-info">
+                        <span class="event-info-item">📍 Comédie-Française</span>
+                        <span class="event-info-item">📅 Du 15 mars au 30 avril</span>
+                        <span class="event-info-item">⏰ 20h30</span>
+                        <span class="event-info-item">⏱️ 2h15</span>
+                    </div>
+                    <p class="event-description">
+                        Un classique de Molière revisité avec brio. Argan, bourgeois hypocondriaque, se croit atteint de toutes les maladies. Cette comédie intemporelle nous fait rire de nos propres angoisses...
+                    </p>
+                    <div class="event-footer">
+                        <span class="event-price">À partir de 35€</span>
+                        <div class="event-actions">
+                            <button class="btn-action">❤️ Favoris</button>
+                            <button class="btn-action btn-reserve">Réserver</button>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            
+            <!-- Event 2 -->
+            <a href="mockup-event-detail.html" class="event-item">
+                <div class="event-image">🎪</div>
+                <div class="event-details">
+                    <span class="event-badge" style="background: #e8f5e9; color: #4caf50;">Nouveau</span>
+                    <h2 class="event-title">Cyrano de Bergerac</h2>
+                    <div class="event-subtitle">d'Edmond Rostand - Théâtre du Châtelet</div>
+                    <div class="event-info">
+                        <span class="event-info-item">📍 Théâtre du Châtelet</span>
+                        <span class="event-info-item">📅 Du 20 mars au 15 mai</span>
+                        <span class="event-info-item">⏰ 19h30</span>
+                        <span class="event-info-item">⏱️ 2h45 avec entracte</span>
+                    </div>
+                    <p class="event-description">
+                        Le chef-d'œuvre d'Edmond Rostand dans une mise en scène époustouflante. L'histoire d'amour impossible entre Cyrano, affligé d'un nez proéminent, et sa cousine Roxane...
+                    </p>
+                    <div class="event-footer">
+                        <span class="event-price">De 25€ à 85€</span>
+                        <div class="event-actions">
+                            <button class="btn-action">❤️ Favoris</button>
+                            <button class="btn-action btn-reserve">Réserver</button>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            
+            <!-- Event 3 -->
+            <a href="mockup-event-detail.html" class="event-item">
+                <div class="event-image">🎨</div>
+                <div class="event-details">
+                    <h2 class="event-title">Les Misérables</h2>
+                    <div class="event-subtitle">Comédie musicale - Théâtre Mogador</div>
+                    <div class="event-info">
+                        <span class="event-info-item">📍 Théâtre Mogador</span>
+                        <span class="event-info-item">📅 Prolongations jusqu'au 30 juin</span>
+                        <span class="event-info-item">⏰ 20h (sam 15h et 20h)</span>
+                        <span class="event-info-item">⏱️ 3h avec entracte</span>
+                    </div>
+                    <p class="event-description">
+                        L'adaptation musicale du chef-d'œuvre de Victor Hugo. Un spectacle grandiose qui a ému des millions de spectateurs dans le monde entier. Une fresque historique et humaine bouleversante...
+                    </p>
+                    <div class="event-footer">
+                        <span class="event-price">De 45€ à 120€</span>
+                        <div class="event-actions">
+                            <button class="btn-action">❤️ Favoris</button>
+                            <button class="btn-action btn-reserve">Réserver</button>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            
+            <!-- Event 4 -->
+            <a href="mockup-event-detail.html" class="event-item">
+                <div class="event-image">😂</div>
+                <div class="event-details">
+                    <span class="event-badge" style="background: #fff3e0; color: #ff9800;">Stand-up</span>
+                    <h2 class="event-title">Florence Foresti - Boys Boys Boys</h2>
+                    <div class="event-subtitle">One Woman Show - L'Olympia</div>
+                    <div class="event-info">
+                        <span class="event-info-item">📍 L'Olympia</span>
+                        <span class="event-info-item">📅 Les 25, 26 et 27 mars</span>
+                        <span class="event-info-item">⏰ 20h30</span>
+                        <span class="event-info-item">⏱️ 1h30</span>
+                    </div>
+                    <p class="event-description">
+                        Florence Foresti revient avec un nouveau spectacle décapant sur les relations hommes-femmes. Un show hilarant qui décortique avec finesse les codes de la masculinité...
+                    </p>
+                    <div class="event-footer">
+                        <span class="event-price">De 39€ à 65€</span>
+                        <div class="event-actions">
+                            <button class="btn-action">❤️ Favoris</button>
+                            <button class="btn-action btn-reserve">Réserver</button>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            
+            <!-- Event 5 -->
+            <a href="mockup-event-detail.html" class="event-item">
+                <div class="event-image">🎭</div>
+                <div class="event-details">
+                    <h2 class="event-title">Hamlet</h2>
+                    <div class="event-subtitle">de Shakespeare - Odéon-Théâtre de l'Europe</div>
+                    <div class="event-info">
+                        <span class="event-info-item">📍 Odéon-Théâtre de l'Europe</span>
+                        <span class="event-info-item">📅 Du 10 avril au 20 mai</span>
+                        <span class="event-info-item">⏰ 20h</span>
+                        <span class="event-info-item">⏱️ 3h30 avec entracte</span>
+                    </div>
+                    <p class="event-description">
+                        Le prince du Danemark dans une mise en scène moderne et audacieuse. Une réflexion profonde sur le pouvoir, la vengeance et la condition humaine...
+                    </p>
+                    <div class="event-footer">
+                        <span class="event-price">De 15€ à 55€</span>
+                        <div class="event-actions">
+                            <button class="btn-action">❤️ Favoris</button>
+                            <button class="btn-action btn-reserve">Réserver</button>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        
+        <!-- Pagination -->
+        <div class="pagination">
+            <button class="pagination-btn">←</button>
+            <button class="pagination-btn active">1</button>
+            <button class="pagination-btn">2</button>
+            <button class="pagination-btn">3</button>
+            <button class="pagination-btn">4</button>
+            <button class="pagination-btn">5</button>
+            <button class="pagination-btn">...</button>
+            <button class="pagination-btn">25</button>
+            <button class="pagination-btn">→</button>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="footer">
+            <p>© 2024 Culture Radar - Maquette de la liste des événements théâtre</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maquette - Page Contact | Culture Radar</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .mockup-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 50px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .annotation {
+            position: absolute;
+            background: #FF9800;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+            color: white;
+        }
+        
+        .nav-menu li {
+            padding: 8px 15px;
+            cursor: pointer;
+        }
+        
+        .nav-menu li.active {
+            background: rgba(255,255,255,0.2);
+            border-radius: 20px;
+        }
+        
+        /* Hero Section */
+        .contact-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 80px 30px;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        
+        .hero-title {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .hero-subtitle {
+            font-size: 20px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Contact Content */
+        .contact-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            padding: 60px 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        /* Contact Form */
+        .contact-form-section {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+        
+        .form-title {
+            font-size: 28px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .form-subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+        
+        .form-label {
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .required {
+            color: #FF5722;
+        }
+        
+        .form-control {
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .form-select {
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            background: white;
+            cursor: pointer;
+        }
+        
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+            font-family: inherit;
+        }
+        
+        .char-counter {
+            text-align: right;
+            color: #999;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .checkbox-group input {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        
+        .checkbox-group label {
+            color: #666;
+            cursor: pointer;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+        
+        /* Contact Info Sidebar */
+        .contact-info {
+            space-y: 30px;
+        }
+        
+        .info-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            margin-bottom: 25px;
+        }
+        
+        .info-card-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: start;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        
+        .contact-details {
+            flex: 1;
+        }
+        
+        .contact-label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .contact-value {
+            color: #666;
+            line-height: 1.5;
+        }
+        
+        .contact-value a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        .contact-value a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Social Links */
+        .social-links {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+        
+        .social-link {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 20px;
+        }
+        
+        .social-link:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        /* Map Section */
+        .map-section {
+            background: #f8f9fa;
+            padding: 60px 30px;
+            position: relative;
+        }
+        
+        .map-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .map-title {
+            font-size: 32px;
+            text-align: center;
+            margin-bottom: 40px;
+            color: #333;
+        }
+        
+        .map-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+        
+        .map {
+            height: 400px;
+            background: #e0e0e0;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            color: #999;
+        }
+        
+        .office-info {
+            space-y: 20px;
+        }
+        
+        .office-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+        }
+        
+        .office-name {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .office-details {
+            color: #666;
+            line-height: 1.8;
+        }
+        
+        /* FAQ Section */
+        .faq-section {
+            padding: 60px 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .faq-title {
+            font-size: 32px;
+            text-align: center;
+            margin-bottom: 40px;
+            color: #333;
+        }
+        
+        .faq-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+        
+        .faq-item {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+        }
+        
+        .faq-question {
+            padding: 20px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            font-weight: 600;
+            color: #333;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .faq-arrow {
+            transition: transform 0.3s;
+        }
+        
+        .faq-item.active .faq-arrow {
+            transform: rotate(180deg);
+        }
+        
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s;
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .faq-item.active .faq-answer {
+            padding: 20px;
+            max-height: 200px;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 60px 30px;
+            text-align: center;
+            color: white;
+        }
+        
+        .cta-title {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        .cta-subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+        
+        .cta-btn {
+            padding: 15px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .cta-btn-primary {
+            background: white;
+            color: #667eea;
+        }
+        
+        .cta-btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        /* Response Time */
+        .response-time {
+            background: #E8F5E9;
+            border-left: 4px solid #4CAF50;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            color: #2E7D32;
+        }
+        
+        .response-time-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="mockup-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <span>📍</span>
+                <span>Culture Radar</span>
+            </div>
+            
+            <nav class="nav-menu">
+                <li>Accueil</li>
+                <li>Découvrir</li>
+                <li>Catégories</li>
+                <li>À propos</li>
+                <li class="active">Contact</li>
+            </nav>
+        </header>
+        
+        <!-- Hero Section -->
+        <section class="contact-hero">
+            <div class="annotation" style="top: 20px; left: 50%; transform: translateX(-50%);">Hero minimaliste</div>
+            <h1 class="hero-title">Contactez-nous</h1>
+            <p class="hero-subtitle">
+                Une question ? Une suggestion ? Un partenariat ? 
+                Notre équipe est à votre écoute pour vous accompagner dans votre découverte culturelle.
+            </p>
+        </section>
+        
+        <!-- Contact Content -->
+        <div class="contact-content">
+            <!-- Contact Form -->
+            <div class="contact-form-section">
+                <div class="annotation" style="top: -30px; left: 0;">Formulaire principal</div>
+                
+                <h2 class="form-title">Envoyez-nous un message</h2>
+                <p class="form-subtitle">Nous vous répondrons dans les 24 heures</p>
+                
+                <form>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">
+                                Prénom <span class="required">*</span>
+                            </label>
+                            <input type="text" class="form-control" placeholder="Jean">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">
+                                Nom <span class="required">*</span>
+                            </label>
+                            <input type="text" class="form-control" placeholder="Dupont">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">
+                                Email <span class="required">*</span>
+                            </label>
+                            <input type="email" class="form-control" placeholder="jean.dupont@email.fr">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">
+                                Téléphone
+                            </label>
+                            <input type="tel" class="form-control" placeholder="+33 6 12 34 56 78">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label class="form-label">
+                            Catégorie <span class="required">*</span>
+                        </label>
+                        <select class="form-select">
+                            <option>Choisir une catégorie...</option>
+                            <option>Question générale</option>
+                            <option>Support technique</option>
+                            <option>Signaler un bug</option>
+                            <option>Suggestion de fonctionnalité</option>
+                            <option>Partenariat</option>
+                            <option>Presse</option>
+                            <option>Autre</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label class="form-label">
+                            Sujet <span class="required">*</span>
+                        </label>
+                        <input type="text" class="form-control" placeholder="Objet de votre message">
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label class="form-label">
+                            Message <span class="required">*</span>
+                        </label>
+                        <textarea class="form-control" placeholder="Décrivez votre demande en détail..."></textarea>
+                        <div class="char-counter">0 / 500 caractères</div>
+                    </div>
+                    
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="newsletter">
+                        <label for="newsletter">
+                            Je souhaite recevoir les actualités Culture Radar par email
+                        </label>
+                    </div>
+                    
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="terms" checked>
+                        <label for="terms">
+                            J'accepte les conditions d'utilisation et la politique de confidentialité <span class="required">*</span>
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">
+                        <span>📤</span>
+                        <span>Envoyer le message</span>
+                    </button>
+                </form>
+                
+                <div class="response-time">
+                    <div class="response-time-title">⏱️ Temps de réponse moyen</div>
+                    <div>Notre équipe répond généralement sous 24 heures ouvrées</div>
+                </div>
+            </div>
+            
+            <!-- Contact Info Sidebar -->
+            <div class="contact-info">
+                <div class="annotation" style="top: -30px; right: 0;">Informations de contact</div>
+                
+                <div class="info-card">
+                    <h3 class="info-card-title">
+                        <span>📞</span>
+                        Nous contacter
+                    </h3>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <div class="contact-details">
+                            <div class="contact-label">Email</div>
+                            <div class="contact-value">
+                                <a href="mailto:contact@culture-radar.fr">contact@culture-radar.fr</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">📱</div>
+                        <div class="contact-details">
+                            <div class="contact-label">Téléphone</div>
+                            <div class="contact-value">+33 1 23 45 67 89</div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">💬</div>
+                        <div class="contact-details">
+                            <div class="contact-label">Chat en ligne</div>
+                            <div class="contact-value">Lun-Ven: 9h-18h</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <h3 class="info-card-title">
+                        <span>🌐</span>
+                        Suivez-nous
+                    </h3>
+                    
+                    <div class="social-links">
+                        <a href="#" class="social-link">f</a>
+                        <a href="#" class="social-link">𝕏</a>
+                        <a href="#" class="social-link">in</a>
+                        <a href="#" class="social-link">📷</a>
+                        <a href="#" class="social-link">▶️</a>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <h3 class="info-card-title">
+                        <span>🏢</span>
+                        Siège social
+                    </h3>
+                    
+                    <div class="contact-details">
+                        <div class="contact-value">
+                            Culture Radar<br>
+                            Université Paris-Saclay<br>
+                            Bâtiment 660<br>
+                            91190 Gif-sur-Yvette<br>
+                            France
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Map Section -->
+        <div class="map-section">
+            <div class="annotation" style="top: 20px; left: 50%; transform: translateX(-50%);">Section localisation</div>
+            
+            <div class="map-container">
+                <h2 class="map-title">Où nous trouver</h2>
+                
+                <div class="map-wrapper">
+                    <div class="map">🗺️</div>
+                    
+                    <div class="office-info">
+                        <div class="office-card">
+                            <h3 class="office-name">📍 Bureau principal - Paris</h3>
+                            <div class="office-details">
+                                <strong>Adresse:</strong> 123 Avenue des Champs-Élysées, 75008 Paris<br>
+                                <strong>Horaires:</strong> Lun-Ven 9h00-18h00<br>
+                                <strong>Métro:</strong> Charles de Gaulle - Étoile (L1, L2, L6)<br>
+                                <strong>Parking:</strong> Disponible sur place
+                            </div>
+                        </div>
+                        
+                        <div class="office-card">
+                            <h3 class="office-name">🎓 Campus universitaire</h3>
+                            <div class="office-details">
+                                <strong>Adresse:</strong> Université Paris-Saclay, 91190 Gif-sur-Yvette<br>
+                                <strong>Projet étudiant</strong> - Démonstration uniquement<br>
+                                <strong>Email:</strong> projet@culture-radar.fr
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- FAQ Section -->
+        <div class="faq-section">
+            <div class="annotation" style="top: 20px; left: 50%; transform: translateX(-50%);">FAQ rapide</div>
+            
+            <h2 class="faq-title">Questions fréquentes</h2>
+            
+            <div class="faq-grid">
+                <div class="faq-item active">
+                    <div class="faq-question">
+                        Comment fonctionne Culture Radar ?
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Culture Radar utilise l'intelligence artificielle pour analyser vos préférences et vous recommander des événements culturels personnalisés dans votre ville.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        L'application est-elle gratuite ?
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Oui, Culture Radar est entièrement gratuit. Il s'agit d'un projet universitaire de démonstration.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Comment proposer un événement ?
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Utilisez le formulaire de contact en sélectionnant "Partenariat" et décrivez votre événement.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Mes données sont-elles sécurisées ?
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Absolument. Nous respectons le RGPD et ne partageons jamais vos données personnelles.
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- CTA Section -->
+        <div class="cta-section">
+            <div class="annotation" style="top: 20px; left: 50%; transform: translateX(-50%); background: white; color: #333;">Call-to-action final</div>
+            
+            <h2 class="cta-title">Prêt à découvrir la culture autrement ?</h2>
+            <p class="cta-subtitle">Rejoignez des milliers d'utilisateurs qui explorent déjà avec Culture Radar</p>
+            
+            <div class="cta-buttons">
+                <a href="#" class="cta-btn cta-btn-primary">Commencer gratuitement</a>
+                <a href="#" class="cta-btn cta-btn-secondary">En savoir plus</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

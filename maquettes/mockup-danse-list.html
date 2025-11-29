@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danse & Spectacles chorégraphiques - Culture Radar</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .mockup-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 50px rgba(0,0,0,0.1);
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+        
+        .nav-menu li {
+            color: white;
+            padding: 8px 15px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            cursor: pointer;
+        }
+        
+        .nav-menu li.active {
+            background: rgba(255,255,255,0.3);
+        }
+        
+        /* Breadcrumb */
+        .breadcrumb {
+            padding: 20px 30px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .breadcrumb-items {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #666;
+        }
+        
+        .breadcrumb-items a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        .breadcrumb-items a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Category Header */
+        .category-header {
+            background: linear-gradient(135deg, #ff6ec7 0%, #ff9472 100%);
+            padding: 60px 30px;
+            color: white;
+            text-align: center;
+        }
+        
+        .category-icon-large {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+        
+        .category-title {
+            font-size: 42px;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .category-description {
+            font-size: 18px;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        /* Filters Bar */
+        .filters-bar {
+            padding: 20px 30px;
+            background: white;
+            border-bottom: 2px solid #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .filter-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .filter-label {
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .filter-select {
+            padding: 8px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: white;
+            cursor: pointer;
+        }
+        
+        .filter-chips {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .chip {
+            padding: 8px 15px;
+            background: #ffe0f0;
+            color: #ff6ec7;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+        
+        .chip:hover {
+            border-color: #ff6ec7;
+        }
+        
+        .chip.active {
+            background: #ff6ec7;
+            color: white;
+        }
+        
+        /* Results Info */
+        .results-info {
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .results-count {
+            font-size: 18px;
+            color: #333;
+        }
+        
+        .results-count strong {
+            color: #ff6ec7;
+        }
+        
+        .view-options {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .view-btn {
+            padding: 8px;
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .view-btn.active {
+            background: #ff6ec7;
+            color: white;
+            border-color: #ff6ec7;
+        }
+        
+        /* Events List */
+        .events-list {
+            padding: 0 30px 40px;
+        }
+        
+        .event-item {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .event-item:hover {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+        
+        .event-image {
+            width: 200px;
+            height: 150px;
+            background: linear-gradient(135deg, #ff6ec7 0%, #ff9472 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: white;
+            flex-shrink: 0;
+        }
+        
+        .event-details {
+            flex: 1;
+        }
+        
+        .event-badge {
+            display: inline-block;
+            background: #ffe0f0;
+            color: #ff6ec7;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+        
+        .event-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .event-subtitle {
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .event-info {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+        
+        .event-info-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .event-description {
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        
+        .event-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .event-price {
+            font-size: 20px;
+            font-weight: 600;
+            color: #ff6ec7;
+        }
+        
+        .event-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn-action {
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .btn-action:hover {
+            background: #f5f5f5;
+        }
+        
+        .btn-reserve {
+            background: #ff6ec7;
+            color: white;
+            border-color: #ff6ec7;
+        }
+        
+        .btn-reserve:hover {
+            background: #ff4eb0;
+        }
+        
+        /* Pagination */
+        .pagination {
+            padding: 40px 30px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .pagination-btn {
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 5px;
+            cursor: pointer;
+            min-width: 40px;
+            text-align: center;
+        }
+        
+        .pagination-btn:hover {
+            background: #f5f5f5;
+        }
+        
+        .pagination-btn.active {
+            background: #ff6ec7;
+            color: white;
+            border-color: #ff6ec7;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #1F2937;
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="mockup-container">
+        <!-- Header -->
+        <header class="header">
+            <a href="mockup-homepage.html" class="logo">
+                <div class="logo-icon">📍</div>
+                <span>Culture Radar</span>
+            </a>
+            <nav>
+                <ul class="nav-menu">
+                    <li>Découvrir</li>
+                    <li class="active">Catégories</li>
+                    <li>Événements</li>
+                    <li>À propos</li>
+                    <li>Contact</li>
+                </ul>
+            </nav>
+        </header>
+        
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <div class="breadcrumb-items">
+                <a href="mockup-homepage.html">Accueil</a>
+                <span>›</span>
+                <a href="#">Catégories</a>
+                <span>›</span>
+                <span>Danse & Spectacles chorégraphiques</span>
+            </div>
+        </div>
+        
+        <!-- Category Header -->
+        <div class="category-header">
+            <div class="category-icon-large">💃</div>
+            <h1 class="category-title">Danse & Spectacles chorégraphiques</h1>
+            <p class="category-description">
+                Ballet classique, danse contemporaine, hip-hop, flamenco, tango et performances chorégraphiques
+            </p>
+        </div>
+        
+        <!-- Filters Bar -->
+        <div class="filters-bar">
+            <div class="filter-group">
+                <span class="filter-label">Style:</span>
+                <select class="filter-select">
+                    <option>Tous les styles</option>
+                    <option>Ballet classique</option>
+                    <option>Contemporain</option>
+                    <option>Hip-hop</option>
+                    <option>Flamenco</option>
+                    <option>Tango</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <span class="filter-label">Lieu:</span>
+                <select class="filter-select">
+                    <option>Toutes les salles</option>
+                    <option>Opéra de Paris</option>
+                    <option>Théâtre de la Ville</option>
+                    <option>Chaillot</option>
+                    <option>La Villette</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <span class="filter-label">Prix:</span>
+                <select class="filter-select">
+                    <option>Tous les prix</option>
+                    <option>Moins de 20€</option>
+                    <option>20€ - 40€</option>
+                    <option>40€ - 60€</option>
+                    <option>Plus de 60€</option>
+                </select>
+            </div>
+            
+            <div class="filter-chips">
+                <div class="chip active">Tous</div>
+                <div class="chip">Classique</div>
+                <div class="chip">Moderne</div>
+                <div class="chip">Urbain</div>
+                <div class="chip">Monde</div>
+            </div>
+        </div>
+        
+        <!-- Results Info -->
+        <div class="results-info">
+            <div class="results-count">
+                <strong>45 spectacles</strong> de danse
+            </div>
+            <div class="view-options">
+                <button class="view-btn active">☰</button>
+                <button class="view-btn">⊞</button>
+            </div>
+        </div>
+        
+        <!-- Events List -->
+        <div class="events-list">
+            <!-- Event 1 -->
+            <a href="mockup-event-detail.html" class="event-item">
+                <div class="event-image">🩰</div>
+                <div class="event-details">
+                    <span class="event-badge">Ballet classique</span>
+                    <h2 class="event-title">Le Lac des Cygnes</h2>
+                    <div class="event-subtitle">Ballet de l'Opéra de Paris - Tchaïkovski</div>
+                    <div class="event-info">
+                        <span class="event-info-item">📍 Opéra Bastille</span>
+                        <span class="event-info-item">📅 Du 15 au 30 mars</span>
+                        <span class="event-info-item">⏰ 19h30</span>
+                        <span class="event-info-item">⏱️ 2h45 avec entracte</span>
+                    </div>
+                    <p class="event-description">
+                        Le chef-d'œuvre intemporel de Tchaïkovski dans une production somptueuse. Les étoiles de l'Opéra de Paris donnent vie à cette histoire d'amour tragique...
+                    </p>
+                    <div class="event-footer">
+                        <span class="event-price">35€ - 150€</span>
+                        <div class="event-actions">
+                            <button class="btn-action">❤️ Favoris</button>
+                            <button class="btn-action btn-reserve">Réserver</button>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            
+            <!-- Event 2 -->
+            <a href="mockup-event-detail.html" class="event-item">
+                <div class="event-image">🕺</div>
+                <div class="event-details">
+                    <span class="event-badge" style="background: #e8f5e9; color: #4caf50;">Contemporain</span>
+                    <h2 class="event-title">Pina Bausch - Café Müller</h2>
+                    <div class="event-subtitle">Tanztheater Wuppertal</div>
+                    <div class="event-info">
+                        <span class="event-info-item">📍 Théâtre de la Ville</span>
+                        <span class="event-info-item">📅 Les 2, 3 et 4 avril</span>
+                        <span class="event-info-item">⏰ 20h30</span>
+                        <span class="event-info-item">⏱️ 1h20</span>
+                    </div>
+                    <p class="event-description">
+                        L'œuvre mythique de Pina Bausch, poème visuel sur la solitude et la quête de connexion humaine. Une chorégraphie bouleversante d'intensité émotionnelle...
+                    </p>
+                    <div class="event-footer">
+                        <span class="event-price">28€ - 45€</span>
+                        <div class="event-actions">
+                            <button class="btn-action">❤️ Favoris</button>
+                            <button class="btn-action btn-reserve">Réserver</button>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            
+            <!-- Event 3 -->
+            <a href="mockup-event-detail.html" class="event-item">
+                <div class="event-image">🎭</div>
+                <div class="event-details">
+                    <h2 class="event-title">Battle Hip-Hop International</h2>
+                    <div class="event-subtitle">Compétition mondiale de breakdance</div>
+                    <div class="event-info">
+                        <span class="event-info-item">📍 La Villette</span>
+                        <span class="event-info-item">📅 Samedi 6 avril</span>
+                        <span class="event-info-item">⏰ 14h - 23h</span>
+                        <span class="event-info-item">🏆 Compétition</span>
+                    </div>
+                    <p class="event-description">
+                        Les meilleurs crews du monde s'affrontent. DJ sets, battles spectaculaires et performances freestyle. Une journée complète dédiée à la culture hip-hop...
+                    </p>
+                    <div class="event-footer">
+                        <span class="event-price">25€ (Pass journée)</span>
+                        <div class="event-actions">
+                            <button class="btn-action">❤️ Favoris</button>
+                            <button class="btn-action btn-reserve">Billets</button>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            
+            <!-- Event 4 -->
+            <a href="mockup-event-detail.html" class="event-item">
+                <div class="event-image">💃</div>
+                <div class="event-details">
+                    <span class="event-badge" style="background: #fff3e0; color: #ff9800;">Flamenco</span>
+                    <h2 class="event-title">Sara Baras - Alma</h2>
+                    <div class="event-subtitle">Nouveau spectacle de flamenco contemporain</div>
+                    <div class="event-info">
+                        <span class="event-info-item">📍 Théâtre des Champs-Élysées</span>
+                        <span class="event-info-item">📅 Les 10 et 11 avril</span>
+                        <span class="event-info-item">⏰ 20h00</span>
+                        <span class="event-info-item">🇪🇸 Flamenco</span>
+                    </div>
+                    <p class="event-description">
+                        La reine du flamenco présente sa nouvelle création. Une fusion explosive de tradition et modernité avec musiciens live et projections visuelles...
+                    </p>
+                    <div class="event-footer">
+                        <span class="event-price">35€ - 75€</span>
+                        <div class="event-actions">
+                            <button class="btn-action">❤️ Favoris</button>
+                            <button class="btn-action btn-reserve">Réserver</button>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            
+            <!-- Event 5 -->
+            <a href="mockup-event-detail.html" class="event-item">
+                <div class="event-image">🌹</div>
+                <div class="event-details">
+                    <h2 class="event-title">Tango Pasión</h2>
+                    <div class="event-subtitle">Direct de Buenos Aires - Orchestra live</div>
+                    <div class="event-info">
+                        <span class="event-info-item">📍 Casino de Paris</span>
+                        <span class="event-info-item">📅 Du 15 au 20 avril</span>
+                        <span class="event-info-item">⏰ 21h00</span>
+                        <span class="event-info-item">🇦🇷 Tango argentin</span>
+                    </div>
+                    <p class="event-description">
+                        Les meilleurs danseurs de tango d'Argentine dans un spectacle sensuel et passionné. Orchestre de 8 musiciens, chanteurs et 16 danseurs sur scène...
+                    </p>
+                    <div class="event-footer">
+                        <span class="event-price">42€ - 68€</span>
+                        <div class="event-actions">
+                            <button class="btn-action">❤️ Favoris</button>
+                            <button class="btn-action btn-reserve">Réserver</button>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        
+        <!-- Pagination -->
+        <div class="pagination">
+            <button class="pagination-btn">←</button>
+            <button class="pagination-btn active">1</button>
+            <button class="pagination-btn">2</button>
+            <button class="pagination-btn">3</button>
+            <button class="pagination-btn">4</button>
+            <button class="pagination-btn">5</button>
+            <button class="pagination-btn">...</button>
+            <button class="pagination-btn">9</button>
+            <button class="pagination-btn">→</button>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="footer">
+            <p>© 2024 Culture Radar - Maquette de la liste danse et spectacles chorégraphiques</p>
+        </footer>
+    </div>
+</body>
+</html>
