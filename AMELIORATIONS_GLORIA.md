@@ -1,4 +1,4 @@
-# 📋 Améliorations Site CultureRadar - Rattrapage Gloria
+# Améliorations Site CultureRadar - Rattrapage Gloria
 
 ## Document de conformité SEO, Accessibilité et Légalité
 
@@ -8,13 +8,13 @@
 
 ---
 
-## 🎯 Objectif
+## Objectif
 
 Ce document liste les améliorations apportées au site CultureRadar suite à l'audit de conformité (DOC3) réalisé dans le cadre du rattrapage BC02.
 
 ---
 
-## ✅ Améliorations SEO
+## Améliorations SEO
 
 ### 1. Ajout de la balise Canonical URL
 **Fichier:** `index.php` (ligne ~167)
@@ -54,7 +54,7 @@ Ajout de:
 
 ---
 
-## ♿ Améliorations Accessibilité (WCAG 2.1 AA)
+## Améliorations Accessibilité (WCAG 2.1 AA)
 
 ### 1. Focus visible amélioré
 **Fichier:** `assets/css/accessibility.css`
@@ -118,14 +118,14 @@ Le bandeau propose:
 
 ---
 
-## 🔧 Fichiers modifiés
+## Fichiers modifiés
 
 1. `index.php` - Ajout canonical, Twitter Cards, Open Graph amélioré
 2. `assets/css/accessibility.css` - Focus visible amélioré
 
 ---
 
-## 📝 Cohérence avec les livrables
+## Cohérence avec les livrables
 
 Ce travail s'inscrit dans la continuité des documents produits:
 
@@ -136,7 +136,7 @@ Ce travail s'inscrit dans la continuité des documents produits:
 
 ---
 
-## 🔗 Ressources utilisées
+## Ressources utilisées
 
 - WCAG 2.1 Guidelines: https://www.w3.org/WAI/WCAG21/quickref/
 - Google SEO Starter Guide
@@ -145,4 +145,3 @@ Ce travail s'inscrit dans la continuité des documents produits:
 
 ---
 
-*Document généré pour le rattrapage BC02 - CultureRadar*
