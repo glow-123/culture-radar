@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nous contacter — Culture Radar</title>
+  <meta name="description" content="Contactez l'equipe Culture Radar pour toute question, partenariat ou signalement. Nous repondons sous 48 heures ouvrables.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@CultureRadar">
+  <meta name="twitter:title" content="Nous contacter — Culture Radar">
+  <meta name="twitter:description" content="Contactez l'equipe Culture Radar. Reponse garantie sous 48h.">
+  <meta name="twitter:image" content="https://cultureradar.netlify.app/og-image.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="accessibility.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
+  <header class="site-header" role="banner">
+    <a href="index.html" class="logo" aria-label="Culture Radar - Accueil">
+      <span class="logo-emoji" aria-hidden="true">🎭</span>
+      Culture Radar
+    </a>
+    <nav class="header-nav" role="navigation" aria-label="Navigation principale">
+      <a href="evenements.html" class="nav-link">Evenements</a>
+      <a href="evenements.html#categories" class="nav-link">Categories</a>
+      <a href="organisateurs.html" class="nav-link">Organisateurs</a>
+      <a href="pourquoi.html" class="nav-link">Pourquoi Culture Radar</a>
+    </nav>
+    <a href="search.html" class="search-icon-btn" aria-label="Rechercher un evenement" title="Rechercher">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </a>
+    <div class="header-actions">
+      <a href="connexion.html" class="btn-link">Connexion</a>
+      <a href="inscription.html" class="btn-primary">Commencer</a>
+    </div>
+  </header>
+
+  <nav class="breadcrumb" aria-label="Fil d'Ariane">
+    <a href="index.html">Accueil</a>
+    <span aria-hidden="true">›</span>
+    <span aria-current="page">Contact</span>
+  </nav>
+
+  <main id="main-content">
+
+    <div class="page-hero" style="padding:50px 5% 40px">
+      <h1 style="font-size:36px;margin-bottom:10px">Nous contacter</h1>
+      <p style="color:rgba(255,255,255,0.65);font-size:15px">Une question, une suggestion, un partenariat ? Notre equipe vous repond sous 48h.</p>
+    </div>
+
+    <section class="section">
+      <div style="display:grid;grid-template-columns:1fr 380px;gap:50px;align-items:start">
+
+        <!-- FORMULAIRE -->
+        <div>
+          <h2 style="font-size:24px;margin-bottom:6px">Envoyer un message</h2>
+          <p style="font-size:14px;color:var(--text-muted);margin-bottom:28px">Tous les champs marques d'un asterisque sont obligatoires.</p>
+
+          <form id="contactForm" novalidate>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+              <div class="form-group" style="margin-bottom:0">
+                <label for="c-prenom" class="form-label">Prenom *</label>
+                <input type="text" id="c-prenom" name="prenom" class="form-input" placeholder="Votre prenom" required autocomplete="given-name">
+              </div>
+              <div class="form-group" style="margin-bottom:0">
+                <label for="c-nom" class="form-label">Nom *</label>
+                <input type="text" id="c-nom" name="nom" class="form-input" placeholder="Votre nom" required autocomplete="family-name">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="c-email" class="form-label">Adresse email *</label>
+              <input type="email" id="c-email" name="email" class="form-input" placeholder="votre@email.fr" required autocomplete="email">
+            </div>
+
+            <div class="form-group">
+              <label for="c-sujet" class="form-label">Sujet *</label>
+              <select id="c-sujet" name="sujet" class="form-select" required>
+                <option value="" disabled selected>Selectionnez un sujet</option>
+                <option value="question">Question generale</option>
+                <option value="partenariat">Partenariat organisateur</option>
+                <option value="signalement">Signaler un probleme</option>
+                <option value="presse">Demande presse</option>
+                <option value="rgpd">Donnees personnelles (RGPD)</option>
+                <option value="autre">Autre</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="c-message" class="form-label">Votre message *</label>
+              <textarea id="c-message" name="message" class="form-input form-textarea" placeholder="Decrivez votre demande en quelques lignes..." required style="min-height:130px;resize:vertical"></textarea>
+            </div>
+
+            <div class="form-group">
+              <div class="form-checkbox-group">
+                <input type="checkbox" id="c-rgpd" class="form-checkbox" required>
+                <label for="c-rgpd" class="form-checkbox-label">
+                  J'accepte que mes donnees soient traitees pour repondre a ma demande, conformement a la <a href="confidentialite.html" style="color:var(--violet)">politique de confidentialite</a> *
+                </label>
+              </div>
+            </div>
+
+            <button type="submit" class="btn-violet" style="padding:13px 32px;font-size:15px" id="contactSubmit">
+              Envoyer le message
+            </button>
+
+            <div id="contactSuccess" style="display:none;background:#D5F5E3;border:1px solid #1A6E35;color:#1A6E35;padding:14px 18px;border-radius:8px;font-size:14px;font-weight:500;margin-top:16px" role="alert" aria-live="polite">
+              Votre message a bien ete envoye. Notre equipe vous repondra sous 48 heures ouvrables a l'adresse email indiquee.
+            </div>
+          </form>
+        </div>
+
+        <!-- INFOS CONTACT -->
+        <div>
+          <div style="background:var(--grey-bg);border:1px solid var(--card-border);border-radius:14px;padding:28px">
+            <h3 style="font-size:18px;margin-bottom:20px;font-family:'DM Sans',sans-serif;font-weight:700">Informations de contact</h3>
+
+            <div style="display:flex;flex-direction:column;gap:16px">
+              <div>
+                <div style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Agence</div>
+                <div style="font-size:14px;color:var(--text);font-weight:600">InnovaDigital Agency</div>
+                <div style="font-size:13px;color:var(--text-muted)">42 avenue du Web Ethique, 75010 Paris</div>
+              </div>
+
+              <div>
+                <div style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Email general</div>
+                <div style="font-size:14px;color:var(--violet);font-weight:600">contact@cultureradar.fr</div>
+              </div>
+
+              <div>
+                <div style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Partenariats</div>
+                <div style="font-size:14px;color:var(--violet);font-weight:600">partenaires@cultureradar.fr</div>
+              </div>
+
+              <div>
+                <div style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Donnees personnelles</div>
+                <div style="font-size:14px;color:var(--violet);font-weight:600">rgpd@cultureradar.fr</div>
+              </div>
+
+              <div>
+                <div style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Delai de reponse</div>
+                <div style="font-size:14px;color:var(--text)">48 heures ouvrables</div>
+              </div>
+            </div>
+
+            <div style="border-top:1px solid var(--card-border);margin-top:24px;padding-top:20px">
+              <p style="font-size:13px;color:var(--text-muted);line-height:1.6">
+                Pour les demandes urgentes liees a vos donnees personnelles (exercice de droits RGPD), vous pouvez contacter directement la CNIL via <strong>cnil.fr</strong>.
+              </p>
+            </div>
+          </div>
+
+          <!-- Lien partenaires -->
+          <div style="margin-top:16px;background:var(--dark);border-radius:14px;padding:24px">
+            <h3 style="font-size:16px;color:var(--white);margin-bottom:8px;font-family:'DM Sans',sans-serif;font-weight:700">Vous etes organisateur ?</h3>
+            <p style="font-size:13px;color:rgba(255,255,255,0.6);margin-bottom:16px;line-height:1.6">Consultez notre espace dedie avec les tarifs, avantages et le formulaire d'inscription partenaire.</p>
+            <a href="organisateurs.html" class="btn-outline-light" style="font-size:13px;padding:8px 18px;display:inline-block">Voir l'espace organisateurs</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo" style="font-size:17px"><span class="logo-emoji" aria-hidden="true">🎭</span> Culture Radar</div>
+        <p>La revolution de la decouverte culturelle. Votre boussole intelligente vers l'art, la culture et l'emerveillement.</p>
+        <a href="pourquoi.html" class="footer-link" style="margin-top:12px;display:inline-block;color:rgba(255,255,255,0.7);font-weight:500">Pourquoi Culture Radar ?</a>
+      </div>
+      <div>
+        <div class="footer-col-title">Decouvrir</div>
+        <a href="evenements.html" class="footer-link">Tous les evenements</a>
+        <a href="evenements.html?filtre=gratuit" class="footer-link">Evenements gratuits</a>
+        <a href="search.html" class="footer-link">Recherche</a>
+      </div>
+      <div>
+        <div class="footer-col-title">Organisateurs</div>
+        <a href="organisateurs.html" class="footer-link">Devenir partenaire</a>
+        <a href="contact.html" class="footer-link">Nous contacter</a>
+      </div>
+      <div>
+        <div class="footer-col-title">Legal</div>
+        <a href="mentions-legales.html" class="footer-link">Mentions legales</a>
+        <a href="confidentialite.html" class="footer-link">Confidentialite</a>
+        <a href="cgu.html" class="footer-link">CGU</a>
+        <a href="cookies.html" class="footer-link">Gestion des cookies</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Culture Radar — InnovaDigital Agency</span>
+      <span>Projet RNCP 38018 — Gloria AMINI</span>
+    </div>
+  </footer>
+
+  <!-- BANDEAU COOKIES RGPD -->
+  <div id="cookieBanner" role="dialog" aria-live="polite" aria-label="Gestion des cookies" style="position:fixed;bottom:0;left:0;right:0;z-index:9998;background:var(--dark);border-top:2px solid rgba(255,255,255,0.1);padding:16px 5%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;font-family:'DM Sans',sans-serif;">
+    <p style="color:rgba(255,255,255,0.8);font-size:13px;margin:0;max-width:600px;line-height:1.6">Nous utilisons des cookies pour personnaliser vos recommandations culturelles et mesurer l'audience. <a href="cookies.html" style="color:var(--gold);text-decoration:underline">Personnaliser</a></p>
+    <div style="display:flex;gap:10px;flex-shrink:0">
+      <button onclick="refuserCookies()" style="border:1px solid rgba(255,255,255,0.3);background:transparent;color:white;padding:8px 18px;border-radius:7px;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;">Refuser</button>
+      <button onclick="accepterCookies()" style="background:var(--gold);color:var(--dark);border:none;padding:8px 18px;border-radius:7px;font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;">Accepter tout</button>
+    </div>
+  </div>
+  <script>(function(){if(localStorage.getItem('cookieConsent'))document.getElementById('cookieBanner').style.display='none';})();function accepterCookies(){localStorage.setItem('cookieConsent','accepted');document.getElementById('cookieBanner').style.display='none';}function refuserCookies(){localStorage.setItem('cookieConsent','refused');document.getElementById('cookieBanner').style.display='none';}</script>
+
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const prenom = document.getElementById('c-prenom').value.trim();
+      const nom = document.getElementById('c-nom').value.trim();
+      const email = document.getElementById('c-email').value.trim();
+      const sujet = document.getElementById('c-sujet').value;
+      const message = document.getElementById('c-message').value.trim();
+      const rgpd = document.getElementById('c-rgpd').checked;
+      if (!prenom || !nom || !email || !sujet || !message || !rgpd) {
+        alert('Veuillez remplir tous les champs obligatoires et accepter la politique de confidentialite.');
+        return;
+      }
+      const btn = document.getElementById('contactSubmit');
+      btn.textContent = 'Message envoye';
+      btn.disabled = true;
+      btn.style.opacity = '0.7';
+      document.getElementById('contactSuccess').style.display = 'block';
+      document.getElementById('contactSuccess').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+  </script>
+  <script src="accessibility.js"></script>
+</body>
+</html>

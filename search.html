@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recherche d'evenements — Culture Radar</title>
+  <meta name="description" content="Recherchez parmi tous les evenements culturels disponibles sur Culture Radar : concerts, expositions, theatre, cinema, ateliers et plus.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@CultureRadar">
+  <meta name="twitter:title" content="Recherche d'evenements — Culture Radar">
+  <meta name="twitter:description" content="Recherchez parmi tous les evenements culturels disponibles sur Culture Radar.">
+  <meta name="twitter:image" content="https://cultureradar.netlify.app/og-image.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="accessibility.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
+  <header class="site-header" role="banner">
+    <a href="index.html" class="logo" aria-label="Culture Radar - Accueil">
+      <span class="logo-emoji" aria-hidden="true">🎭</span>
+      Culture Radar
+    </a>
+    <nav class="header-nav" role="navigation" aria-label="Navigation principale">
+      <a href="evenements.html" class="nav-link">Evenements</a>
+      <a href="evenements.html#categories" class="nav-link">Categories</a>
+      <a href="organisateurs.html" class="nav-link">Organisateurs</a>
+      <a href="pourquoi.html" class="nav-link">Pourquoi Culture Radar</a>
+    </nav>
+    <a href="search.html" class="search-icon-btn" aria-label="Rechercher un evenement" title="Rechercher">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </a>
+    <div class="header-actions">
+      <a href="connexion.html" class="btn-link">Connexion</a>
+      <a href="inscription.html" class="btn-primary">Commencer</a>
+    </div>
+  </header>
+
+  <nav class="breadcrumb" aria-label="Fil d'Ariane">
+    <a href="index.html">Accueil</a>
+    <span aria-hidden="true">›</span>
+    <span aria-current="page">Recherche</span>
+  </nav>
+
+  <main id="main-content">
+
+    <div class="page-hero" style="padding:40px 5% 30px">
+      <h1 style="font-size:32px;margin-bottom:10px">Rechercher un evenement</h1>
+      <p style="color:rgba(255,255,255,0.65);font-size:15px">Tapez un mot-cle : nom d'evenement, lieu, artiste, categorie...</p>
+    </div>
+
+    <!-- BARRE DE RECHERCHE -->
+    <div style="background:var(--grey-bg);border-bottom:1px solid var(--grey-light);padding:20px 5%">
+      <div style="display:flex;gap:10px;max-width:700px">
+        <label for="searchInput" class="sr-only">Rechercher un evenement</label>
+        <input
+          type="search"
+          id="searchInput"
+          class="form-input"
+          placeholder="Ex : jazz, Louvre, theatre, gratuit, Pantin..."
+          autocomplete="off"
+          style="flex:1;font-size:16px;padding:12px 16px"
+          aria-label="Rechercher parmi tous les evenements"
+          aria-controls="searchResults"
+          aria-describedby="searchHelp">
+        <button id="searchBtn" class="btn-primary" style="padding:12px 24px;font-size:15px;white-space:nowrap" aria-label="Lancer la recherche">
+          Rechercher
+        </button>
+      </div>
+      <p id="searchHelp" style="font-size:12px;color:var(--text-muted);margin-top:8px">La recherche porte sur les titres, lieux, categories et descriptions.</p>
+    </div>
+
+    <!-- SUGGESTIONS RAPIDES -->
+    <div style="padding:16px 5%;background:var(--white);border-bottom:1px solid var(--grey-light)" id="suggestions">
+      <p style="font-size:12px;color:var(--text-muted);margin-bottom:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px">Recherches populaires</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="filter-chip suggestion-chip" data-query="jazz">Jazz</button>
+        <button class="filter-chip suggestion-chip" data-query="gratuit">Gratuit</button>
+        <button class="filter-chip suggestion-chip" data-query="exposition">Exposition</button>
+        <button class="filter-chip suggestion-chip" data-query="famille">Famille</button>
+        <button class="filter-chip suggestion-chip" data-query="theatre">Theatre</button>
+        <button class="filter-chip suggestion-chip" data-query="weekend">Week-end</button>
+        <button class="filter-chip suggestion-chip" data-query="concert">Concert</button>
+        <button class="filter-chip suggestion-chip" data-query="ballet">Ballet</button>
+        <button class="filter-chip suggestion-chip" data-query="Paris">Paris</button>
+        <button class="filter-chip suggestion-chip" data-query="atelier">Atelier</button>
+      </div>
+    </div>
+
+    <!-- RESULTATS -->
+    <section class="section" aria-labelledby="resultsTitle">
+      <div class="section-header">
+        <h2 id="resultsTitle" class="section-title" id="resultsTitle">
+          <span id="resultsLabel">Tous les evenements</span>
+        </h2>
+        <span id="resultsCount" style="font-size:14px;color:var(--text-muted)">18 evenements</span>
+      </div>
+
+      <div class="events-grid" id="searchResults" aria-live="polite" aria-label="Resultats de recherche"></div>
+
+      <p id="noResults" style="display:none;text-align:center;padding:50px 20px;color:var(--text-muted);font-size:15px">
+        Aucun evenement ne correspond a votre recherche.<br>
+        <a href="evenements.html" style="color:var(--violet);font-weight:600;margin-top:12px;display:inline-block">Voir tous les evenements</a>
+      </p>
+    </section>
+
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo" style="font-size:17px"><span class="logo-emoji" aria-hidden="true">🎭</span> Culture Radar</div>
+        <p>La revolution de la decouverte culturelle. Votre boussole intelligente vers l'art, la culture et l'emerveillement.</p>
+        <a href="pourquoi.html" class="footer-link" style="margin-top:12px;display:inline-block;color:rgba(255,255,255,0.7);font-weight:500">Pourquoi Culture Radar ?</a>
+      </div>
+      <div>
+        <div class="footer-col-title">Decouvrir</div>
+        <a href="evenements.html" class="footer-link">Tous les evenements</a>
+        <a href="evenements.html?filtre=gratuit" class="footer-link">Evenements gratuits</a>
+        <a href="search.html" class="footer-link">Recherche</a>
+      </div>
+      <div>
+        <div class="footer-col-title">Organisateurs</div>
+        <a href="organisateurs.html" class="footer-link">Devenir partenaire</a>
+        <a href="contact.html" class="footer-link">Nous contacter</a>
+      </div>
+      <div>
+        <div class="footer-col-title">Legal</div>
+        <a href="mentions-legales.html" class="footer-link">Mentions legales</a>
+        <a href="confidentialite.html" class="footer-link">Confidentialite</a>
+        <a href="cgu.html" class="footer-link">CGU</a>
+        <a href="cookies.html" class="footer-link">Gestion des cookies</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Culture Radar — InnovaDigital Agency</span>
+      <span>Projet RNCP 38018 — Gloria AMINI</span>
+    </div>
+  </footer>
+
+  <!-- BANDEAU COOKIES RGPD -->
+  <div id="cookieBanner" role="dialog" aria-live="polite" aria-label="Gestion des cookies" style="position:fixed;bottom:0;left:0;right:0;z-index:9998;background:var(--dark);border-top:2px solid rgba(255,255,255,0.1);padding:16px 5%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;font-family:'DM Sans',sans-serif;">
+    <p style="color:rgba(255,255,255,0.8);font-size:13px;margin:0;max-width:600px;line-height:1.6">Nous utilisons des cookies pour personnaliser vos recommandations culturelles et mesurer l'audience. <a href="cookies.html" style="color:var(--gold);text-decoration:underline">Personnaliser</a></p>
+    <div style="display:flex;gap:10px;flex-shrink:0">
+      <button onclick="refuserCookies()" style="border:1px solid rgba(255,255,255,0.3);background:transparent;color:white;padding:8px 18px;border-radius:7px;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;">Refuser</button>
+      <button onclick="accepterCookies()" style="background:var(--gold);color:var(--dark);border:none;padding:8px 18px;border-radius:7px;font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;">Accepter tout</button>
+    </div>
+  </div>
+  <script>(function(){if(localStorage.getItem('cookieConsent'))document.getElementById('cookieBanner').style.display='none';})();function accepterCookies(){localStorage.setItem('cookieConsent','accepted');document.getElementById('cookieBanner').style.display='none';}function refuserCookies(){localStorage.setItem('cookieConsent','refused');document.getElementById('cookieBanner').style.display='none';}</script>
+
+<script>
+/* ── BASE DE DONNEES (identique a evenements.html) ── */
+const EVENTS = [
+  {id:'jazz-quartet',     titre:'Concert Jazz Quartet — Standards et Improvisations', lieu:'Le Sunset, Paris 1er',      dates:'Samedi 18 janvier',  heure:'20h00', prix:15,  cat:'musique',     tag:'MUSIQUE',    img:'card-img-music',    desc:'Jazz, standards, improvisation, club de jazz parisien'},
+  {id:'traviata',         titre:'Opera "La Traviata" — Verdi',                        lieu:'Opera de Paris, Paris 12e', dates:'Mardi 21 janvier',   heure:'19h30', prix:45,  cat:'opera',       tag:'OPERA',      img:'card-img-culture',  desc:'Opera lyrique Verdi Bastille'},
+  {id:'expo-lumiere',     titre:'Lumieres — Art Numerique au Centquatre',             lieu:'Centquatre, Paris 19e',     dates:'Du 15 au 28 janvier',heure:'',      prix:12,  cat:'expositions', tag:'EXPOSITION', img:'card-img-expo',     desc:'art numerique installation lumineuse immersif'},
+  {id:'ballet-lac',       titre:'Ballet "Le Lac des Cygnes" — Tchaïkovski',          lieu:'Theatre du Chatelet, Paris 1er',dates:'Vendredi 17 janvier',heure:'20h00',prix:35, cat:'danse',      tag:'DANSE',      img:'card-img-dance',    desc:'ballet classique danse Tchaïkovski Chatelet'},
+  {id:'marche-createurs', titre:'Marche des Createurs — Arts et Design',             lieu:'Canal Saint-Martin, Paris 10e',dates:'Samedi 18 janvier',heure:'10h00',prix:0,   cat:'ateliers',   tag:'ARTISANAT',  img:'card-img-atelier',  desc:'gratuit artisanat design bijoux ceramique weekend'},
+  {id:'theatre-masques',  titre:'La Nuit des Masques — Theatre contemporain',        lieu:'Theatre de la Ville, Paris 4e',dates:'Dimanche 19 janvier',heure:'16h00',prix:8,  cat:'theatre',    tag:'THEATRE',    img:'card-img-theater',  desc:'theatre contemporain comedie spectacle'},
+  {id:'ceramique',        titre:'Initiation Ceramique — Stage weekend',              lieu:'Atelier des Arts, Paris 20e',  dates:'Jeudi 16 janvier',  heure:'14h00',prix:15,  cat:'ateliers',   tag:'ATELIER',    img:'card-img-atelier',  desc:'ceramique poterie atelier initiation'},
+  {id:'cinema-auteur',    titre:'Retrospective Godard — A bout de souffle',          lieu:'MK2 Gambetta, Paris 20e',      dates:'Mercredi 22 janvier',heure:'20h30',prix:9,  cat:'cinema',     tag:'CINEMA',     img:'card-img-cinema',   desc:'cinema auteur Godard nouvelle vague MK2'},
+  {id:'musee-enfants',    titre:'Visite guidee famille — Musee d\'Orsay',            lieu:'Musee d\'Orsay, Paris 7e',     dates:'Samedi 18 janvier', heure:'11h00', prix:0,  cat:'patrimoine', tag:'FAMILLE',    img:'card-img-heritage', desc:'gratuit famille enfants musee orsay impressionnisme'},
+  {id:'friche-pantin',    titre:'Nuit Electro — Collective Pantin Sounds',           lieu:'La Grande Halle, Pantin (93)', dates:'Samedi 18 janvier', heure:'22h00', prix:10, cat:'musique',    tag:'MUSIQUE',    img:'card-img-music',    desc:'electro techno house Pantin banlieue'},
+  {id:'expo-photo',       titre:'Photographies du Monde — Collections 2025',         lieu:'MEP, Paris 4e',                dates:'Du 10 au 30 janvier',heure:'',      prix:12, cat:'expositions',tag:'EXPOSITION', img:'card-img-expo',     desc:'photographie reportage exposition photo'},
+  {id:'belleville-street',titre:'Street Art Belleville — Visite guidee',            lieu:'Quartier Belleville, Paris 20e',dates:'Dimanche 19 janvier',heure:'14h00',prix:0,  cat:'patrimoine', tag:'VISITE',    img:'card-img-heritage', desc:'gratuit street art urbain Belleville promenade'},
+  {id:'cirque-actuel',    titre:'Cirque Contemporain — Cie Les Lumieres',            lieu:'La Villette, Paris 19e',       dates:'Samedi 25 janvier', heure:'18h00', prix:18, cat:'cirque',     tag:'CIRQUE',     img:'card-img-atelier',  desc:'cirque contemporain acrobatie famille'},
+  {id:'salon-livre',      titre:'Salon du Livre — Rencontres d\'auteurs',            lieu:'Parc des Expositions, Villepinte',dates:'Dimanche 19 janvier',heure:'10h00',prix:5, cat:'litterature',tag:'LITTERATURE',img:'card-img-culture',desc:'livre auteur dediace salon litterature famille'},
+  {id:'festival-jazz',    titre:'Festival Jazz en Seine — 3 jours',                  lieu:'Seine Musicale, Boulogne (92)', dates:'Du 18 au 20 janvier',heure:'',      prix:25, cat:'festivals',  tag:'FESTIVAL',  img:'card-img-music',    desc:'festival jazz music seine boulogne'},
+  {id:'degustation-vin',  titre:'Grands Crus — Degustation guidee',                  lieu:'Pavillon de l\'Arsenal, Paris 4e',dates:'Samedi 18 janvier',heure:'15h00',prix:35, cat:'gastronomie',tag:'GASTRONOMIE',img:'card-img-culture', desc:'vin degustation gastronomie oenologie'},
+  {id:'atelier-dessin',   titre:'Atelier Dessin — Initiation pour enfants',          lieu:'Centre Pompidou, Paris 4e',    dates:'Mercredi 22 janvier',heure:'14h00',prix:0,  cat:'ateliers',   tag:'FAMILLE',    img:'card-img-atelier',  desc:'gratuit enfants dessin atelier Pompidou famille'},
+  {id:'concert-gratuit',  titre:'Concert Gratuit — Chorale du Marais',               lieu:'Eglise Saint-Merri, Paris 4e', dates:'Dimanche 19 janvier',heure:'17h00',prix:0,  cat:'musique',    tag:'GRATUIT',    img:'card-img-music',    desc:'gratuit concert chorale musique eglise'},
+];
+
+function renderCard(e) {
+  const prix = e.prix === 0
+    ? '<span class="card-price card-price-free">Gratuit</span>'
+    : '<span class="card-price">' + e.prix + ' EUR</span>';
+  const heure = e.heure ? ' — ' + e.heure : '';
+  return `<article class="evt-card">
+    <a href="evenement-detail.html?id=${e.id}" aria-label="${e.titre}">
+      <div class="card-img ${e.img}"><span class="card-cat-tag">${e.tag}</span></div>
+      <div class="card-body">
+        <h3 class="card-name">${e.titre}</h3>
+        <p class="card-venue">${e.lieu}</p>
+        <p class="card-date">${e.dates}${heure}</p>
+        <div class="card-footer">${prix}<span class="card-btn">Voir et reserver</span></div>
+      </div>
+    </a>
+  </article>`;
+}
+
+function doSearch(query) {
+  const q = query.trim().toLowerCase();
+  const grid = document.getElementById('searchResults');
+  const noRes = document.getElementById('noResults');
+  const label = document.getElementById('resultsLabel');
+  const count = document.getElementById('resultsCount');
+
+  if (!q) {
+    // Afficher tous
+    const all = EVENTS;
+    grid.innerHTML = all.map(renderCard).join('');
+    noRes.style.display = 'none';
+    label.textContent = 'Tous les evenements';
+    count.textContent = all.length + ' evenements';
+    return;
+  }
+
+  const results = EVENTS.filter(e => {
+    const haystack = (e.titre + ' ' + e.lieu + ' ' + e.cat + ' ' + e.tag + ' ' + e.desc + ' ' + e.dates).toLowerCase();
+    return q.split(' ').every(word => haystack.includes(word));
+  });
+
+  label.textContent = 'Resultats pour "' + query.trim() + '"';
+  count.textContent = results.length + ' resultat' + (results.length > 1 ? 's' : '');
+
+  if (!results.length) {
+    grid.innerHTML = '';
+    noRes.style.display = 'block';
+    return;
+  }
+  noRes.style.display = 'none';
+  grid.innerHTML = results.map(renderCard).join('');
+}
+
+// Init — afficher tous au chargement
+doSearch('');
+
+// Recherche en temps reel
+let timer;
+document.getElementById('searchInput').addEventListener('input', function() {
+  clearTimeout(timer);
+  timer = setTimeout(() => doSearch(this.value), 250);
+});
+
+// Bouton rechercher
+document.getElementById('searchBtn').addEventListener('click', function() {
+  doSearch(document.getElementById('searchInput').value);
+});
+
+// Touche Entree
+document.getElementById('searchInput').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') doSearch(this.value);
+});
+
+// Suggestions rapides
+document.querySelectorAll('.suggestion-chip').forEach(btn => {
+  btn.addEventListener('click', function() {
+    const q = this.dataset.query;
+    document.getElementById('searchInput').value = q;
+    doSearch(q);
+    document.getElementById('searchInput').focus();
+  });
+});
+
+// Param URL ?q=
+const urlQ = new URLSearchParams(window.location.search).get('q');
+if (urlQ) {
+  document.getElementById('searchInput').value = urlQ;
+  doSearch(urlQ);
+}
+</script>
+  <script src="accessibility.js"></script>
+</body>
+</html>

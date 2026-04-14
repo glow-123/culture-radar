@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Culture Radar | Sorties et evenements culturels a Paris et Ile-de-France</title>
+  <meta name="description" content="Decouvrez les meilleurs evenements culturels pres de chez vous : concerts, expos, theatre, sorties gratuites. Recommandations personnalisees par IA. 100% gratuit.">
+  <meta name="keywords" content="sorties paris, evenements culturels paris, agenda culturel paris, concerts paris, expositions paris, sortie famille ile de france">
+  <link rel="canonical" href="https://cultureradar.netlify.app/">
+  <meta property="og:title" content="Culture Radar | Votre boussole culturelle en Ile-de-France">
+  <meta property="og:description" content="Decouvrez les evenements culturels qui vous correspondent vraiment. IA personnalisee, 2500+ lieux references.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@CultureRadar">
+  <meta name="twitter:title" content="Culture Radar | Votre boussole culturelle">
+  <meta name="twitter:description" content="Decouvrez les evenements culturels qui vous correspondent. IA personnalisee, 2500+ lieux references.">
+  <meta name="twitter:image" content="https://cultureradar.netlify.app/og-image.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="accessibility.css">
+  <!-- RGPD : sitemap et robots -->
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
+  <!-- HEADER -->
+  <header class="site-header" role="banner">
+    <a href="index.html" class="logo" aria-label="Culture Radar - Accueil">
+      <span class="logo-emoji" aria-hidden="true">🎭</span>
+      Culture Radar
+    </a>
+    <nav class="header-nav" role="navigation" aria-label="Navigation principale">
+      <a href="evenements.html" class="nav-link">Evenements</a>
+      <a href="evenements.html#categories" class="nav-link">Categories</a>
+      <a href="organisateurs.html" class="nav-link">Organisateurs</a>
+      <a href="index.html#how" class="nav-link">Comment ca marche</a>
+    </nav>
+    <a href="search.html" class="search-icon-btn" aria-label="Rechercher un evenement" title="Rechercher">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </a>
+    <div class="header-actions">
+      <a href="connexion.html" class="btn-link">Connexion</a>
+      <a href="inscription.html" class="btn-primary">Commencer</a>
+    </div>
+  </header>
+
+  <main id="main-content">
+
+    <!-- HERO -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-inner">
+        <span class="badge badge-gold">Intelligence artificielle culturelle</span>
+        <h1 id="hero-title">Votre boussole culturelle<br><em>revolutionnaire</em></h1>
+        <p class="hero-sub">Decouvrez les tresors culturels caches de votre ville grace a l'intelligence artificielle. Des recommandations ultra-personnalisees qui transforment votre exploration urbaine.</p>
+        <div class="hero-btns">
+          <a href="evenements.html" class="btn-primary btn-lg">Decouvrir les evenements</a>
+          <a href="index.html#how" class="btn-outline-light btn-lg">Comment ca marche</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><span class="stat-num">2 500+</span><span class="stat-label">Lieux references</span></div>
+          <div class="stat"><span class="stat-num">12</span><span class="stat-label">Categories culturelles</span></div>
+          <div class="stat"><span class="stat-num">4</span><span class="stat-label">Metropoles couvertes</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FILTRES RAPIDES -->
+    <div class="filters-bar" role="search" aria-label="Filtrer les evenements">
+      <a href="evenements.html" class="filter-chip active">Tout</a>
+      <a href="evenements.html?filtre=aujourd_hui" class="filter-chip">Aujourd'hui</a>
+      <a href="evenements.html?filtre=week_end" class="filter-chip">Ce week-end</a>
+      <a href="evenements.html?filtre=gratuit" class="filter-chip">Gratuit</a>
+      <a href="evenements.html?filtre=proximite" class="filter-chip">A proximite</a>
+    </div>
+
+    <!-- EVENEMENTS POPULAIRES -->
+    <section class="section" aria-labelledby="popular-title">
+      <div class="section-header">
+        <h2 id="popular-title" class="section-title">Evenements populaires aujourd'hui</h2>
+        <a href="evenements.html" class="section-link">Voir tous les evenements</a>
+      </div>
+      <div class="events-grid">
+
+        <article class="evt-card">
+          <a href="evenement-detail.html?id=jazz-quartet" aria-label="Concert Jazz Quartet - Standards et Improvisations">
+            <div class="card-img card-img-music"><span class="card-cat-tag">MUSIQUE</span></div>
+            <div class="card-body">
+              <h3 class="card-name">Concert Jazz Quartet — Standards et Improvisations</h3>
+              <p class="card-venue">Le Sunset, Paris 1er</p>
+              <p class="card-date">Samedi 18 janvier 2025 - 20h00</p>
+              <div class="card-footer">
+                <span class="card-price">15 EUR</span>
+                <span class="card-btn">Reserver</span>
+              </div>
+            </div>
+          </a>
+        </article>
+
+        <article class="evt-card">
+          <a href="evenement-detail.html?id=traviata" aria-label="Opera La Traviata - Verdi">
+            <div class="card-img card-img-culture"><span class="card-cat-tag">OPERA</span></div>
+            <div class="card-body">
+              <h3 class="card-name">Opera "La Traviata" — Verdi</h3>
+              <p class="card-venue">Opera de Paris, Paris 9e</p>
+              <p class="card-date">Mardi 21 janvier 2025 - 19h30</p>
+              <div class="card-footer">
+                <span class="card-price">45 EUR</span>
+                <span class="card-btn">Reserver</span>
+              </div>
+            </div>
+          </a>
+        </article>
+
+        <article class="evt-card">
+          <a href="evenement-detail.html?id=expo-lumiere" aria-label="Exposition Lumieres - Art Numerique">
+            <div class="card-img card-img-expo"><span class="card-cat-tag">EXPOSITION</span></div>
+            <div class="card-body">
+              <h3 class="card-name">Lumieres — Art Numerique au Centquatre</h3>
+              <p class="card-venue">Centquatre, Paris 19e</p>
+              <p class="card-date">Du 15 au 28 janvier 2025</p>
+              <div class="card-footer">
+                <span class="card-price">12 EUR</span>
+                <span class="card-btn">Reserver</span>
+              </div>
+            </div>
+          </a>
+        </article>
+
+        <article class="evt-card">
+          <a href="evenement-detail.html?id=ballet-lac" aria-label="Ballet Le Lac des Cygnes">
+            <div class="card-img card-img-dance"><span class="card-cat-tag">DANSE</span></div>
+            <div class="card-body">
+              <h3 class="card-name">Ballet "Le Lac des Cygnes" — Tchaïkovski</h3>
+              <p class="card-venue">Theatre du Chatelet, Paris 1er</p>
+              <p class="card-date">Vendredi 17 janvier 2025 - 20h00</p>
+              <div class="card-footer">
+                <span class="card-price">35 EUR</span>
+                <span class="card-btn">Reserver</span>
+              </div>
+            </div>
+          </a>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- CATEGORIES -->
+    <section class="section bg-grey" id="categories" aria-labelledby="cats-title">
+      <div class="section-header">
+        <h2 id="cats-title" class="section-title">Explorer par categorie</h2>
+        <p class="section-sub">Decouvrez la richesse culturelle de votre ville</p>
+      </div>
+      <div class="cats-grid cats-grid-12">
+        <a href="evenements.html?categorie=musique" class="cat-card">
+          <div class="cat-icon">MUS</div>
+          <div><div class="cat-label">Musique et Concerts</div><div class="cat-desc">Jazz, classique, electro, world music</div></div>
+          <span class="cat-arrow">›</span>
+        </a>
+        <a href="evenements.html?categorie=theatre" class="cat-card">
+          <div class="cat-icon">SCE</div>
+          <div><div class="cat-label">Spectacles et Theatre</div><div class="cat-desc">Pieces, comedies musicales, one-man-shows</div></div>
+          <span class="cat-arrow">›</span>
+        </a>
+        <a href="evenements.html?categorie=expositions" class="cat-card">
+          <div class="cat-icon">EXP</div>
+          <div><div class="cat-label">Expositions et Musees</div><div class="cat-desc">Art contemporain, collections permanentes</div></div>
+          <span class="cat-arrow">›</span>
+        </a>
+        <a href="evenements.html?categorie=danse" class="cat-card">
+          <div class="cat-icon">DAN</div>
+          <div><div class="cat-label">Danse et Ballets</div><div class="cat-desc">Ballet classique, danse contemporaine</div></div>
+          <span class="cat-arrow">›</span>
+        </a>
+        <a href="evenements.html?categorie=cinema" class="cat-card">
+          <div class="cat-icon">CIN</div>
+          <div><div class="cat-label">Cinema et Projections</div><div class="cat-desc">Films d'auteur, seances speciales</div></div>
+          <span class="cat-arrow">›</span>
+        </a>
+        <a href="evenements.html?categorie=patrimoine" class="cat-card">
+          <div class="cat-icon">PAT</div>
+          <div><div class="cat-label">Patrimoine et Visites</div><div class="cat-desc">Histoire, architecture, visites guidees</div></div>
+          <span class="cat-arrow">›</span>
+        </a>
+        <a href="evenements.html?categorie=ateliers" class="cat-card">
+          <div class="cat-icon">ATE</div>
+          <div><div class="cat-label">Ateliers et Rencontres</div><div class="cat-desc">Cours, masterclass, echanges culturels</div></div>
+          <span class="cat-arrow">›</span>
+        </a>
+        <a href="evenements.html?categorie=festivals" class="cat-card">
+          <div class="cat-icon">FES</div>
+          <div><div class="cat-label">Festivals</div><div class="cat-desc">Evenements en plein air, grandes scenes</div></div>
+          <span class="cat-arrow">›</span>
+        </a>
+        <a href="evenements.html?categorie=opera" class="cat-card">
+          <div class="cat-icon">OPE</div>
+          <div><div class="cat-label">Opera et Lyrique</div><div class="cat-desc">Opera, operette, chant lyrique</div></div>
+          <span class="cat-arrow">›</span>
+        </a>
+        <a href="evenements.html?categorie=litterature" class="cat-card">
+          <div class="cat-icon">LIT</div>
+          <div><div class="cat-label">Litterature et BD</div><div class="cat-desc">Lectures, salons, dediaces, BD</div></div>
+          <span class="cat-arrow">›</span>
+        </a>
+        <a href="evenements.html?categorie=gastronomie" class="cat-card">
+          <div class="cat-icon">GAS</div>
+          <div><div class="cat-label">Gastronomie et Vin</div><div class="cat-desc">Degustations, marches, cours de cuisine</div></div>
+          <span class="cat-arrow">›</span>
+        </a>
+        <a href="evenements.html?categorie=cirque" class="cat-card">
+          <div class="cat-icon">CIR</div>
+          <div><div class="cat-label">Cirque et Arts de rue</div><div class="cat-desc">Spectacles de rue, cirque contemporain</div></div>
+          <span class="cat-arrow">›</span>
+        </a>
+      </div>
+    </section>
+
+
+    <!-- COMMENT CA MARCHE -->
+    <section class="section bg-grey" id="how" aria-labelledby="how-title">
+      <div class="section-header">
+        <h2 id="how-title" class="section-title">La magie en 3 etapes</h2>
+        <p class="section-sub">Simple, rapide et terriblement efficace</p>
+      </div>
+      <div class="steps-grid">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h3 class="step-title">Creez votre profil culturel</h3>
+          <p class="step-desc">En 2 minutes, notre questionnaire intelligent comprend vos gouts, vos envies et vos contraintes pour creer votre ADN culturel unique.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h3 class="step-title">Recevez vos recommandations</h3>
+          <p class="step-desc">L'IA analyse en temps reel des milliers d'evenements pour vous proposer exactement ce qui vous correspond, ou que vous soyez.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h3 class="step-title">Reservez et partagez</h3>
+          <p class="step-desc">Reservez en un clic, invitez vos amis et enrichissez votre carnet culturel. Plus vous explorez, plus les suggestions deviennent precises.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ESPACE ORGANISATEURS - Section d'appel -->
+    <section class="section section-b2b" aria-labelledby="b2b-title">
+      <div class="b2b-inner">
+        <div class="b2b-text">
+          <span class="badge badge-gold">Espace Professionnel</span>
+          <h2 id="b2b-title">Vous organisez des evenements culturels ?</h2>
+          <p>Publiez vos evenements, accedez a des statistiques avancees et touchez une audience ciblee grace a notre moteur IA. Plus de 500 organisateurs nous font confiance.</p>
+          <div class="b2b-points">
+            <div class="b2b-point">Visibilite aupres de 2 500+ utilisateurs actifs</div>
+            <div class="b2b-point">Tableau de bord et statistiques en temps reel</div>
+            <div class="b2b-point">Publication gratuite pour commencer</div>
+          </div>
+        </div>
+        <div class="b2b-actions">
+          <a href="organisateurs.html" class="btn-primary btn-lg">Devenir partenaire</a>
+          <a href="pourquoi.html" class="btn-outline-light btn-lg">En savoir plus</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEWSLETTER -->
+    <section class="section section-nl" aria-labelledby="nl-title">
+      <div class="nl-inner">
+        <div class="nl-text">
+          <h2 id="nl-title">Nos recommandations dans votre boite mail</h2>
+          <p>Chaque jeudi a 18h, la selection culturelle personnalisee selon vos gouts.</p>
+        </div>
+        <form class="nl-form" action="#" method="post" novalidate>
+          <label for="nl-email" class="sr-only">Votre adresse email</label>
+          <input type="email" id="nl-email" name="email" class="nl-input" placeholder="votre@email.fr" required autocomplete="email">
+          <button type="submit" class="btn-primary">S'abonner</button>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo" style="font-size:17px">
+          <span class="logo-emoji" aria-hidden="true">🎭</span>
+          Culture Radar
+        </div>
+        <p>La revolution de la decouverte culturelle. Votre boussole intelligente vers l'art, la culture et l'emerveillement.</p>
+        <a href="pourquoi.html" class="footer-link" style="margin-top:12px;display:inline-block;color:rgba(255,255,255,0.7);font-weight:500">Pourquoi Culture Radar ?</a>
+      </div>
+      <div>
+        <div class="footer-col-title">Decouvrir</div>
+        <a href="evenements.html" class="footer-link">Tous les evenements</a>
+        <a href="evenements.html?filtre=gratuit" class="footer-link">Evenements gratuits</a>
+        <a href="evenements.html?filtre=week_end" class="footer-link">Ce week-end</a>
+        <a href="evenements.html#categories" class="footer-link">Par categorie</a>
+      </div>
+      <div>
+        <div class="footer-col-title">Organisateurs</div>
+        <a href="organisateurs.html" class="footer-link">Devenir partenaire</a>
+        <a href="organisateurs.html#inscription" class="footer-link">Publier un evenement</a>
+        <a href="organisateurs.html#avantages" class="footer-link">Avantages B2B</a>
+        <a href="organisateurs.html#tarifs" class="footer-link">Tarifs</a>
+      </div>
+      <div>
+        <div class="footer-col-title">Legal</div>
+        <a href="mentions-legales.html" class="footer-link">Mentions legales</a>
+        <a href="confidentialite.html" class="footer-link">Politique de confidentialite</a>
+        <a href="cgu.html" class="footer-link">CGU</a>
+        <a href="cookies.html" class="footer-link">Gestion des cookies</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Culture Radar — InnovaDigital Agency</span>
+      <span>Projet RNCP 38018 — Gloria AMINI</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+
+  <!-- BANDEAU COOKIES RGPD -->
+  <div id="cookieBanner" role="dialog" aria-live="polite" aria-label="Gestion des cookies" style="
+    position:fixed;bottom:0;left:0;right:0;z-index:9998;
+    background:var(--dark);border-top:2px solid rgba(255,255,255,0.1);
+    padding:16px 5%;display:flex;align-items:center;justify-content:space-between;
+    flex-wrap:wrap;gap:14px;font-family:'DM Sans',sans-serif;">
+    <p style="color:rgba(255,255,255,0.8);font-size:13px;margin:0;max-width:600px;line-height:1.6">
+      Nous utilisons des cookies pour personnaliser vos recommandations culturelles et mesurer l'audience.
+      <a href="cookies.html" style="color:var(--gold);text-decoration:underline">Personnaliser</a>
+    </p>
+    <div style="display:flex;gap:10px;flex-shrink:0">
+      <button onclick="refuserCookies()" style="
+        border:1px solid rgba(255,255,255,0.3);background:transparent;color:white;
+        padding:8px 18px;border-radius:7px;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;">
+        Refuser
+      </button>
+      <button onclick="accepterCookies()" style="
+        background:var(--gold);color:var(--dark);border:none;
+        padding:8px 18px;border-radius:7px;font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;">
+        Accepter tout
+      </button>
+    </div>
+  </div>
+  <script>
+    (function(){
+      if(localStorage.getItem('cookieConsent')) document.getElementById('cookieBanner').style.display='none';
+    })();
+    function accepterCookies(){ localStorage.setItem('cookieConsent','accepted'); document.getElementById('cookieBanner').style.display='none'; }
+    function refuserCookies(){ localStorage.setItem('cookieConsent','refused'); document.getElementById('cookieBanner').style.display='none'; }
+  </script>
+  <script src="accessibility.js"></script>
+</body>
+</html>

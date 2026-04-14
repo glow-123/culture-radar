@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="pageTitle">Detail evenement — Culture Radar</title>
+  <meta name="description" id="pageDesc" content="Reservez votre place pour cet evenement culturel sur Culture Radar.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@CultureRadar">
+  <meta name="twitter:title" content="Detail evenement — Culture Radar">
+  <meta name="twitter:description" content="Reservez votre place pour cet evenement culturel sur Culture Radar.">
+  <meta name="twitter:image" content="https://cultureradar.netlify.app/og-image.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="accessibility.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
+  <header class="site-header" role="banner">
+    <a href="index.html" class="logo" aria-label="Culture Radar - Accueil">
+      <span class="logo-emoji" aria-hidden="true">🎭</span>
+      Culture Radar
+    </a>
+    <nav class="header-nav" role="navigation" aria-label="Navigation principale">
+      <a href="evenements.html" class="nav-link active">Evenements</a>
+      <a href="evenements.html#categories" class="nav-link">Categories</a>
+      <a href="organisateurs.html" class="nav-link">Organisateurs</a>
+      <a href="index.html#how" class="nav-link">Comment ca marche</a>
+    </nav>
+    <a href="search.html" class="search-icon-btn" aria-label="Rechercher un evenement" title="Rechercher">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </a>
+    <div class="header-actions">
+      <a href="connexion.html" class="btn-link">Connexion</a>
+      <a href="inscription.html" class="btn-primary">Commencer</a>
+    </div>
+  </header>
+
+  <nav class="breadcrumb" aria-label="Fil d'Ariane">
+    <a href="index.html">Accueil</a>
+    <span aria-hidden="true">›</span>
+    <a href="evenements.html">Evenements</a>
+    <span aria-hidden="true">›</span>
+    <span id="breadcrumbCat" aria-hidden="true"></span>
+    <span id="breadcrumbTitle" aria-current="page"></span>
+  </nav>
+
+  <main id="main-content">
+
+    <!-- HERO EVENEMENT -->
+    <div class="event-detail-hero" id="eventHero">
+      <span class="card-cat-tag" id="eventTag" style="margin-bottom:14px;display:inline-block"></span>
+      <h1 id="eventTitle" style="font-size:38px;color:var(--white);margin-bottom:12px"></h1>
+      <p id="eventSubtitle" style="color:rgba(255,255,255,0.7);font-size:16px"></p>
+    </div>
+
+    <div class="event-detail-layout">
+
+      <!-- INFORMATIONS -->
+      <div class="event-info">
+        <div class="event-meta" role="list">
+          <div class="event-meta-item" role="listitem">
+            <span class="event-meta-icon" aria-hidden="true">D</span>
+            <span id="metaDate"></span>
+          </div>
+          <div class="event-meta-item" role="listitem">
+            <span class="event-meta-icon" aria-hidden="true">L</span>
+            <span id="metaLieu"></span>
+          </div>
+          <div class="event-meta-item" role="listitem">
+            <span class="event-meta-icon" aria-hidden="true">T</span>
+            <span id="metaTransport"></span>
+          </div>
+          <div class="event-meta-item" role="listitem">
+            <span class="event-meta-icon" aria-hidden="true">A</span>
+            <span id="metaAccess"></span>
+          </div>
+          <div class="event-meta-item" role="listitem">
+            <span class="event-meta-icon" aria-hidden="true">P</span>
+            <span id="metaPrix"></span>
+          </div>
+        </div>
+
+        <div class="event-description">
+          <h2 style="font-size:22px;margin-bottom:16px;font-family:'DM Sans',sans-serif;font-weight:700">A propos de cet evenement</h2>
+          <p id="eventDesc1"></p>
+          <p id="eventDesc2" style="margin-top:14px"></p>
+        </div>
+
+        <div style="margin-top:30px">
+          <h2 style="font-size:18px;margin-bottom:14px;font-family:'DM Sans',sans-serif;font-weight:700">Informations pratiques</h2>
+          <ul id="eventInfoList" style="display:flex;flex-direction:column;gap:8px"></ul>
+        </div>
+
+        <!-- EVENEMENTS SIMILAIRES -->
+        <div style="margin-top:50px">
+          <h2 style="font-size:22px;margin-bottom:20px;font-family:'DM Sans',sans-serif;font-weight:700">Evenements similaires</h2>
+          <div id="similarEvents" style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px"></div>
+        </div>
+      </div>
+
+      <!-- CARTE RESERVATION -->
+      <aside aria-labelledby="booking-title">
+        <div class="booking-card">
+          <div class="booking-price" id="bookingPrice"></div>
+          <div class="booking-price-sub">par personne — hors frais de service</div>
+
+          <form class="booking-form" id="reservationForm" novalidate>
+            <h2 id="booking-title" style="font-size:18px;margin-bottom:20px;font-family:'DM Sans',sans-serif">Reserver votre place</h2>
+
+            <div class="form-group">
+              <label for="nb-places" class="form-label">Nombre de places</label>
+              <select id="nb-places" name="nb_places" class="form-select" required>
+                <option value="1">1 place</option>
+                <option value="2">2 places</option>
+                <option value="3">3 places</option>
+                <option value="4">4 places</option>
+                <option value="5">5 places</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="prenom" class="form-label">Prenom</label>
+              <input type="text" id="prenom" name="prenom" class="form-input" placeholder="Votre prenom" required autocomplete="given-name">
+            </div>
+
+            <div class="form-group">
+              <label for="nom" class="form-label">Nom</label>
+              <input type="text" id="nom" name="nom" class="form-input" placeholder="Votre nom" required autocomplete="family-name">
+            </div>
+
+            <div class="form-group">
+              <label for="email" class="form-label">Adresse email</label>
+              <input type="email" id="email" name="email" class="form-input" placeholder="votre@email.fr" required autocomplete="email">
+            </div>
+
+            <div class="form-group">
+              <label for="telephone" class="form-label">Telephone (facultatif)</label>
+              <input type="tel" id="telephone" name="telephone" class="form-input" placeholder="06 00 00 00 00" autocomplete="tel">
+            </div>
+
+            <div class="booking-total">
+              <span>Total</span>
+              <span id="totalPrice"></span>
+            </div>
+
+            <div class="form-group">
+              <div class="form-checkbox-group">
+                <input type="checkbox" id="cgv" name="cgv" class="form-checkbox" required>
+                <label for="cgv" class="form-checkbox-label">
+                  J'accepte les <a href="cgu.html">conditions generales</a> et la <a href="confidentialite.html">politique de confidentialite</a>
+                </label>
+              </div>
+            </div>
+
+            <button type="submit" class="btn-gold" style="width:100%;margin-top:8px" id="submitBtn">
+              Confirmer la reservation
+            </button>
+            <div class="booking-note">Remboursement possible jusqu'a 48h avant</div>
+
+            <div class="form-success" id="successMsg" role="alert" aria-live="polite">
+              Votre reservation a ete prise en compte ! Un email de confirmation vous a ete envoye.
+            </div>
+          </form>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo" style="font-size:17px"><span class="logo-emoji" aria-hidden="true">🎭</span> Culture Radar</div>
+        <p>La revolution de la decouverte culturelle. Votre boussole intelligente vers l'art, la culture et l'emerveillement.</p>
+        <a href="pourquoi.html" class="footer-link" style="margin-top:12px;display:inline-block;color:rgba(255,255,255,0.7);font-weight:500">Pourquoi Culture Radar ?</a>
+      </div>
+      <div>
+        <div class="footer-col-title">Decouvrir</div>
+        <a href="evenements.html" class="footer-link">Tous les evenements</a>
+        <a href="evenements.html?filtre=gratuit" class="footer-link">Evenements gratuits</a>
+        <a href="evenements.html?filtre=week_end" class="footer-link">Ce week-end</a>
+        <a href="evenements.html#categories" class="footer-link">Par categorie</a>
+      </div>
+      <div>
+        <div class="footer-col-title">Organisateurs</div>
+        <a href="organisateurs.html" class="footer-link">Devenir partenaire</a>
+        <a href="organisateurs.html#inscription" class="footer-link">Publier un evenement</a>
+        <a href="organisateurs.html#avantages" class="footer-link">Avantages B2B</a>
+        <a href="organisateurs.html#tarifs" class="footer-link">Tarifs</a>
+      </div>
+      <div>
+        <div class="footer-col-title">Legal</div>
+        <a href="mentions-legales.html" class="footer-link">Mentions legales</a>
+        <a href="confidentialite.html" class="footer-link">Confidentialite</a>
+        <a href="cgu.html" class="footer-link">CGU</a>
+        <a href="cookies.html" class="footer-link">Gestion des cookies</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Culture Radar — InnovaDigital Agency</span>
+      <span>Projet RNCP 38018 — Gloria AMINI</span>
+    </div>
+  </footer>
+
+<script>
+/* ── BASE DE DONNEES DES EVENEMENTS (identique a evenements.html) ── */
+const EVENTS = {
+  'jazz-quartet':    { titre:'Concert Jazz Quartet — Standards et Improvisations', lieu:'Le Sunset, 60 rue des Lombards, Paris 1er', transport:'Metro Chatelet (lignes 1, 7, 11, 14) — 3 min a pied', access:'Acces PMR — ascenseur disponible', prix:15, cat:'musique', tag:'MUSIQUE', img:'card-img-music', dates:'Samedi 18 janvier 2025', heure:'20h00', desc1:'Le Jazz Quartet vous invite a une soiree exceptionnelle au coeur de Paris, dans l\'un des clubs de jazz les plus reconnus de la capitale. Quatre musiciens d\'exception explorent les standards du jazz americain avec une liberte totale.', desc2:'Au programme : des standards de Miles Davis, Coltrane et Bill Evans revisites par des artistes de la scene jazz contemporaine. La salle peut accueillir 120 personnes assises. Reservation fortement recommandee.', infos:['Ouverture des portes a 19h30','Restauration et boissons sur place','Billet imprimable ou sur smartphone','Remboursement possible jusqu\'a 48h avant'] },
+  'traviata':        { titre:'Opera "La Traviata" — Verdi', lieu:'Opera de Paris, Place de la Bastille, Paris 12e', transport:'Metro Bastille (lignes 1, 5, 8) — 1 min a pied', access:'Acces PMR complet — places reservees disponibles', prix:45, cat:'opera', tag:'OPERA', img:'card-img-culture', dates:'Mardi 21 janvier 2025', heure:'19h30', desc1:'L\'opera de Verdi presente dans la majestueuse salle de l\'Opera Bastille. Une production spectaculaire mise en scene par la nouvelle generation des artistes lyriques francais, avec des decors somptueux et des costumes d\'epoque.', desc2:'Duree : 3h00 avec entracte. Recommande a partir de 12 ans. Surtitrage en francais. Bar et restauration sur place des 18h00.', infos:['Accueil du public a 18h30','Surtitrage en francais','Bar et restauration disponibles','Places PMR sur demande a la billetterie'] },
+  'expo-lumiere':    { titre:'Lumieres — Art Numerique au Centquatre', lieu:'Centquatre, 5 rue Curial, Paris 19e', transport:'Metro Riquet (ligne 7) — 5 min a pied ou Marx Dormoy (ligne 12)', access:'Acces PMR — rampes et ascenseurs disponibles', prix:12, cat:'expositions', tag:'EXPOSITION', img:'card-img-expo', dates:'Du 15 au 28 janvier 2025', heure:'Ouvert de 11h a 20h', desc1:'Une experience immersive unique alliant art contemporain et technologie dans le cadre exceptionnel du Centquatre. Des installations lumineuses interactives creees par des artistes numeriques internationaux transforment les neuf de ce lieu culturel emblematique.', desc2:'Venez en fin d\'apres-midi pour profiter de la lumiere naturelle qui se mele aux installations. L\'exposition est adaptee a tous les publics, des plus jeunes aux plus ages.', infos:['Ouvert du mardi au dimanche','Tarif reduit : 8 EUR (etudiants, demandeurs d\'emploi)','Gratuit pour les moins de 12 ans','Visite guidee disponible le week-end a 14h30'] },
+  'ballet-lac':      { titre:'Ballet "Le Lac des Cygnes" — Tchaïkovski', lieu:'Theatre du Chatelet, 1 place du Chatelet, Paris 1er', transport:'Metro Chatelet (lignes 1, 7, 11, 14) — 2 min a pied', access:'Acces PMR — places reservees en orchestre', prix:35, cat:'danse', tag:'DANSE', img:'card-img-dance', dates:'Vendredi 17 janvier 2025', heure:'20h00', desc1:'Le chef-d\'oeuvre absolu du ballet classique presente par la Compagnie Nationale de Danse dans une mise en scene contemporaine qui respecte le genie de Tchaïkovski tout en apportant une vision nouvelle et bouleversante de cette histoire eternelle.', desc2:'Distribution : Premiers danseurs de renom international. Duree : 2h30 avec entracte. La representation sera suivie d\'une rencontre avec les artistes.', infos:['Debut des portes a 19h15','Duree : 2h30 avec entracte','Rencontre artistes apres la representation','Location de jumelles disponible en salle'] },
+  'marche-createurs':{ titre:'Marche des Createurs — Arts et Design', lieu:'Canal Saint-Martin, Quai de Valmy, Paris 10e', transport:'Metro Jacques Bonsergent (ligne 5) — 3 min a pied', access:'Acces PMR — en plein air, sol plat', prix:0, cat:'ateliers', tag:'ARTISANAT', img:'card-img-atelier', dates:'Samedi 18 janvier 2025', heure:'10h00 a 18h00', desc1:'Le marche des createurs rassemble chaque mois une cinquantaine d\'artistes, designers et artisans independants au bord du Canal Saint-Martin. Bijoux, ceramiques, illustrations, creations textiles et objets design se cotoyent dans une ambiance conviviale.', desc2:'Entree libre. Des restaurateurs proposeront des produits du terroir. Animations et demonstrations en direct tout au long de la journee.', infos:['Entree entierement gratuite','50+ createurs presents','Restauration et boissons sur place','Animations en direct toute la journee'] },
+  'theatre-masques': { titre:'La Nuit des Masques — Theatre contemporain', lieu:'Theatre de la Ville, 2 place du Chatelet, Paris 4e', transport:'Metro Chatelet (lignes 1, 7, 11, 14) — 1 min a pied', access:'Acces PMR — places reservees', prix:8, cat:'theatre', tag:'THEATRE', img:'card-img-theater', dates:'Dimanche 19 janvier 2025', heure:'16h00', desc1:'Une piece de theatre contemporain explorant les themes de l\'identite et du mensonge social. Dans un decor epure, cinq comediens incarnent des personnages pris dans un jeu de roles qui va crescendo jusqu\'a un denouement saisissant.', desc2:'Texte et mise en scene d\'une jeune compagnie de theatre independante. Spectacle recommande a partir de 14 ans. Duree : 1h45 sans entracte.', infos:['Duree : 1h45 sans entracte','Recommande a partir de 14 ans','Discussion avec les comediens apres la representation','Bar ouvert avant le spectacle'] },
+  'ceramique':       { titre:'Initiation Ceramique — Stage weekend', lieu:'Atelier des Arts, 12 rue de la Mare, Paris 20e', transport:'Metro Gambetta (lignes 3, 3b) — 5 min a pied', access:'Acces PMR — rez-de-chaussee', prix:15, cat:'ateliers', tag:'ATELIER', img:'card-img-atelier', dates:'Jeudi 16 janvier 2025', heure:'14h00 a 17h00', desc1:'Un atelier d\'initiation a la ceramique pour decouvrir le tour de potier et les techniques de modelage a la main. Encadre par une ceramiste professionnelle, vous repartirez avec votre premiere creation.', desc2:'Aucune experience prealable requise. Tous les materiaux sont fournis. Vos pieces seront cuites et peuvent etre recuperees une semaine apres l\'atelier.', infos:['Tous materiaux fournis','Aucune experience requise','Maximum 8 participants par session','Pieces a recuperer 7 jours apres cuisson'] },
+  'cinema-auteur':   { titre:'Retrospective Godard — A bout de souffle', lieu:'MK2 Gambetta, 6 rue Belgrand, Paris 20e', transport:'Metro Gambetta (lignes 3, 3b) — 2 min a pied', access:'Acces PMR — salle adaptee', prix:9, cat:'cinema', tag:'CINEMA', img:'card-img-cinema', dates:'Mercredi 22 janvier 2025', heure:'20h30', desc1:'Dans le cadre de la retrospective Jean-Luc Godard, le MK2 Gambetta projette "A bout de souffle" en version restauree 4K. Ce film fondateur de la Nouvelle Vague reste l\'une des oeuvres les plus influentes du cinema mondial.', desc2:'Projection suivie d\'un debat avec un specialiste du cinema francais. Version originale sous-titree francais. La retrospective se poursuit les semaines suivantes avec d\'autres titres du realisateur suisse.', infos:['Version restauree 4K','Sous-titres francais','Debat apres la projection','Pass retrospective disponible : 5 films pour 35 EUR'] },
+  'musee-enfants':   { titre:'Visite guidee famille — Musee d\'Orsay', lieu:'Musee d\'Orsay, 1 rue de la Legion d\'Honneur, Paris 7e', transport:'RER C Musee d\'Orsay — 1 min a pied. Metro Solferino (ligne 12)', access:'Acces PMR complet — ascenseurs, rampes', prix:0, cat:'patrimoine', tag:'FAMILLE', img:'card-img-heritage', dates:'Samedi 18 janvier 2025', heure:'11h00', desc1:'Une visite guidee speciale famille, adaptee aux enfants de 6 a 12 ans, pour decouvrir les chefs-d\'oeuvre de l\'Impressionnisme de maniere ludique et interactive. Les mediateurs culturels utilisent des jeux et des activites pour rendre les oeuvres accessibles aux plus jeunes.', desc2:'Gratuit pour les moins de 18 ans. Les adultes accompagnants paient le tarif d\'entree habituel du musee (16 EUR). Duree : 1h30. Reservation obligatoire.', infos:['Gratuit pour les moins de 18 ans','Reservation obligatoire','Duree : 1h30','Adapte aux enfants de 6 a 12 ans'] },
+  'friche-pantin':   { titre:'Nuit Electro — Collective Pantin Sounds', lieu:'La Grande Halle, 211 avenue Jean-Jaures, Pantin (93)', transport:'Metro Eglise de Pantin (ligne 5) — 10 min a pied', access:'Acces PMR possible — contacter l\'organisation', prix:10, cat:'musique', tag:'MUSIQUE', img:'card-img-music', dates:'Samedi 18 janvier 2025', heure:'22h00 jusqu\'a 06h00', desc1:'La Collective Pantin Sounds investit la Grande Halle pour une nuit electro avec 6 DJ sets et 2 live sets. Au programme : techno, house et experimentale dans un ancien site industriel reconverti en friche culturelle.', desc2:'Bar, restauration et espace repos disponibles. Consigne vestiaires. Politique de reduction de risques mise en place. Acces par le metro ligne 5, dernier metro a 01h15.', infos:['Ouverture des portes a 21h30','Bar et restauration sur place','Vestiaires disponibles','Politique reduction des risques'] },
+  'expo-photo':      { titre:'Photographies du Monde — Collections 2025', lieu:'Maison Europeenne de la Photographie, 5-7 rue de Fourcy, Paris 4e', transport:'Metro Saint-Paul (ligne 1) — 5 min a pied', access:'Acces PMR — ascenseur disponible', prix:12, cat:'expositions', tag:'EXPOSITION', img:'card-img-expo', dates:'Du 10 au 30 janvier 2025', heure:'11h00 a 20h00', desc1:'La MEP presente une selection des plus belles photographies de reporters et artistes du monde entier. Des cliches inedits qui temoignent de notre epoque avec force et sensibilite.', desc2:'Plus de 200 photographies reparties sur trois niveaux. Rencontres avec les photographes les week-ends. Audio-guide disponible en francais et en anglais.', infos:['Ouvert du mercredi au lundi','Tarif reduit : 8 EUR','Gratuit le mercredi pour les moins de 26 ans','Audio-guide inclus dans le billet'] },
+  'belleville-street':{ titre:'Street Art Belleville — Visite guidee', lieu:'Depart : 1 rue Denoyez, Paris 20e', transport:'Metro Belleville (lignes 2, 11) — 3 min a pied', access:'Visite en exterieur — sol variable', prix:0, cat:'patrimoine', tag:'VISITE', img:'card-img-heritage', dates:'Dimanche 19 janvier 2025', heure:'14h00', desc1:'Une balade guidee de 2 heures dans le quartier de Belleville pour decouvrir les oeuvres de street art qui font la renommee de ce quartier. Des fresques geantes aux stickers en passant par les peintures sur volets, Belleville est un musee a ciel ouvert.', desc2:'La visite est animee par une historienne de l\'art specialisee dans l\'art urbain. Gratuite et ouverte a tous, elle dure environ 2 heures. Tenue confortable recommandee.', infos:['Entree entierement gratuite','Duree : 2 heures environ','Tenue confortable recommandee','Depart : 1 rue Denoyez, devant le cafe'] },
+  'cirque-actuel':   { titre:'Cirque Contemporain — Cie Les Lumieres', lieu:'La Villette, 211 avenue Jean-Jaures, Paris 19e', transport:'Metro Porte de Pantin (ligne 5) — 5 min a pied', access:'Acces PMR — chapiteau adapte', prix:18, cat:'cirque', tag:'CIRQUE', img:'card-img-atelier', dates:'Samedi 25 janvier 2025', heure:'18h00', desc1:'La Compagnie Les Lumieres presente son nouveau spectacle de cirque contemporain, melant acrobatie, danse et theatre dans un recit poignant sur les relations humaines. Un spectacle familial qui depasse les frontieres des genres artistiques.', desc2:'Duree : 1h20 sans entracte. Conseille a partir de 6 ans. Le chapiteau est chauffe et couvert. Restauration disponible avant et apres le spectacle sur le site de La Villette.', infos:['Conseille a partir de 6 ans','Duree : 1h20 sans entracte','Chapiteau couvert et chauffe','Restauration disponible sur le site'] },
+  'salon-livre':     { titre:'Salon du Livre — Rencontres d\'auteurs', lieu:'Parc des Expositions, Villepinte (93)', transport:'RER B Parc des Expositions — direct depuis Paris', access:'Acces PMR complet', prix:5, cat:'litterature', tag:'LITTERATURE', img:'card-img-culture', dates:'Dimanche 19 janvier 2025', heure:'10h00 a 19h00', desc1:'Le grand rendez-vous des amoureux des livres avec plus de 300 editeurs, 200 auteurs presents pour des dediaces et des tables rondes thematiques tout au long de la journee.', desc2:'Entree a 5 EUR, gratuite pour les moins de 16 ans. Tarif reduit pour les etudiants et demandeurs d\'emploi. Programme complet des rencontres disponible sur le site du salon.', infos:['200 auteurs presents pour des dediaces','Gratuit pour les moins de 16 ans','Tarif reduit etudiants et DEE','Parking gratuit sur place'] },
+  'festival-jazz':   { titre:'Festival Jazz en Seine — 3 jours', lieu:'Seine Musicale, Allee du Trapeze, Boulogne-Billancourt (92)', transport:'Metro Pont de Sevres (ligne 9) — 15 min a pied ou navette', access:'Acces PMR — site adapte', prix:25, cat:'festivals', tag:'FESTIVAL', img:'card-img-music', dates:'Du 18 au 20 janvier 2025', heure:'18h00 chaque soir', desc1:'Trois jours de jazz dans le cadre unique de la Seine Musicale avec des artistes de renommee internationale. Du jazz classique aux nouvelles scenes, le festival celebre la diversite de cet art en perpetuelle evolution.', desc2:'Pass 3 jours disponible a 60 EUR. Bar et restauration sur place. Navette gratuite depuis le metro Pont de Sevres toutes les 15 minutes.', infos:['Pass 3 jours disponible : 60 EUR','Bar et restauration sur place','Navette gratuite depuis Pont de Sevres','Places assises et debout'] },
+  'degustation-vin': { titre:'Grands Crus — Degustation guidee', lieu:'Pavillon de l\'Arsenal, 21 bd Morland, Paris 4e', transport:'Metro Sully-Morland (ligne 7) — 2 min a pied', access:'Acces PMR — rez-de-chaussee', prix:35, cat:'gastronomie', tag:'GASTRONOMIE', img:'card-img-culture', dates:'Samedi 18 janvier 2025', heure:'15h00 a 18h00', desc1:'Une initiation a la degustation des vins naturels et biodynamiques produits en Ile-de-France et dans les regions voisines, animee par un oenologue certifie. Decouverte de 8 cuvees selectionnees pour leur qualite et leur personnalite.', desc2:'Le prix inclut la degustation de 8 vins, les notes de degustation et un accord mets-vins final. Le nombre de places est limite a 20 participants pour garantir la qualite de l\'experience.', infos:['8 vins degustes avec accord mets','Notes de degustation remises','Maximum 20 participants','Achat des vins possible sur place'] },
+  'atelier-dessin':  { titre:'Atelier Dessin — Initiation pour enfants', lieu:'Centre Pompidou, Place Georges Pompidou, Paris 4e', transport:'Metro Rambuteau (ligne 11) — 2 min a pied', access:'Acces PMR complet — ascenseurs', prix:0, cat:'ateliers', tag:'FAMILLE', img:'card-img-atelier', dates:'Mercredi 22 janvier 2025', heure:'14h00 a 16h00', desc1:'Un atelier de dessin gratuit pour les enfants de 6 a 12 ans, anime par des mediateurs culturels du Centre Pompidou. Inspire par les collections du musee, l\'atelier invite les enfants a creer leurs propres oeuvres.', desc2:'Reservation obligatoire par telephone ou sur le site du Centre Pompidou. Tous les materiaux sont fournis. Un adulte accompagnant est requis pour les enfants de moins de 8 ans.', infos:['Totalement gratuit','Reservation obligatoire','Materiau fournis','Pour les 6-12 ans'] },
+  'concert-gratuit': { titre:'Concert Gratuit — Chorale du Marais', lieu:'Eglise Saint-Merri, 76 rue de la Verrerie, Paris 4e', transport:'Metro Hotel de Ville (lignes 1, 11) — 5 min a pied', access:'Acces PMR partiel — marches a l\'entree', prix:0, cat:'musique', tag:'GRATUIT', img:'card-img-music', dates:'Dimanche 19 janvier 2025', heure:'17h00', desc1:'La Chorale du Marais vous invite a un concert gratuit dans la magnifique eglise gothique Saint-Merri. Au programme : un repertoire melant polyphonies de la Renaissance et oeuvres contemporaines.', desc2:'Entree libre dans la limite des places disponibles. Collecte pour la chorale en fin de concert. L\'eglise Saint-Merri est un joyau architectural gothique flamboyant du XVIe siecle.', infos:['Entree entierement libre','Collecte volontaire en fin de concert','Arrivee recommandee 15 min avant','Aucune reservation requise'] }
+};
+
+/* ── INITIALISATION ── */
+const params = new URLSearchParams(window.location.search);
+const id = params.get('id') || 'jazz-quartet';
+const evt = EVENTS[id] || EVENTS['jazz-quartet'];
+
+// Mise a jour du titre de page
+document.getElementById('pageTitle').textContent = evt.titre + ' | Culture Radar';
+document.getElementById('pageDesc').setAttribute('content', 'Reservez votre place pour ' + evt.titre + ' - ' + evt.dates + '.');
+
+// Hero
+document.getElementById('eventTag').textContent = evt.tag;
+document.getElementById('eventTitle').innerHTML = evt.titre;
+document.getElementById('eventSubtitle').textContent = evt.lieu.split(',')[0] + ' — ' + evt.dates + (evt.heure ? ' — ' + evt.heure : '');
+
+// Breadcrumb
+document.getElementById('breadcrumbCat').textContent = evt.cat.charAt(0).toUpperCase() + evt.cat.slice(1);
+document.getElementById('breadcrumbCat').insertAdjacentHTML('afterend', '<span aria-hidden="true">›</span>');
+document.getElementById('breadcrumbTitle').textContent = evt.titre;
+
+// Couleur hero selon categorie
+const heroBg = {
+  musique:'linear-gradient(135deg,#1E0F3A,#4A2C8A)',
+  opera:'linear-gradient(135deg,#0F2A3A,#1A5070)',
+  expositions:'linear-gradient(135deg,#2A0F3A,#6A2C8A)',
+  danse:'linear-gradient(135deg,#0F3A1E,#2C8A4A)',
+  theatre:'linear-gradient(135deg,#3A1E0F,#8A4A2C)',
+  cinema:'linear-gradient(135deg,#1A0F0F,#5A2020)',
+  ateliers:'linear-gradient(135deg,#0F1A3A,#2C3A8A)',
+  patrimoine:'linear-gradient(135deg,#2A1A00,#7A5A00)',
+  festivals:'linear-gradient(135deg,#1E0F3A,#4A2C8A)',
+  gastronomie:'linear-gradient(135deg,#0F2A3A,#1A5070)',
+  litterature:'linear-gradient(135deg,#1A0F0F,#5A2020)',
+  cirque:'linear-gradient(135deg,#0F1A3A,#2C3A8A)'
+};
+document.getElementById('eventHero').style.background = heroBg[evt.cat] || heroBg['musique'];
+
+// Meta infos
+document.getElementById('metaDate').innerHTML = '<strong>Date :</strong> ' + evt.dates + (evt.heure ? ' a ' + evt.heure : '');
+document.getElementById('metaLieu').innerHTML = '<strong>Lieu :</strong> ' + evt.lieu;
+document.getElementById('metaTransport').innerHTML = '<strong>Transport :</strong> ' + evt.transport;
+document.getElementById('metaAccess').innerHTML = '<strong>Accessibilite :</strong> ' + evt.access;
+document.getElementById('metaPrix').innerHTML = '<strong>Prix :</strong> ' + (evt.prix === 0 ? 'Entree gratuite' : 'A partir de ' + evt.prix + ' EUR par personne');
+
+// Description
+document.getElementById('eventDesc1').textContent = evt.desc1;
+document.getElementById('eventDesc2').textContent = evt.desc2;
+
+// Infos pratiques
+document.getElementById('eventInfoList').innerHTML = evt.infos.map(info =>
+  '<li style="font-size:14px;color:var(--text);padding-left:16px;position:relative"><span style="position:absolute;left:0;color:var(--violet);font-weight:700">—</span>' + info + '</li>'
+).join('');
+
+// Prix reservation
+const prixAffiche = evt.prix === 0 ? 'Gratuit' : evt.prix + ',00 EUR';
+document.getElementById('bookingPrice').textContent = prixAffiche;
+document.getElementById('totalPrice').textContent = prixAffiche;
+
+// Calcul dynamique du total
+if (evt.prix > 0) {
+  document.getElementById('nb-places').addEventListener('change', function() {
+    const total = (parseInt(this.value) * evt.prix).toFixed(2).replace('.', ',');
+    document.getElementById('totalPrice').textContent = total + ' EUR';
+  });
+}
+
+// Formulaire reservation
+document.getElementById('reservationForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const prenom = document.getElementById('prenom').value.trim();
+  const nom = document.getElementById('nom').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const cgv = document.getElementById('cgv').checked;
+  if (!prenom || !nom || !email || !cgv) {
+    alert('Veuillez remplir tous les champs obligatoires et accepter les conditions.');
+    return;
+  }
+  const btn = document.getElementById('submitBtn');
+  btn.textContent = 'Reservation confirmee';
+  btn.disabled = true;
+  btn.style.opacity = '0.7';
+  document.getElementById('successMsg').style.display = 'block';
+  document.getElementById('successMsg').scrollIntoView({ behavior:'smooth', block:'nearest' });
+});
+
+// Evenements similaires (meme categorie, different id)
+const similaires = Object.entries(EVENTS)
+  .filter(([k, v]) => k !== id && v.cat === evt.cat)
+  .slice(0, 2);
+
+if (similaires.length === 0) {
+  // Si pas de meme categorie, prendre 2 evenements quelconques
+  const autres = Object.entries(EVENTS).filter(([k]) => k !== id).slice(0, 2);
+  similaires.push(...autres);
+}
+
+document.getElementById('similarEvents').innerHTML = similaires.map(([k, v]) => {
+  const prix = v.prix === 0
+    ? '<span class="card-price card-price-free">Gratuit</span>'
+    : '<span class="card-price">' + v.prix + ' EUR</span>';
+  return `<article class="evt-card">
+    <a href="evenement-detail.html?id=${k}" aria-label="${v.titre}">
+      <div class="card-img ${v.img}"><span class="card-cat-tag">${v.tag}</span></div>
+      <div class="card-body">
+        <h3 class="card-name">${v.titre}</h3>
+        <p class="card-venue">${v.lieu.split(',')[0]}</p>
+        <p class="card-date">${v.dates}</p>
+        <div class="card-footer">${prix}<span class="card-btn">Voir</span></div>
+      </div>
+    </a>
+  </article>`;
+}).join('');
+</script>
+
+  <!-- BANDEAU COOKIES RGPD -->
+  <div id="cookieBanner" role="dialog" aria-live="polite" aria-label="Gestion des cookies" style="
+    position:fixed;bottom:0;left:0;right:0;z-index:9998;
+    background:var(--dark);border-top:2px solid rgba(255,255,255,0.1);
+    padding:16px 5%;display:flex;align-items:center;justify-content:space-between;
+    flex-wrap:wrap;gap:14px;font-family:'DM Sans',sans-serif;">
+    <p style="color:rgba(255,255,255,0.8);font-size:13px;margin:0;max-width:600px;line-height:1.6">
+      Nous utilisons des cookies pour personnaliser vos recommandations culturelles et mesurer l'audience.
+      <a href="cookies.html" style="color:var(--gold);text-decoration:underline">Personnaliser</a>
+    </p>
+    <div style="display:flex;gap:10px;flex-shrink:0">
+      <button onclick="refuserCookies()" style="
+        border:1px solid rgba(255,255,255,0.3);background:transparent;color:white;
+        padding:8px 18px;border-radius:7px;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;">
+        Refuser
+      </button>
+      <button onclick="accepterCookies()" style="
+        background:var(--gold);color:var(--dark);border:none;
+        padding:8px 18px;border-radius:7px;font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;">
+        Accepter tout
+      </button>
+    </div>
+  </div>
+  <script>
+    (function(){
+      if(localStorage.getItem('cookieConsent')) document.getElementById('cookieBanner').style.display='none';
+    })();
+    function accepterCookies(){ localStorage.setItem('cookieConsent','accepted'); document.getElementById('cookieBanner').style.display='none'; }
+    function refuserCookies(){ localStorage.setItem('cookieConsent','refused'); document.getElementById('cookieBanner').style.display='none'; }
+  </script>
+  <script src="accessibility.js"></script>
+</body>
+</html>

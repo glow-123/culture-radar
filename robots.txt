@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://cultureradar.netlify.app/sitemap.xml
+
+# Fichiers a ne pas indexer
+Disallow: /cache/
+Disallow: /assets/

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tous les evenements culturels — Culture Radar Paris</title>
+  <meta name="description" content="Decouvrez tous les evenements culturels a Paris et en Ile-de-France. 12 categories, filtres par date et prix.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@CultureRadar">
+  <meta name="twitter:title" content="Evenements culturels — Culture Radar">
+  <meta name="twitter:description" content="Tous les evenements culturels : concerts, expositions, theatre, cinema. Filtrez par categorie, date et prix.">
+  <meta name="twitter:image" content="https://cultureradar.netlify.app/og-image.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="accessibility.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
+  <header class="site-header" role="banner">
+    <a href="index.html" class="logo" aria-label="Culture Radar - Accueil">
+      <span class="logo-emoji" aria-hidden="true">🎭</span>
+      Culture Radar
+    </a>
+    <nav class="header-nav" role="navigation" aria-label="Navigation principale">
+      <a href="evenements.html" class="nav-link active">Evenements</a>
+      <a href="evenements.html#categories" class="nav-link">Categories</a>
+      <a href="organisateurs.html" class="nav-link">Organisateurs</a>
+      <a href="index.html#how" class="nav-link">Comment ca marche</a>
+    </nav>
+    <a href="search.html" class="search-icon-btn" aria-label="Rechercher un evenement" title="Rechercher">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </a>
+    <div class="header-actions">
+      <a href="connexion.html" class="btn-link">Connexion</a>
+      <a href="inscription.html" class="btn-primary">Commencer</a>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <div class="page-hero">
+      <h1>Evenements culturels</h1>
+      <p>Concerts, expositions, theatre, cinema — tout ce qui se passe pres de chez vous</p>
+    </div>
+
+    <!-- FILTRES 12 CATEGORIES -->
+    <nav class="cats-nav" id="categories" aria-label="Filtrer par categorie">
+      <button class="filter-chip active" data-cat="tous">Tous</button>
+      <button class="filter-chip" data-cat="musique">Musique</button>
+      <button class="filter-chip" data-cat="theatre">Theatre</button>
+      <button class="filter-chip" data-cat="expositions">Expositions</button>
+      <button class="filter-chip" data-cat="danse">Danse</button>
+      <button class="filter-chip" data-cat="cinema">Cinema</button>
+      <button class="filter-chip" data-cat="patrimoine">Patrimoine</button>
+      <button class="filter-chip" data-cat="ateliers">Ateliers</button>
+      <button class="filter-chip" data-cat="festivals">Festivals</button>
+      <button class="filter-chip" data-cat="opera">Opera</button>
+      <button class="filter-chip" data-cat="litterature">Litterature</button>
+      <button class="filter-chip" data-cat="gastronomie">Gastronomie</button>
+      <button class="filter-chip" data-cat="cirque">Cirque</button>
+    </nav>
+
+    <!-- FILTRES DATE / PRIX / PUBLIC / LIEU -->
+    <div class="filters-bar" role="search" aria-label="Filtres supplementaires">
+      <button class="filter-chip active" data-date="tous">Tout voir</button>
+      <button class="filter-chip" data-date="aujourd_hui">Aujourd'hui</button>
+      <button class="filter-chip" data-date="week_end">Ce week-end</button>
+      <button class="filter-chip" data-date="semaine">Cette semaine</button>
+      <button class="filter-chip" data-prix="gratuit">Gratuit</button>
+      <button class="filter-chip" data-public="famille">Famille</button>
+      <button class="filter-chip" data-lieu="paris">Paris</button>
+      <button class="filter-chip" data-lieu="banlieue">Hors Paris</button>
+    </div>
+
+    <div class="events-page-header">
+      <p class="results-count" id="resultsCount">18 evenements trouves</p>
+      <select class="sort-select" id="sortSelect" aria-label="Trier les evenements">
+        <option value="date">Trier par : Date</option>
+        <option value="prix_asc">Prix croissant</option>
+        <option value="prix_desc">Prix decroissant</option>
+      </select>
+    </div>
+
+    <section class="section" aria-labelledby="events-title">
+      <h2 id="events-title" class="sr-only">Liste des evenements</h2>
+      <div class="events-grid" id="eventsGrid"></div>
+      <p id="noResults" style="display:none;text-align:center;padding:40px;color:var(--text-muted);font-size:15px">
+        Aucun evenement ne correspond a vos filtres.
+      </p>
+    </section>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo" style="font-size:17px"><span class="logo-emoji" aria-hidden="true">🎭</span> Culture Radar</div>
+        <p>Votre boussole intelligente vers l'art, la culture et l'emerveillement.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Decouvrir</div>
+        <a href="evenements.html" class="footer-link">Tous les evenements</a>
+        <a href="evenements.html?filtre=gratuit" class="footer-link">Evenements gratuits</a>
+        <a href="evenements.html?filtre=week_end" class="footer-link">Ce week-end</a>
+      </div>
+      <div>
+        <div class="footer-col-title">Organisateurs</div>
+        <a href="organisateurs.html" class="footer-link">Devenir partenaire</a>
+        <a href="organisateurs.html#inscription" class="footer-link">Publier un evenement</a>
+      </div>
+      <div>
+        <div class="footer-col-title">Legal</div>
+        <a href="mentions-legales.html" class="footer-link">Mentions legales</a>
+        <a href="confidentialite.html" class="footer-link">Confidentialite</a>
+        <a href="cgu.html" class="footer-link">CGU</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Culture Radar — InnovaDigital Agency</span>
+      <span>Projet RNCP 38018 — Gloria AMINI</span>
+    </div>
+  </footer>
+
+<script>
+const EVENTS=[
+  {id:'jazz-quartet',    titre:'Concert Jazz Quartet — Standards et Improvisations', lieu:'Le Sunset, Paris 1er',     ville:'paris',   dates:['18 janvier'],               heure:'20h00',prix:15, cat:'musique',     public:'adulte', img:'card-img-music',    tag:'MUSIQUE'},
+  {id:'traviata',        titre:'Opera "La Traviata" — Verdi',                        lieu:'Opera de Paris, Paris 9e', ville:'paris',   dates:['21 janvier'],               heure:'19h30',prix:45, cat:'opera',       public:'adulte', img:'card-img-culture',  tag:'OPERA'},
+  {id:'expo-lumiere',    titre:'Lumieres — Art Numerique au Centquatre',             lieu:'Centquatre, Paris 19e',    ville:'paris',   dates:['15 janvier','16 janvier','17 janvier','18 janvier','19 janvier','20 janvier','21 janvier','22 janvier','23 janvier','24 janvier','25 janvier','26 janvier','27 janvier','28 janvier'],heure:'',prix:12,cat:'expositions',public:'adulte',img:'card-img-expo',tag:'EXPOSITION'},
+  {id:'ballet-lac',      titre:'Ballet "Le Lac des Cygnes" — Tchaïkovski',          lieu:'Theatre du Chatelet, Paris 1er',ville:'paris',dates:['17 janvier'],             heure:'20h00',prix:35, cat:'danse',       public:'adulte', img:'card-img-dance',    tag:'DANSE'},
+  {id:'marche-createurs',titre:'Marche des Createurs — Arts et Design',             lieu:'Canal Saint-Martin, Paris 10e',ville:'paris',dates:['18 janvier'],             heure:'10h00',prix:0,  cat:'ateliers',    public:'famille',img:'card-img-atelier',  tag:'ARTISANAT'},
+  {id:'theatre-masques', titre:'La Nuit des Masques — Theatre contemporain',        lieu:'Theatre de la Ville, Paris 4e',ville:'paris',dates:['19 janvier'],             heure:'16h00',prix:8,  cat:'theatre',     public:'adulte', img:'card-img-theater',  tag:'THEATRE'},
+  {id:'ceramique',       titre:'Initiation Ceramique — Stage weekend',              lieu:'Atelier des Arts, Paris 20e',  ville:'paris',dates:['16 janvier'],             heure:'14h00',prix:15, cat:'ateliers',    public:'adulte', img:'card-img-atelier',  tag:'ATELIER'},
+  {id:'cinema-auteur',   titre:'Retrospective Godard — A bout de souffle',          lieu:'MK2 Gambetta, Paris 20e',      ville:'paris',dates:['22 janvier'],             heure:'20h30',prix:9,  cat:'cinema',      public:'adulte', img:'card-img-cinema',   tag:'CINEMA'},
+  {id:'musee-enfants',   titre:'Visite guidee famille — Musee d\'Orsay',            lieu:'Musee d\'Orsay, Paris 7e',     ville:'paris',dates:['18 janvier'],             heure:'11h00',prix:0,  cat:'patrimoine',  public:'famille',img:'card-img-heritage', tag:'FAMILLE'},
+  {id:'friche-pantin',   titre:'Nuit Electro — Collective Pantin Sounds',           lieu:'La Grande Halle, Pantin (93)', ville:'banlieue',dates:['18 janvier'],          heure:'22h00',prix:10, cat:'musique',     public:'adulte', img:'card-img-music',    tag:'MUSIQUE'},
+  {id:'expo-photo',      titre:'Photographies du Monde — Collections 2025',         lieu:'MEP, Paris 4e',                ville:'paris',dates:['10 janvier','11 janvier','12 janvier','13 janvier','14 janvier','15 janvier','16 janvier','17 janvier','18 janvier','19 janvier','20 janvier','21 janvier','22 janvier','23 janvier','24 janvier','25 janvier','26 janvier','27 janvier','28 janvier','29 janvier','30 janvier'],heure:'',prix:12,cat:'expositions',public:'adulte',img:'card-img-expo',tag:'EXPOSITION'},
+  {id:'belleville-street',titre:'Street Art Belleville — Visite guidee',            lieu:'Quartier Belleville, Paris 20e',ville:'paris',dates:['19 janvier'],            heure:'14h00',prix:0,  cat:'patrimoine',  public:'adulte', img:'card-img-heritage', tag:'VISITE'},
+  {id:'cirque-actuel',   titre:'Cirque Contemporain — Cie Les Lumieres',            lieu:'La Villette, Paris 19e',       ville:'paris',dates:['25 janvier'],             heure:'18h00',prix:18, cat:'cirque',      public:'famille',img:'card-img-atelier',  tag:'CIRQUE'},
+  {id:'salon-livre',     titre:'Salon du Livre — Rencontres d\'auteurs',            lieu:'Parc des Expositions, Villepinte', ville:'banlieue',dates:['19 janvier'],       heure:'10h00',prix:5,  cat:'litterature', public:'famille',img:'card-img-culture',  tag:'LITTERATURE'},
+  {id:'festival-jazz',   titre:'Festival Jazz en Seine — 3 jours',                  lieu:'Seine Musicale, Boulogne-Billancourt', ville:'banlieue',dates:['18 janvier','19 janvier','20 janvier'],heure:'',prix:25,cat:'festivals',public:'adulte',img:'card-img-music',tag:'FESTIVAL'},
+  {id:'degustation-vin', titre:'Grands Crus d\'Ile-de-France — Degustation',        lieu:'Pavillon de l\'Arsenal, Paris 4e',ville:'paris',dates:['18 janvier'],          heure:'15h00',prix:35, cat:'gastronomie', public:'adulte', img:'card-img-culture',  tag:'GASTRONOMIE'},
+  {id:'atelier-dessin',  titre:'Atelier Dessin — Initiation pour enfants',          lieu:'Centre Pompidou, Paris 4e',    ville:'paris',dates:['22 janvier'],             heure:'14h00',prix:0,  cat:'ateliers',    public:'famille',img:'card-img-atelier',  tag:'FAMILLE'},
+  {id:'concert-gratuit', titre:'Concert Gratuit — Chorale du Marais',               lieu:'Eglise Saint-Merri, Paris 4e', ville:'paris',dates:['19 janvier'],             heure:'17h00',prix:0,  cat:'musique',     public:'famille',img:'card-img-music',    tag:'GRATUIT'},
+];
+
+const AUJOURD_HUI=['18 janvier'];
+const WEEK_END=['18 janvier','19 janvier'];
+const SEMAINE=['20 janvier','21 janvier','22 janvier','23 janvier','24 janvier','25 janvier','26 janvier'];
+
+let fCat='tous', fDate='tous', fPrix=null, fPublic=null, fLieu=null;
+
+function matchDate(evt,f){
+  if(f==='tous') return true;
+  const ref=f==='aujourd_hui'?AUJOURD_HUI:f==='week_end'?WEEK_END:SEMAINE;
+  return evt.dates.some(d=>ref.includes(d));
+}
+
+function filtrer(){
+  return EVENTS.filter(e=>{
+    if(fCat!=='tous'&&e.cat!==fCat) return false;
+    if(!matchDate(e,fDate)) return false;
+    if(fPrix==='gratuit'&&e.prix!==0) return false;
+    if(fPublic==='famille'&&e.public!=='famille') return false;
+    if(fLieu&&e.ville!==fLieu) return false;
+    return true;
+  });
+}
+
+function dateAffichee(evt){
+  if(evt.dates.length===1) return evt.dates[0]+(evt.heure?' — '+evt.heure:'');
+  return 'Du '+evt.dates[0]+' au '+evt.dates[evt.dates.length-1];
+}
+
+function render(){
+  const grid=document.getElementById('eventsGrid');
+  const noRes=document.getElementById('noResults');
+  const count=document.getElementById('resultsCount');
+  const sort=document.getElementById('sortSelect').value;
+  let evts=filtrer();
+  if(sort==='prix_asc') evts.sort((a,b)=>a.prix-b.prix);
+  if(sort==='prix_desc') evts.sort((a,b)=>b.prix-a.prix);
+  count.textContent=evts.length+' evenement'+(evts.length>1?'s':'')+' trouve'+(evts.length>1?'s':'');
+  if(!evts.length){grid.innerHTML='';noRes.style.display='block';return;}
+  noRes.style.display='none';
+  grid.innerHTML=evts.map(e=>{
+    const prix=e.prix===0?'<span class="card-price card-price-free">Gratuit</span>':'<span class="card-price">'+e.prix+' EUR</span>';
+    return`<article class="evt-card">
+      <a href="evenement-detail.html?id=${e.id}" aria-label="${e.titre}">
+        <div class="card-img ${e.img}"><span class="card-cat-tag">${e.tag}</span></div>
+        <div class="card-body">
+          <h3 class="card-name">${e.titre}</h3>
+          <p class="card-venue">${e.lieu}</p>
+          <p class="card-date">${dateAffichee(e)}</p>
+          <div class="card-footer">${prix}<span class="card-btn">Voir et reserver</span></div>
+        </div>
+      </a>
+    </article>`;
+  }).join('');
+}
+
+// Filtres categories
+document.querySelectorAll('[data-cat]').forEach(btn=>{
+  btn.addEventListener('click',function(){
+    document.querySelectorAll('[data-cat]').forEach(b=>b.classList.remove('active'));
+    this.classList.add('active');fCat=this.dataset.cat;render();
+  });
+});
+
+// Filtres date
+document.querySelectorAll('[data-date]').forEach(btn=>{
+  btn.addEventListener('click',function(){
+    document.querySelectorAll('[data-date]').forEach(b=>b.classList.remove('active'));
+    this.classList.add('active');fDate=this.dataset.date;render();
+  });
+});
+
+// Filtre prix
+document.querySelectorAll('[data-prix]').forEach(btn=>{
+  btn.addEventListener('click',function(){
+    const was=this.classList.contains('active');
+    document.querySelectorAll('[data-prix]').forEach(b=>b.classList.remove('active'));
+    fPrix=was?null:this.dataset.prix;
+    if(!was)this.classList.add('active');
+    render();
+  });
+});
+
+// Filtre public
+document.querySelectorAll('[data-public]').forEach(btn=>{
+  btn.addEventListener('click',function(){
+    const was=this.classList.contains('active');
+    document.querySelectorAll('[data-public]').forEach(b=>b.classList.remove('active'));
+    fPublic=was?null:this.dataset.public;
+    if(!was)this.classList.add('active');
+    render();
+  });
+});
+
+// Filtre lieu
+document.querySelectorAll('[data-lieu]').forEach(btn=>{
+  btn.addEventListener('click',function(){
+    const was=this.classList.contains('active');
+    document.querySelectorAll('[data-lieu]').forEach(b=>b.classList.remove('active'));
+    fLieu=was?null:this.dataset.lieu;
+    if(!was)this.classList.add('active');
+    render();
+  });
+});
+
+document.getElementById('sortSelect').addEventListener('change',render);
+
+// Lire URL params
+const p=new URLSearchParams(window.location.search);
+if(p.get('categorie')){
+  fCat=p.get('categorie');
+  document.querySelectorAll('[data-cat]').forEach(b=>b.classList.remove('active'));
+  const b=document.querySelector('[data-cat="'+fCat+'"]');
+  if(b)b.classList.add('active');
+}
+const fi=p.get('filtre');
+if(fi==='gratuit'){fPrix='gratuit';document.querySelector('[data-prix="gratuit"]').classList.add('active');}
+else if(fi==='famille'){fPublic='famille';document.querySelector('[data-public="famille"]').classList.add('active');}
+else if(fi==='paris'){fLieu='paris';document.querySelector('[data-lieu="paris"]').classList.add('active');}
+else if(fi==='banlieue'){fLieu='banlieue';document.querySelector('[data-lieu="banlieue"]').classList.add('active');}
+else if(['aujourd_hui','week_end','semaine'].includes(fi)){
+  fDate=fi;
+  document.querySelectorAll('[data-date]').forEach(b=>b.classList.remove('active'));
+  const b=document.querySelector('[data-date="'+fi+'"]');
+  if(b)b.classList.add('active');
+}
+
+render();
+</script>
+
+  <!-- BANDEAU COOKIES RGPD -->
+  <div id="cookieBanner" role="dialog" aria-live="polite" aria-label="Gestion des cookies" style="
+    position:fixed;bottom:0;left:0;right:0;z-index:9998;
+    background:var(--dark);border-top:2px solid rgba(255,255,255,0.1);
+    padding:16px 5%;display:flex;align-items:center;justify-content:space-between;
+    flex-wrap:wrap;gap:14px;font-family:'DM Sans',sans-serif;">
+    <p style="color:rgba(255,255,255,0.8);font-size:13px;margin:0;max-width:600px;line-height:1.6">
+      Nous utilisons des cookies pour personnaliser vos recommandations culturelles et mesurer l'audience.
+      <a href="cookies.html" style="color:var(--gold);text-decoration:underline">Personnaliser</a>
+    </p>
+    <div style="display:flex;gap:10px;flex-shrink:0">
+      <button onclick="refuserCookies()" style="
+        border:1px solid rgba(255,255,255,0.3);background:transparent;color:white;
+        padding:8px 18px;border-radius:7px;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;">
+        Refuser
+      </button>
+      <button onclick="accepterCookies()" style="
+        background:var(--gold);color:var(--dark);border:none;
+        padding:8px 18px;border-radius:7px;font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;">
+        Accepter tout
+      </button>
+    </div>
+  </div>
+  <script>
+    (function(){
+      if(localStorage.getItem('cookieConsent')) document.getElementById('cookieBanner').style.display='none';
+    })();
+    function accepterCookies(){ localStorage.setItem('cookieConsent','accepted'); document.getElementById('cookieBanner').style.display='none'; }
+    function refuserCookies(){ localStorage.setItem('cookieConsent','refused'); document.getElementById('cookieBanner').style.display='none'; }
+  </script>
+  <script src="accessibility.js"></script>
+</body>
+</html>

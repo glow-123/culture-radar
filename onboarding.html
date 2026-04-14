@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Creez votre profil culturel — Culture Radar</title>
+  <meta name="description" content="Creez votre profil culturel sur Culture Radar en quelques etapes et recevez des recommandations sur mesure.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@CultureRadar">
+  <meta name="twitter:title" content="Votre profil culturel — Culture Radar">
+  <meta name="twitter:description" content="Creez votre profil culturel sur Culture Radar en quelques etapes et recevez des recommandations sur mesure.">
+  <meta name="twitter:image" content="https://cultureradar.netlify.app/og-image.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="accessibility.css">
+  <style>
+    body { background: var(--dark); min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; }
+
+    .onboarding-card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 48px 44px;
+      width: 100%;
+      max-width: 560px;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.4);
+    }
+
+    /* Indicateurs d'etape */
+    .steps-indicator { display: flex; gap: 8px; justify-content: center; margin-bottom: 36px; }
+    .step-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--grey-light); transition: all 0.3s;
+    }
+    .step-dot.active { background: var(--violet); transform: scale(1.3); }
+    .step-dot.done { background: var(--violet-light); }
+
+    .step-title { font-size: 26px; color: var(--text); margin-bottom: 8px; text-align: center; }
+    .step-sub { font-size: 14px; color: var(--text-muted); text-align: center; margin-bottom: 32px; }
+
+    /* Contenu des etapes */
+    .step-content { display: none; }
+    .step-content.active { display: block; }
+
+    /* Grille preferences */
+    .pref-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .pref-card {
+      border: 2px solid var(--card-border);
+      border-radius: 12px;
+      padding: 16px 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: var(--white);
+    }
+    .pref-card:hover { border-color: var(--violet); background: var(--grey-bg); }
+    .pref-card.selected { border-color: var(--violet); background: rgba(74,44,138,0.08); }
+    .pref-icon { font-size: 28px; display: block; margin-bottom: 6px; }
+    .pref-label { font-size: 12px; font-weight: 600; color: var(--text); }
+
+    /* Frequence */
+    .freq-option {
+      border: 2px solid var(--card-border);
+      border-radius: 10px;
+      padding: 14px 18px;
+      cursor: pointer;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.2s;
+    }
+    .freq-option:hover { border-color: var(--violet); }
+    .freq-option.selected { border-color: var(--violet); background: rgba(74,44,138,0.06); }
+    .freq-radio { width: 18px; height: 18px; accent-color: var(--violet); flex-shrink: 0; }
+    .freq-label { font-size: 14px; font-weight: 500; color: var(--text); }
+    .freq-desc { font-size: 12px; color: var(--text-muted); }
+
+    /* Zone */
+    .zone-option { border: 2px solid var(--card-border); border-radius: 10px; padding: 14px 18px; cursor: pointer; margin-bottom: 10px; display: flex; align-items: center; gap: 12px; transition: all 0.2s; }
+    .zone-option:hover { border-color: var(--violet); }
+    .zone-option.selected { border-color: var(--violet); background: rgba(74,44,138,0.06); }
+
+    /* Navigation */
+    .step-nav { display: flex; gap: 12px; margin-top: 32px; }
+    .btn-prev { flex: 1; padding: 12px; border: 1.5px solid var(--card-border); border-radius: 9px; background: var(--white); color: var(--text-muted); font-size: 14px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.2s; }
+    .btn-prev:hover { border-color: var(--violet); color: var(--violet); }
+    .btn-next { flex: 2; padding: 12px; background: var(--violet); color: var(--white); border: none; border-radius: 9px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: background 0.2s; }
+    .btn-next:hover { background: var(--violet-light); }
+    .btn-finish { flex: 2; padding: 12px; background: var(--gold); color: var(--dark); border: none; border-radius: 9px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+
+    /* Recapitulatif */
+    .recap-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--grey-light); font-size: 14px; }
+    .recap-label { color: var(--text-muted); }
+    .recap-value { color: var(--text); font-weight: 600; }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
+
+  <div class="onboarding-card" role="main" aria-label="Questionnaire de profil culturel">
+
+    <!-- Indicateurs etape -->
+    <div class="steps-indicator" role="progressbar" aria-valuemin="1" aria-valuemax="4" aria-valuenow="1" aria-label="Etape 1 sur 4">
+      <div class="step-dot active" id="dot1"></div>
+      <div class="step-dot" id="dot2"></div>
+      <div class="step-dot" id="dot3"></div>
+      <div class="step-dot" id="dot4"></div>
+    </div>
+
+    <h1 class="step-title" id="stepTitle">Bienvenue sur Culture Radar</h1>
+    <p class="step-sub" id="stepSub">Repondez a quelques questions pour personnaliser vos recommandations</p>
+
+    <!-- ETAPE 1 : Preferences culturelles -->
+    <div class="step-content active" id="step1">
+      <p style="font-size:13px;color:var(--text-muted);margin-bottom:16px;text-align:center">Selectionnez vos categories favorites (plusieurs choix possibles)</p>
+      <div class="pref-grid">
+        <div class="pref-card" data-pref="musique" tabindex="0" role="checkbox" aria-checked="false">
+          <span class="pref-icon" aria-hidden="true">&#127925;</span>
+          <div class="pref-label">Musique</div>
+        </div>
+        <div class="pref-card" data-pref="theatre" tabindex="0" role="checkbox" aria-checked="false">
+          <span class="pref-icon" aria-hidden="true">&#127914;</span>
+          <div class="pref-label">Theatre</div>
+        </div>
+        <div class="pref-card" data-pref="expositions" tabindex="0" role="checkbox" aria-checked="false">
+          <span class="pref-icon" aria-hidden="true">&#127776;</span>
+          <div class="pref-label">Expositions</div>
+        </div>
+        <div class="pref-card" data-pref="cinema" tabindex="0" role="checkbox" aria-checked="false">
+          <span class="pref-icon" aria-hidden="true">&#127909;</span>
+          <div class="pref-label">Cinema</div>
+        </div>
+        <div class="pref-card" data-pref="danse" tabindex="0" role="checkbox" aria-checked="false">
+          <span class="pref-icon" aria-hidden="true">&#128131;</span>
+          <div class="pref-label">Danse</div>
+        </div>
+        <div class="pref-card" data-pref="patrimoine" tabindex="0" role="checkbox" aria-checked="false">
+          <span class="pref-icon" aria-hidden="true">&#127981;</span>
+          <div class="pref-label">Patrimoine</div>
+        </div>
+        <div class="pref-card" data-pref="ateliers" tabindex="0" role="checkbox" aria-checked="false">
+          <span class="pref-icon" aria-hidden="true">&#127912;</span>
+          <div class="pref-label">Ateliers</div>
+        </div>
+        <div class="pref-card" data-pref="festivals" tabindex="0" role="checkbox" aria-checked="false">
+          <span class="pref-icon" aria-hidden="true">&#127895;</span>
+          <div class="pref-label">Festivals</div>
+        </div>
+        <div class="pref-card" data-pref="gastronomie" tabindex="0" role="checkbox" aria-checked="false">
+          <span class="pref-icon" aria-hidden="true">&#127869;</span>
+          <div class="pref-label">Gastronomie</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ETAPE 2 : Frequence -->
+    <div class="step-content" id="step2">
+      <p style="font-size:13px;color:var(--text-muted);margin-bottom:16px;text-align:center">Combien de fois par mois sortez-vous ?</p>
+      <div class="freq-option" data-freq="rare" tabindex="0">
+        <input type="radio" name="freq" class="freq-radio" value="rare">
+        <div>
+          <div class="freq-label">Rarement — 1 a 2 fois par mois</div>
+          <div class="freq-desc">Je sors peu mais je choisis avec soin</div>
+        </div>
+      </div>
+      <div class="freq-option" data-freq="modere" tabindex="0">
+        <input type="radio" name="freq" class="freq-radio" value="modere">
+        <div>
+          <div class="freq-label">Moderement — 3 a 5 fois par mois</div>
+          <div class="freq-desc">J'aime varier les sorties culturelles</div>
+        </div>
+      </div>
+      <div class="freq-option" data-freq="regulier" tabindex="0">
+        <input type="radio" name="freq" class="freq-radio" value="regulier">
+        <div>
+          <div class="freq-label">Regulierement — 1 a 2 fois par semaine</div>
+          <div class="freq-desc">La culture fait partie de mon quotidien</div>
+        </div>
+      </div>
+      <div class="freq-option" data-freq="intensif" tabindex="0">
+        <input type="radio" name="freq" class="freq-radio" value="intensif">
+        <div>
+          <div class="freq-label">Tres souvent — Plusieurs fois par semaine</div>
+          <div class="freq-desc">Je suis un vrai passione de culture</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ETAPE 3 : Zone geographique -->
+    <div class="step-content" id="step3">
+      <p style="font-size:13px;color:var(--text-muted);margin-bottom:16px;text-align:center">Dans quelle zone cherchez-vous des evenements ?</p>
+      <div class="zone-option" data-zone="paris-centre" tabindex="0">
+        <input type="radio" name="zone" class="freq-radio" value="paris-centre">
+        <div>
+          <div class="freq-label">Paris intra-muros</div>
+          <div class="freq-desc">75 — Les 20 arrondissements de Paris</div>
+        </div>
+      </div>
+      <div class="zone-option" data-zone="petite-couronne" tabindex="0">
+        <input type="radio" name="zone" class="freq-radio" value="petite-couronne">
+        <div>
+          <div class="freq-label">Petite couronne</div>
+          <div class="freq-desc">92, 93, 94 — Hauts-de-Seine, Seine-Saint-Denis, Val-de-Marne</div>
+        </div>
+      </div>
+      <div class="zone-option" data-zone="grande-couronne" tabindex="0">
+        <input type="radio" name="zone" class="freq-radio" value="grande-couronne">
+        <div>
+          <div class="freq-label">Grande couronne</div>
+          <div class="freq-desc">77, 78, 91, 95 — Seine-et-Marne, Yvelines, Essonne, Val-d'Oise</div>
+        </div>
+      </div>
+      <div class="zone-option" data-zone="toute-idf" tabindex="0">
+        <input type="radio" name="zone" class="freq-radio" value="toute-idf">
+        <div>
+          <div class="freq-label">Toute la region</div>
+          <div class="freq-desc">Je suis mobile et curieux</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ETAPE 4 : Recapitulatif -->
+    <div class="step-content" id="step4">
+      <p style="font-size:13px;color:var(--text-muted);margin-bottom:20px;text-align:center">Voici votre profil culturel — tout est pret !</p>
+      <div id="recapList"></div>
+      <div style="background:rgba(74,44,138,0.06);border:1px solid rgba(74,44,138,0.2);border-radius:10px;padding:14px 16px;margin-top:16px;font-size:13px;color:var(--text)">
+        Votre ADN culturel est cree. Les recommandations s'affineront au fil de vos visites et reservations.
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="step-nav">
+      <button class="btn-prev" id="btnPrev" style="display:none" onclick="prevStep()">Precedent</button>
+      <button class="btn-next" id="btnNext" onclick="nextStep()">Suivant</button>
+      <button class="btn-finish" id="btnFinish" style="display:none" onclick="finish()">Decouvrir mes evenements</button>
+    </div>
+
+  </div>
+
+  <script>
+    let currentStep = 1;
+    const totalSteps = 4;
+    const profil = { preferences: [], frequence: '', zone: '' };
+
+    const titles = [
+      'Vos passions culturelles',
+      'Votre rythme de sorties',
+      'Votre zone de recherche',
+      'Votre profil est pret'
+    ];
+    const subs = [
+      'Selectionnez vos categories favorites (plusieurs choix possibles)',
+      'Combien de fois par mois sortez-vous ?',
+      'Dans quelle zone cherchez-vous des evenements ?',
+      'Tout est configure, vous pouvez commencer !'
+    ];
+
+    // Preferences
+    document.querySelectorAll('.pref-card').forEach(card => {
+      card.addEventListener('click', () => {
+        card.classList.toggle('selected');
+        card.setAttribute('aria-checked', card.classList.contains('selected'));
+        const pref = card.dataset.pref;
+        if (card.classList.contains('selected')) {
+          if (!profil.preferences.includes(pref)) profil.preferences.push(pref);
+        } else {
+          profil.preferences = profil.preferences.filter(p => p !== pref);
+        }
+      });
+      card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.click(); } });
+    });
+
+    // Frequence
+    document.querySelectorAll('.freq-option').forEach(opt => {
+      opt.addEventListener('click', () => {
+        document.querySelectorAll('.freq-option').forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+        opt.querySelector('input[type=radio]').checked = true;
+        profil.frequence = opt.dataset.freq;
+      });
+      opt.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); opt.click(); } });
+    });
+
+    // Zone
+    document.querySelectorAll('.zone-option').forEach(opt => {
+      opt.addEventListener('click', () => {
+        document.querySelectorAll('.zone-option').forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+        opt.querySelector('input[type=radio]').checked = true;
+        profil.zone = opt.dataset.zone;
+      });
+      opt.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); opt.click(); } });
+    });
+
+    function updateUI() {
+      document.getElementById('stepTitle').textContent = titles[currentStep - 1];
+      document.getElementById('stepSub').textContent = subs[currentStep - 1];
+
+      document.querySelectorAll('.step-content').forEach(s => s.classList.remove('active'));
+      document.getElementById('step' + currentStep).classList.add('active');
+
+      for (let i = 1; i <= totalSteps; i++) {
+        const dot = document.getElementById('dot' + i);
+        dot.className = 'step-dot';
+        if (i < currentStep) dot.classList.add('done');
+        if (i === currentStep) dot.classList.add('active');
+      }
+
+      document.querySelector('[role=progressbar]').setAttribute('aria-valuenow', currentStep);
+
+      const btnPrev = document.getElementById('btnPrev');
+      const btnNext = document.getElementById('btnNext');
+      const btnFinish = document.getElementById('btnFinish');
+
+      btnPrev.style.display = currentStep > 1 ? 'block' : 'none';
+      btnNext.style.display = currentStep < totalSteps ? 'block' : 'none';
+      btnFinish.style.display = currentStep === totalSteps ? 'block' : 'none';
+
+      if (currentStep === totalSteps) buildRecap();
+    }
+
+    function buildRecap() {
+      const freqLabels = { rare:'1-2 fois/mois', modere:'3-5 fois/mois', regulier:'1-2 fois/semaine', intensif:'Plusieurs fois/semaine' };
+      const zoneLabels = { 'paris-centre':'Paris intra-muros', 'petite-couronne':'Petite couronne (92/93/94)', 'grande-couronne':'Grande couronne', 'toute-idf':'Toute la region' };
+      const prefs = profil.preferences.length > 0 ? profil.preferences.join(', ') : 'Non renseigne';
+      const freq = freqLabels[profil.frequence] || 'Non renseigne';
+      const zone = zoneLabels[profil.zone] || 'Non renseigne';
+
+      document.getElementById('recapList').innerHTML = `
+        <div class="recap-item"><span class="recap-label">Passions</span><span class="recap-value">${prefs}</span></div>
+        <div class="recap-item"><span class="recap-label">Frequence</span><span class="recap-value">${freq}</span></div>
+        <div class="recap-item"><span class="recap-label">Zone</span><span class="recap-value">${zone}</span></div>
+      `;
+    }
+
+    function nextStep() {
+      if (currentStep < totalSteps) { currentStep++; updateUI(); }
+    }
+    function prevStep() {
+      if (currentStep > 1) { currentStep--; updateUI(); }
+    }
+    function finish() {
+      window.location.href = 'evenements.html';
+    }
+
+    updateUI();
+  </script>
+</body>
+</html>

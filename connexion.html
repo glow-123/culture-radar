@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connexion — Culture Radar</title>
+  <meta name="description" content="Connectez-vous a votre compte Culture Radar et retrouvez vos recommandations culturelles personnalisees.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@CultureRadar">
+  <meta name="twitter:title" content="Connexion — Culture Radar">
+  <meta name="twitter:description" content="Connectez-vous a votre compte Culture Radar et retrouvez vos recommandations culturelles personnalisees.">
+  <meta name="twitter:image" content="https://cultureradar.netlify.app/og-image.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="accessibility.css">
+  <style>
+    body { background: var(--dark); display: flex; flex-direction: column; min-height: 100vh; }
+    .auth-wrapper { flex: 1; display: flex; align-items: center; justify-content: center; padding: 40px 20px; }
+    .auth-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 44px 40px;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+    .auth-logo { text-align: center; margin-bottom: 28px; }
+    .auth-logo .logo { justify-content: center; color: var(--text); font-size: 22px; }
+    .auth-logo .logo-mask { /* visible */ }
+    .auth-title { font-size: 26px; text-align: center; margin-bottom: 6px; color: var(--text); }
+    .auth-sub { text-align: center; font-size: 14px; color: var(--text-muted); margin-bottom: 30px; }
+    .auth-form { display: flex; flex-direction: column; gap: 16px; }
+    .auth-footer { text-align: center; margin-top: 24px; font-size: 13px; color: var(--text-muted); }
+    .auth-footer a { color: var(--violet); font-weight: 600; }
+    .auth-footer a:hover { text-decoration: underline; }
+    .demo-box {
+      background: var(--grey-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-top: 20px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .demo-box strong { color: var(--text); display: block; margin-bottom: 6px; }
+    .btn-retour { display: inline-block; margin-top: 16px; font-size: 13px; color: rgba(255,255,255,0.6); }
+    .btn-retour:hover { color: var(--white); }
+    .form-success { background:#D5F5E3;border:1px solid #1A6E35;color:#1A6E35;padding:12px 16px;border-radius:8px;font-size:14px;display:none;margin-top:8px; }
+    .separator { display:flex;align-items:center;gap:12px;margin:8px 0;color:var(--text-muted);font-size:12px; }
+    .separator::before,.separator::after { content:'';flex:1;height:1px;background:var(--card-border); }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
+
+
+  <div style="padding:16px 5%;background:var(--dark)">
+    <a href="index.html" class="logo" aria-label="Culture Radar - Accueil">
+      <span class="logo-emoji" aria-hidden="true">🎭</span>
+      Culture Radar
+    </a>
+  </div>
+
+  <div class="auth-wrapper">
+    <div class="auth-card">
+      <h1 class="auth-title">Connexion</h1>
+      <p class="auth-sub">Retrouvez vos recommandations culturelles personnalisees</p>
+
+      <form class="auth-form" id="loginForm" novalidate>
+        <div class="form-group" style="margin-bottom:0">
+          <label for="email" class="form-label">Adresse email</label>
+          <input type="email" id="email" name="email" class="form-input" placeholder="votre@email.fr" required autocomplete="email">
+        </div>
+        <div class="form-group" style="margin-bottom:0">
+          <label for="password" class="form-label">Mot de passe</label>
+          <input type="password" id="password" name="password" class="form-input" placeholder="Votre mot de passe" required autocomplete="current-password">
+        </div>
+        <button type="submit" class="btn-gold" style="width:100%;margin-top:8px">Se connecter</button>
+        <div class="form-success" id="loginSuccess" role="alert">
+          Connexion reussie ! Redirection en cours...
+        </div>
+      </form>
+
+      <div class="separator">ou</div>
+
+      <div class="demo-box">
+        <strong>Compte de demonstration</strong>
+        Email : test@culture-radar.fr<br>
+        Mot de passe : password123
+      </div>
+
+      <div class="auth-footer">
+        Pas encore de compte ? <a href="inscription.html">S'inscrire gratuitement</a>
+        <br>
+        <a href="index.html" style="color:var(--text-muted);margin-top:8px;display:inline-block">Retour a l'accueil</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      if (!email || !password) { alert('Veuillez remplir tous les champs.'); return; }
+      const msg = document.getElementById('loginSuccess');
+      msg.style.display = 'block';
+      // Compte demo : redirection vers evenements directement
+      // Nouveau compte : redirection vers onboarding
+      const isDemo = (email === 'test@culture-radar.fr' && password === 'password123');
+      setTimeout(() => {
+        window.location.href = isDemo ? 'evenements.html' : 'evenements.html';
+      }, 1500);
+    });
+  </script>
+
+  <!-- BANDEAU COOKIES RGPD -->
+  <div id="cookieBanner" role="dialog" aria-live="polite" aria-label="Gestion des cookies" style="
+    position:fixed;bottom:0;left:0;right:0;z-index:9998;
+    background:var(--dark);border-top:2px solid rgba(255,255,255,0.1);
+    padding:16px 5%;display:flex;align-items:center;justify-content:space-between;
+    flex-wrap:wrap;gap:14px;font-family:'DM Sans',sans-serif;">
+    <p style="color:rgba(255,255,255,0.8);font-size:13px;margin:0;max-width:600px;line-height:1.6">
+      Nous utilisons des cookies pour personnaliser vos recommandations culturelles et mesurer l'audience.
+      <a href="cookies.html" style="color:var(--gold);text-decoration:underline">Personnaliser</a>
+    </p>
+    <div style="display:flex;gap:10px;flex-shrink:0">
+      <button onclick="refuserCookies()" style="
+        border:1px solid rgba(255,255,255,0.3);background:transparent;color:white;
+        padding:8px 18px;border-radius:7px;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;">
+        Refuser
+      </button>
+      <button onclick="accepterCookies()" style="
+        background:var(--gold);color:var(--dark);border:none;
+        padding:8px 18px;border-radius:7px;font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;">
+        Accepter tout
+      </button>
+    </div>
+  </div>
+  <script>
+    (function(){
+      if(localStorage.getItem('cookieConsent')) document.getElementById('cookieBanner').style.display='none';
+    })();
+    function accepterCookies(){ localStorage.setItem('cookieConsent','accepted'); document.getElementById('cookieBanner').style.display='none'; }
+    function refuserCookies(){ localStorage.setItem('cookieConsent','refused'); document.getElementById('cookieBanner').style.display='none'; }
+  </script>
+  <script src="accessibility.js"></script>
+</body>
+</html>
