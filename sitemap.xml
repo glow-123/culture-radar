@@ -73,6 +73,12 @@
     <priority>0.3</priority>
   </url>
   <url>
+    <loc>https://cultureradar.netlify.app/cgv.html</loc>
+    <lastmod>2025-01-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
     <loc>https://cultureradar.netlify.app/cookies.html</loc>
     <lastmod>2025-01-15</lastmod>
     <changefreq>yearly</changefreq>
