@@ -27,7 +27,7 @@ La plateforme permet aux utilisateurs de decouvrir des evenements culturels pers
 
 ## Structure du site
 
-Le site est compose de 21 fichiers :
+Le site est compose de 22 fichiers :
 
 ```
 culture-radar/
@@ -45,6 +45,7 @@ culture-radar/
 ├── mentions-legales.html   Mentions legales
 ├── confidentialite.html    Politique de confidentialite
 ├── cgu.html                Conditions generales d'utilisation
+├── cgv.html                Conditions generales de vente
 ├── cookies.html            Politique de gestion des cookies
 ├── style.css               Feuille de style principale (design system)
 ├── accessibility.css       Styles du widget d'accessibilite
